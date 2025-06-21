@@ -79,7 +79,7 @@
             
         </div>
     </postHeader>
-    <p>如果你只想了解bw主题，可以直接跳转到最后一部分。</p>
+    <p>如果你只想了解bw主题，阅读准备工作后可以直接跳转到[最后一部分][/#bw-主题]。</p>
 <h2 id="准备工作">准备工作</h2>
 <p>首先你要先确保安装了hexo的框架。</p>
 <p>具体来说，你应该在根目录(有themes文件夹的那个目录)git bash并输入</p>
@@ -186,7 +186,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- post.ejs --&gt;</span><br><span class="line">&lt;p&gt; here is post.ejs &lt;/p&gt;</span><br><span class="line">&lt;%- page.content %&gt;</span><br></pre></td></tr></table></figure>
 <p>你就能看到这样的页面</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620173934940.png" alt="image-20250620173934940"></p>
-<h4 id="post-ejs-其实是特殊一点的">post.ejs 其实是特殊一点的</h4>
+<h4 id="其实并不一定要是post-ejs-，但约定">其实并不一定要是post.ejs ，但约定</h4>
 <p>找到那篇 hello-world，路径应该是根目录下 <code>source\_posts</code>里</p>
 <p>加入一行<code>layout: index</code> 如下图</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620174306703.png" alt="image-20250620174306703"></p>
@@ -217,7 +217,7 @@
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620180545561.png" alt="image-20250620180545561"></p>
 <p><code>&lt;%= %&gt;</code>与 <code>&lt;%- %&gt;</code>的不同就在于是否转义，以上是一个非常直接的例子，<s>只可意会</s>。这也解释了我们为什么我们要写 <code>&lt;%- body% &gt;</code> 而不是 <code>&lt;%= body %&gt;</code>不然你会看到一坨东西。</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620181341990.png" alt="image-20250620181341990"></p>
-<h3 id="常用的手法和变量">常用的手法和变量</h3>
+<h3 id="常用的技巧和变量">常用的技巧和变量</h3>
 <h4 id="console-log">console.log()</h4>
 <p>如果你在ejs语法中写了这个，输出理论上会出现在你的git控制台上。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- layout.ejs  --&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;here is layout.ejs&lt;/p&gt;</span><br><span class="line">    &lt;%= body %&gt;</span><br><span class="line">    &lt;% console.log(&#x27;where is 9?&#x27;); %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
@@ -299,25 +299,26 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- archive.ejs --&gt;</span><br><span class="line">&lt;p&gt; this is archives&lt;/p&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620231753227.png" alt="image-20250620231753227"></p>
 <p>我们可以看到新页面就配置好了，其余页面也可以仿照</p>
-<h4 id="categories页面比较特殊">categories页面比较特殊</h4>
+<h4 id="categories及一些预设的变量对应的页面是特殊的">categories及一些预设的变量对应的页面是特殊的</h4>
 <p>我们可以尝试在hello-world.md里面加入分类信息</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hello</span> <span class="string">World</span></span><br><span class="line"><span class="attr">bakaindex:</span> <span class="number">9999999</span></span><br><span class="line"><span class="attr">bakalist:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">9</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">99</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">999</span></span><br><span class="line"><span class="attr">categories:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;make a theme&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;first step&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;second step&quot;</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
 <p>我们把分别把page.bakalist和page.categories输出一下进行对比</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;% console.log(page.categories) %&gt;</span><br><span class="line">&lt;% console.log(page.bakalist) %&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250621154734235.png" alt="image-20250621154734235"></p>
-<p>我们发现page.categories并不是一个数组，显然categories是类似于保留字的东西，被page已另一种形式解析了，并且每个categories里的东西都有自己的path</p>
+<p>我们发现page.categories并不是一个数组，显然categories是类似于c++里保留字的东西，被page按一种规定的形式解析了，并且每个categories里的东西都有自己的path</p>
 <p>我们看看这些path是什么，我们就取第一个看一眼吧，post.ejs里加入一行</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;% console.log(page.categories.data[0].path) %&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250621155014045.png" alt="image-20250621155014045"></p>
-<p>居然是一个真实的路径？</p>
+<p>是一个真实的路径？</p>
 <p>我们在主题内的layout文件夹中创建一个category.ejs填入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- category.ejs --&gt;</span><br><span class="line">&lt;p&gt;this is category.ejs&lt;/p&gt;</span><br></pre></td></tr></table></figure>
 <p>复制这个url接到端口后面看看</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250621155248912.png" alt="image-20250621155248912"></p>
-<p>神了，连categories这个url都还没设置，他的子url就出来了。</p>
+<p>神了，连categories这个大url都还没设置，他的子url就出来了。</p>
 <p>经过多方考证，影响这个子页面的ejs应命名为category.ejs</p>
 <p>这个时候我们就可以对分类页面产生一些思路：</p>
 <p>⑨的灵感是这样的，我们单独开设一个categories页面，让他的layout也变成category.ejs即可。如果我们想做一些差分，比如让一个总页面和子页面产生区别，我们也可以把新开页面的layout改为其他的名称，譬如说categories.ejs而不是category。</p>
+<p>看到根目录下的配置文件有tag_dir, archive_dir, category_dir，也就可以推断这三个页面有差不多的性质，如果我们在文件的配置中为这几个变量加入路径，理论上他们都会生成路径，我么也可以为这些页面做差分。</p>
 <h3 id="关联-js-css-ejs和-scripts">关联 js css ejs和 scripts</h3>
 <p>partial与include基本一致，所以不说了。</p>
 <h4 id="关联其他代码">关联其他代码</h4>
@@ -367,11 +368,30 @@
 <h3 id="特色">特色</h3>
 <p>bw就是black and white的意思，<s>所以没有特色</s>，极简</p>
 <p><s>特色是某一页贴了一张好看的zun绘，疑似饺子醋</s></p>
+<h3 id="下载">下载</h3>
+<p>到hexo的根目录下git bash</p>
+<h4 id="装个插件-重要">装个插件(重要)</h4>
+<p>首先需要预装一个图片插件，这个插件能把图片放到正确的位置，如果你不装这个插件，hexo很可能会生成不了public文件夹(那些静态文件)导致进程卡死</p>
+<p><code>$ npm install https://github.com/CodeFalling/hexo-asset-image --save</code></p>
+<p>我们最好把渲染插件从默认的hexo-renderer-marked换成hexo-render-markdown-it，这样能避免渲染器和mathjax左右脑互搏。</p>
+<p>卸载默认渲染器</p>
+<p><code>$ npm uninstall hexo-renderer-marked</code></p>
+<p>装hexo-renderer-markdown-it</p>
+<p><code>$ npm install hexo-renderer-markdown-it</code></p>
+<h4 id="下载主题">下载主题</h4>
+<p>然后我们可以下载一下bw主题，<s>无毒</s></p>
+<p><code>git clone https://github.com/BWmagician/hexo-theme-bw.git themes/bw</code></p>
+<p>之后还需要创建一些页面，在下文的<strong>整体布局</strong>中提及</p>
+<h4 id="启用主题">启用主题</h4>
+<p>打开根目录下的_cogfig.yml文件</p>
+<p>找到theme变量，改为</p>
+<p><code>theme: bw </code></p>
+<p>更改主题后需要<code>hexo clean</code>以清空缓存</p>
 <h3 id="能直接改哪些配置">能直接改哪些配置</h3>
-<p>请看主题文件夹下的配置文件，文件中有详细的注释</p>
+<p>请看主题文件夹下的配置文件<code>themes\bw\_config.yml</code>，文件中有详细的注释</p>
 <p>这个配置文件里面的参数都是能改的</p>
 <h4 id="详细调整">详细调整</h4>
-<p>如果对hexo的主题不太熟悉，可以阅读这篇文章的第三个部分(关于主题的搭建)了解应该修改哪些文件以达到效果。</p>
+<p>如果对hexo的主题搭建不太熟悉，可以阅读这篇文章的第三个部分(关于主题的搭建)了解应该修改哪些文件以达到效果。</p>
 <p>请参照<strong>整体布局</strong>对应到ejs代码。例如你想修改文章页面的布局，就进入post.ejs中查找对应的html代码，再对应到post.css中的具体属性进行修改。</p>
 <p>ejs和js代码内配有少量注释，可以放心食用(uuz.jpg</p>
 <h3 id="整体布局">整体布局</h3>
@@ -387,7 +407,7 @@
 <p>css配置在post.css</p>
 <p>文章内的链接，即a标签做了差分，会有一个框，在 post.css 的  <code>postContent a&#123;&#125;</code> 中修改</p>
 <p>数学公式的渲染使用了mathjax的cdn，具体请参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wangxin37/p/8185688.html">https://www.cnblogs.com/wangxin37/p/8185688.html</a></p>
-<p>代码块的字体是<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/65362086">Fira Code </a>，如果你要给代码块开启列号，在根目录下的_config.yml中找到line_number，改为true</p>
+<p>代码块的字体是<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/65362086">Fira Code </a>，如果你要给代码块开启列号，在hexo根目录下的_config.yml中找到line_number，改为true</p>
 <p>对于各级标题和文字的美化同样在 post.css</p>
 <p>对于二级标题做了一个跟随文章进度右侧边栏条，这一部分代码在<code>themes\bw\source\js\aside.js</code>中，你可以在其中的myStyle变量修改跟随显示。</p>
 <h4 id="categories-ejs-分类-category-ejs-分类子页">categories.ejs 分类, category.ejs 分类子页</h4>
@@ -409,9 +429,6 @@
 <p>这次什么都不用改，因为layout不填默认就是关联到 post.ejs。此作者是⑨，并没有对about做出什么美化，<s>你找不到about.ejs的</s> ，我们就把关于页面当作博客写好了。</p>
 <p>你可以直接往<code>source\about\index.md</code>写入东西，会显示在对应页面上。</p>
 <h4 id="archive-ejs-归档">archive.ejs 归档</h4>
-<p>回到根目录，git bash，</p>
-<p><code>$ hexo new page archive</code></p>
-<p>在yaml配置中添加 <code>layout: archive</code></p>
 <p>css配置在 archive.css</p>
 <p>根据日期降序排列（即新的靠上），最小区分为月。</p>
 <h4 id="tags">tags</h4>
