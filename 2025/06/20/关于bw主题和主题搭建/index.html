@@ -35,25 +35,25 @@
         
             <div class="navBox">
                 <a href="/" class="navText">
-                    home
+                    首页
                 </a>
             </div>
         
             <div class="navBox">
                 <a href="/categories" class="navText">
-                    categories
+                    分类
                 </a>
             </div>
         
             <div class="navBox">
                 <a href="/archives" class="navText">
-                    archives
+                    归档
                 </a>
             </div>
         
             <div class="navBox">
                 <a href="/about" class="navText">
-                    about
+                    关于
                 </a>
             </div>
         
@@ -67,7 +67,7 @@
         
         <!-- 生成副标题，就是显示作者分类那一行 -->
         <div id="postSubtitle">
-            author : BWmagician | category :  
+            作者 : BWmagician | 分类 :  
             
                 
                     <a href="/categories/%E5%85%B3%E4%BA%8Ehexo/">
@@ -79,7 +79,7 @@
             
         </div>
     </postHeader>
-    <p>如果你只想了解bw主题，阅读准备工作后可以直接跳转到<a href="/#bw-%E4%B8%BB%E9%A2%98">最后一部分</a></p>
+    <p>如果你只想了解bw主题，阅读准备工作后可以直接跳转到<a href="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/#bw-%E4%B8%BB%E9%A2%98">最后一部分</a></p>
 <h2 id="准备工作">准备工作</h2>
 <p>首先你要先确保安装了hexo的框架。</p>
 <p>具体来说，你应该在根目录(有themes文件夹的那个目录)git bash并输入</p>
@@ -106,7 +106,7 @@
 <p>其中，<code>&lt;%= %&gt;</code>是ejs的语法，这个百分号尖括号包裹的内容遵循js语法，我们可以直接用js语法调用hexo为我们提供的变量。</p>
 <p>那么当hexo把这个ejs语法的代码成真的html语法的代码时，他就会把真真切切的变量插入生成的html代码中，这对于码字的人来说可以一劳永逸了。</p>
 <p>详细的语法可以参考ejs官方的<a target="_blank" rel="noopener" href="https://ejs.bootcss.com/#docs">文档</a></p>
-<p>一般来说，我们只会用到<code>&lt;% %&gt;``&lt;%- %&gt;``&lt;%= %&gt;</code>三种百分尖括号的格式，具体情况下文会展开说，我们先把编辑器的环境配置好。</p>
+<p>一般来说，我们只会用到<code>&lt;% %&gt;</code> <code>&lt;%- %&gt;</code> <code>&lt;%= %&gt;</code>三种百分尖括号的格式，具体情况下文会展开说，我们先把编辑器的环境配置好。</p>
 <h4 id="逆天缩进">逆天缩进</h4>
 <p>如果你采用vscode默认的缩进格式，你会遇到一个致命的问题。vscode会把形如<code>&lt;% %&gt;</code>当成html中的标签，从而让本该并行的两行错开，比较要命的是当你保存的时候他还会自动给你缩进成扭曲的样子。</p>
 <p>很遗憾，我并没有找到什么完美的解决方案，我的vscode在装了ejs的语法插件和Prettier插件后再也不会在保存时给我的代码缩进成鬼畜的样子了，但他也不会自动缩进了。</p>
@@ -156,7 +156,7 @@
 <h3 id="layout-ejs-和-index-ejs-与-post-ejs">layout.ejs 和 index.ejs 与 post.ejs</h3>
 <h4 id="建文件夹">建文件夹</h4>
 <p>你必须在layout底下建这三个文件，这是渲染你博客页面至少需要的三个组件。</p>
-<p><code>│  _config.yml │ ├─layout │      index.ejs │      layout.ejs │      post.ejs │ ├─scripts └─source     ├─css     ├─img     └─js</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">│  _config.yml</span><br><span class="line">│</span><br><span class="line">├─layout</span><br><span class="line">│      index.ejs</span><br><span class="line">│      layout.ejs</span><br><span class="line">│      post.ejs</span><br><span class="line">│</span><br><span class="line">├─scripts</span><br><span class="line">└─source</span><br><span class="line">    ├─css</span><br><span class="line">    ├─img</span><br><span class="line">    └─js</span><br></pre></td></tr></table></figure>
 <h4 id="理解layout-ejs的作用">理解layout.ejs的作用</h4>
 <p>你可以分别往这些文件里写入以下代码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- layout.ejs  --&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;here is layout.ejs&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
@@ -465,33 +465,218 @@
 <aside>
     <div>
     
-        <ul>
+        
+        
             
-                <a href="#准备工作">
-                    <li class="asideHeadings">
-                        准备工作
-                    </li>
+                
+                    
+                
+                <details class="asiderDetails">
+                <summary>
+                    <a href="#准备工作">
+                        <div class="asiderH2">
+                            准备工作
+                        </div>
+                    </a>
+                </summary>
+            
+        
+            
+                
+                   </details> 
+                
+                <details class="asiderDetails">
+                <summary>
+                    <a href="#关于作者可能是⑨这件事">
+                        <div class="asiderH2">
+                            关于作者可能是⑨这件事
+                        </div>
+                    </a>
+                </summary>
+            
+        
+            
+                
+                   </details> 
+                
+                <details class="asiderDetails">
+                <summary>
+                    <a href="#关于主题的搭建">
+                        <div class="asiderH2">
+                            关于主题的搭建
+                        </div>
+                    </a>
+                </summary>
+            
+        
+            
+                <a href="#从哪里获取参考">
+                    <div class="asiderH3">
+                        从哪里获取参考
+                    </div>
                 </a>
             
-                <a href="#关于作者可能是⑨这件事">
-                    <li class="asideHeadings">
-                        关于作者可能是⑨这件事
-                    </li>
+        
+            
+                <a href="#工作环境的选择-文本编辑器和ejs">
+                    <div class="asiderH3">
+                        工作环境的选择(文本编辑器和ejs)
+                    </div>
                 </a>
             
-                <a href="#关于主题的搭建">
-                    <li class="asideHeadings">
-                        关于主题的搭建
-                    </li>
+        
+            
+                <a href="#hexo在干什么">
+                    <div class="asiderH3">
+                        hexo在干什么
+                    </div>
                 </a>
             
-                <a href="#bw-主题">
-                    <li class="asideHeadings">
-                        bw 主题
-                    </li>
+        
+            
+                <a href="#那么，去建一个主题吧">
+                    <div class="asiderH3">
+                        那么，去建一个主题吧
+                    </div>
                 </a>
             
-        </ul>
+        
+            
+                <a href="#layout-ejs-和-index-ejs-与-post-ejs">
+                    <div class="asiderH3">
+                        layout.ejs 和 index.ejs 与 post.ejs
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#变量和ejs语法">
+                    <div class="asiderH3">
+                        变量和ejs语法
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#常用的技巧和变量">
+                    <div class="asiderH3">
+                        常用的技巧和变量
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#yaml格式">
+                    <div class="asiderH3">
+                        yaml格式
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#具体架构">
+                    <div class="asiderH3">
+                        具体架构
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#关联-js-css-ejs和-scripts">
+                    <div class="asiderH3">
+                        关联 js css ejs和 scripts
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#常见问题">
+                    <div class="asiderH3">
+                        常见问题
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#end">
+                    <div class="asiderH3">
+                        end
+                    </div>
+                </a>
+            
+        
+            
+                
+                   </details> 
+                
+                <details class="asiderDetails">
+                <summary>
+                    <a href="#bw-主题">
+                        <div class="asiderH2">
+                            bw 主题
+                        </div>
+                    </a>
+                </summary>
+            
+        
+            
+                <a href="#特色">
+                    <div class="asiderH3">
+                        特色
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#下载">
+                    <div class="asiderH3">
+                        下载
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#能直接改哪些配置">
+                    <div class="asiderH3">
+                        能直接改哪些配置
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#整体布局">
+                    <div class="asiderH3">
+                        整体布局
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#文章的yaml配置">
+                    <div class="asiderH3">
+                        文章的yaml配置
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#可能存在的bug">
+                    <div class="asiderH3">
+                        可能存在的bug
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#展望未来">
+                    <div class="asiderH3">
+                        展望未来
+                    </div>
+                </a>
+            
+        
+        <!-- 补齐最后一个 -->
+        </details>
     
 </div>
 </aside>
