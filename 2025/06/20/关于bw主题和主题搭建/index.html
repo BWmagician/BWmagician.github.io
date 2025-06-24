@@ -328,7 +328,7 @@
 <p>同理还有 js 和 ejs 的引入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;% js(&#x27;js\name&#x27;) %&gt;</span><br><span class="line">&lt;% include(&#x27;name.ejs&#x27;) %&gt;</span><br></pre></td></tr></table></figure>
 <p>关于路径，⑨的理解是，js和css代码的引入很可能发生在非常后面的阶段，因此路径以public文件夹为根目录的，而include则是发生在很前面的阶段，是以当前文件夹为根目录的。</p>
-<p>参考[大佬的文章][<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yyhh/p/11058985.html">https://www.cnblogs.com/yyhh/p/11058985.html</a>]，我们可以把页面的组成拆到不同的ejs中简化代码密度。</p>
+<p>参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yyhh/p/11058985.html">大佬的文章</a>，我们可以把页面的组成拆到不同的ejs中简化代码密度。</p>
 <h4 id="scripts">scripts</h4>
 <p>我们可以用scripts写一些函数，这些函数可以被layout文件夹中的ejs们直接调用，相当于你可以写和url_for同级别的函数。</p>
 <p>我们需要在主题文件夹下的scripts中建立js文件，先随便建一个文件test.js</p>
@@ -685,7 +685,8 @@
         <footer id="footer">
             
                 <p> ©2025 - 2025 by BWmagician </p>
-                <p> </p>
+                <p> 框架: <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/"> hexo </a> |
+                    主题: <a target="_blank" rel="noopener" href="https://bwmagician.github.io/2025/06/24/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98/">bw</a> </p>
             
             <div> 若要转载，请先联系作者 </div>
             <div>  </div>
