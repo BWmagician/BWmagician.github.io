@@ -63,7 +63,7 @@
         <container id="container">
             <postContent>
     <postHeader>
-        <h1 style="margin-bottom: 10px;"> hexo主题搭建的必要知识和bw主题 </h1>
+        <h1 style="margin-bottom: 10px;" class="postTitle"> hexo主题搭建的必要知识和bw主题 </h1>
         
         <!-- 生成副标题，就是显示作者分类那一行 -->
         <div id="postSubtitle">
@@ -244,7 +244,7 @@
 <p>page 存有当前页面的内容，一般来说index页面和post页面的布置只需要用到page变量</p>
 <p>page.content 文章实际的内容，必须放入post.ejs。另外需要注意的是，此变量内容为html代码，不要转义</p>
 <p>theme 这个变量实际上就是从你主题内的_config.yml的文件解析出来的</p>
-<p>body 这个变量一般是必须放在layout.ejs 中的，用于插入对应的post.ejs, index.ejs archive.ejs…</p>
+<p>body 这个变量一般是必须放在layout.ejs 中的，用于插入对应的post.ejs, index.ejs archive.ejs...</p>
 <h4 id="常用函数">常用函数</h4>
 <p>url_for() 能补齐相对路径，例如 url_for(page.path)，</p>
 <p>eachFor 上面介绍过了，能极大增加代码可读性，推荐。</p>
@@ -259,7 +259,7 @@
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620221757057.png" alt="image-20250620221757057"></p>
 <p>你得到了一个变量，和一个数组，但注意，只有在 post.ejs的page变量才解析文章的数据，如果你在其他地方想获得这些数据，⑨估计你只能去site里面找了。</p>
 <p>具体的语法可以去网上搜，不赘述。</p>
-<p>themes里的config.yml会被解析到 theme变量中，我们可以往主题目录以下_config.yml写入以下代码</p>
+<p>themes里的config.yml会被解析到 theme变量中，我们可以往主题目录以下\_config.yml写入以下代码</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># _config.yml</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">&quot;This is my blog&quot;</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">me</span></span><br></pre></td></tr></table></figure>
 <p>然后我们跑回ejs加两行代码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;% console.log(theme.title) %&gt;</span><br><span class="line">&lt;% console.log(theme.author) %&gt;</span><br></pre></td></tr></table></figure>
@@ -474,7 +474,8 @@
                 <details class="asiderDetails">
                 <summary>
                     <a href="#准备工作">
-                        <div class="asiderH2">
+                        <!-- 防止闪现 -->
+                        <div class="asiderH2" style="display: none">
                             准备工作
                         </div>
                     </a>
@@ -488,7 +489,8 @@
                 <details class="asiderDetails">
                 <summary>
                     <a href="#关于作者可能是⑨这件事">
-                        <div class="asiderH2">
+                        <!-- 防止闪现 -->
+                        <div class="asiderH2" style="display: none">
                             关于作者可能是⑨这件事
                         </div>
                     </a>
@@ -502,7 +504,8 @@
                 <details class="asiderDetails">
                 <summary>
                     <a href="#关于主题的搭建">
-                        <div class="asiderH2">
+                        <!-- 防止闪现 -->
+                        <div class="asiderH2" style="display: none">
                             关于主题的搭建
                         </div>
                     </a>
@@ -511,7 +514,7 @@
         
             
                 <a href="#从哪里获取参考">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         从哪里获取参考
                     </div>
                 </a>
@@ -519,7 +522,7 @@
         
             
                 <a href="#工作环境的选择-文本编辑器和ejs">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         工作环境的选择(文本编辑器和ejs)
                     </div>
                 </a>
@@ -527,7 +530,7 @@
         
             
                 <a href="#hexo在干什么">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         hexo在干什么
                     </div>
                 </a>
@@ -535,7 +538,7 @@
         
             
                 <a href="#那么，去建一个主题吧">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         那么，去建一个主题吧
                     </div>
                 </a>
@@ -543,7 +546,7 @@
         
             
                 <a href="#layout-ejs-和-index-ejs-与-post-ejs">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         layout.ejs 和 index.ejs 与 post.ejs
                     </div>
                 </a>
@@ -551,7 +554,7 @@
         
             
                 <a href="#变量和ejs语法">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         变量和ejs语法
                     </div>
                 </a>
@@ -559,7 +562,7 @@
         
             
                 <a href="#常用的技巧和变量">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         常用的技巧和变量
                     </div>
                 </a>
@@ -567,7 +570,7 @@
         
             
                 <a href="#yaml格式">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         yaml格式
                     </div>
                 </a>
@@ -575,7 +578,7 @@
         
             
                 <a href="#具体架构">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         具体架构
                     </div>
                 </a>
@@ -583,7 +586,7 @@
         
             
                 <a href="#关联-js-css-ejs和-scripts">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         关联 js css ejs和 scripts
                     </div>
                 </a>
@@ -591,7 +594,7 @@
         
             
                 <a href="#常见问题">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         常见问题
                     </div>
                 </a>
@@ -599,7 +602,7 @@
         
             
                 <a href="#end">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         end
                     </div>
                 </a>
@@ -612,7 +615,8 @@
                 <details class="asiderDetails">
                 <summary>
                     <a href="#bw-主题">
-                        <div class="asiderH2">
+                        <!-- 防止闪现 -->
+                        <div class="asiderH2" style="display: none">
                             bw 主题
                         </div>
                     </a>
@@ -621,7 +625,7 @@
         
             
                 <a href="#特色">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         特色
                     </div>
                 </a>
@@ -629,7 +633,7 @@
         
             
                 <a href="#下载">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         下载
                     </div>
                 </a>
@@ -637,7 +641,7 @@
         
             
                 <a href="#能直接改哪些配置">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         能直接改哪些配置
                     </div>
                 </a>
@@ -645,7 +649,7 @@
         
             
                 <a href="#整体布局">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         整体布局
                     </div>
                 </a>
@@ -653,7 +657,7 @@
         
             
                 <a href="#文章的yaml配置">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         文章的yaml配置
                     </div>
                 </a>
@@ -661,7 +665,7 @@
         
             
                 <a href="#可能存在的bug">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         可能存在的bug
                     </div>
                 </a>
@@ -669,7 +673,7 @@
         
             
                 <a href="#展望未来">
-                    <div class="asiderH3">
+                    <div class="asiderH3" style="display: none">
                         展望未来
                     </div>
                 </a>
@@ -682,7 +686,8 @@
 </aside>
         </container>
         <!-- 生成页脚 -->
-        <footer id="footer">
+        <!-- 防止footer闪现 -->
+        <footer id="footer" style="display:none">
             
                 <p> ©2025 - 2025 by BWmagician </p>
                 <p> 框架: <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/"> hexo </a> |
@@ -731,7 +736,7 @@
 <!-- 通过连接CDN加载MathJax的js代码 -->
 <script type="text/javascript" async
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
+</script>
     <!-- 引入必要的js代码 -->
     
     

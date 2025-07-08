@@ -9,11 +9,12 @@ aside {
     position: fixed;
 }
 
+
 postContent {
     display: block;
-    margin-left: 10vw;
-    margin-right: 23vw;
-    padding-left: 10px;
+    min-width: 600px;
+    margin-left: 210px;
+    margin-right: 24vw;
     padding-right: 30px;
     padding-bottom: 20px;
 
@@ -34,13 +35,12 @@ postContent a {
 postHeader {
     text-align: center;
     display: block;
+    margin-top: 50px;
     margin-bottom: 50px;
 }
 
 #postSubtitle {
-
     text-align: right;
-    padding-right: 10vw;
 }
 
 h1 {
@@ -84,8 +84,8 @@ h6 {
 }
 
 postContent p {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .code {
@@ -129,4 +129,12 @@ figure {
     margin-bottom: 15px;
     max-width: 100%;
     height: auto;
+}
+
+.code span{
+    white-space: pre-wrap;
+}
+
+.gutter span{
+    display: inline-block;
 }
