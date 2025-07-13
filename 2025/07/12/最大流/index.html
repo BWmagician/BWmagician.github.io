@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <link rel="icon" href="/img/icon.ico">
     <title>
-        BW
+        最大流
     </title>
     <!-- 引入firacode字体，给代码块用的 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
@@ -61,72 +61,94 @@
     <main>
         <!-- 插入主体内容 -->
         <container id="container">
-            <h1 style="padding: 30px;padding-bottom: 30px;text-align: center;">
-        归档
-    </h1>
-<archiveContent>
+            <postContent>
+    <postHeader>
+        <h1 style="margin-bottom: 10px;" class="postTitle"> 最大流 </h1>
+        
+        <!-- 生成副标题，就是显示作者分类那一行 -->
+        <div id="postSubtitle">
+            作者 : BWmagician | 分类 :  
+            
+                <span>
+                    not founded yet //
+                </span>
+            
+        </div>
+    </postHeader>
+    <h3 id="写在前面">写在前面</h3>
+<p>由于饼先生的博客迟迟不更新，故催更</p>
+<h3 id="最大流">最大流</h3>
+<h3 id="退流">退流</h3>
+<p>当流过一定流量$f$时，向这个边的反边增加$f$流量</p>
+<h4 id="退流正确性：">退流正确性：</h4>
+<p>可以理解为交叉边换为平行边</p>
+<h3 id="增广路">增广路</h3>
+<p>不断寻找增广，即最大流。</p>
+<h3 id="EK复杂度">EK复杂度</h3>
+<p>按照增广路长度排序，则每一个饱和边存在的增广路长度必然相差超过2，则每个饱和边存在于增广路O(|V|)次，故所有增广路条数不超过O(|V||E|)。<br>
+每次寻找一条增广路为O(|E|)，总复杂度为$O(|V||E|^2)$</p>
+<h3 id="Dinic复杂度">Dinic复杂度</h3>
 
-    <div class="archives">
-    <!-- 按年分组 -->
+</postContent>
+
+<aside>
+    <div>
+    
         
         
-        
-          <!-- 月份变化，重开一块 -->
             
-                
-               <h3 class="archiveMonths" style="font-size: 2rem;"> 2025.7  </h3>
+                <a href="#写在前面">
+                    <div class="asiderH3" style="display: none">
+                        写在前面
+                    </div>
+                </a>
             
-           <!-- 生成文章缩略 -->
-            <div class="archiveArticlesBox">
-                <a href="/2025/07/12/%E6%9C%80%E5%A4%A7%E6%B5%81/" class="archiveArticlesTitle"><div>最大流</div></a>
-              <div class="archiveArticlesDate"> 2025-07-12</div>
-           </div>
         
-          <!-- 月份变化，重开一块 -->
             
-           <!-- 生成文章缩略 -->
-            <div class="archiveArticlesBox">
-                <a href="/2025/07/07/2-sat/" class="archiveArticlesTitle"><div>2-sat</div></a>
-              <div class="archiveArticlesDate"> 2025-07-07</div>
-           </div>
+                <a href="#最大流">
+                    <div class="asiderH3" style="display: none">
+                        最大流
+                    </div>
+                </a>
+            
         
-          <!-- 月份变化，重开一块 -->
             
-           <!-- 生成文章缩略 -->
-            <div class="archiveArticlesBox">
-                <a href="/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/" class="archiveArticlesTitle"><div>SAM|后缀自动机入门</div></a>
-              <div class="archiveArticlesDate"> 2025-07-02</div>
-           </div>
+                <a href="#退流">
+                    <div class="asiderH3" style="display: none">
+                        退流
+                    </div>
+                </a>
+            
         
-          <!-- 月份变化，重开一块 -->
             
-                
-               <h3 class="archiveMonths" style="font-size: 2rem;"> 2025.6  </h3>
+                <a href="#增广路">
+                    <div class="asiderH3" style="display: none">
+                        增广路
+                    </div>
+                </a>
             
-           <!-- 生成文章缩略 -->
-            <div class="archiveArticlesBox">
-                <a href="/2025/06/24/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98/" class="archiveArticlesTitle"><div>关于bw主题</div></a>
-              <div class="archiveArticlesDate"> 2025-06-24</div>
-           </div>
         
-          <!-- 月份变化，重开一块 -->
             
-           <!-- 生成文章缩略 -->
-            <div class="archiveArticlesBox">
-                <a href="/2025/06/23/%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E4%BA%8B%E6%83%85/" class="archiveArticlesTitle"><div>有意思的事情</div></a>
-              <div class="archiveArticlesDate"> 2025-06-23</div>
-           </div>
-        
-          <!-- 月份变化，重开一块 -->
+                <a href="#EK复杂度">
+                    <div class="asiderH3" style="display: none">
+                        EK复杂度
+                    </div>
+                </a>
             
-           <!-- 生成文章缩略 -->
-            <div class="archiveArticlesBox">
-                <a href="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/" class="archiveArticlesTitle"><div>hexo主题搭建的必要知识和bw主题</div></a>
-              <div class="archiveArticlesDate"> 2025-06-20</div>
-           </div>
         
-    </div>
-</archiveContent>
+            
+                <a href="#Dinic复杂度">
+                    <div class="asiderH3" style="display: none">
+                        Dinic复杂度
+                    </div>
+                </a>
+            
+        
+        <!-- 补齐最后一个 -->
+        </details>
+    
+</div>
+</aside>
         </container>
         <!-- 生成页脚 -->
         <!-- 防止footer闪现 -->
@@ -182,6 +204,15 @@
 </script>
     <!-- 引入必要的js代码 -->
     
+    
+        
+<script src="/js/aside.js"></script>
+
+        
+            
+<script src="/js/post.js"></script>
+
+        
     
     
 </body>
