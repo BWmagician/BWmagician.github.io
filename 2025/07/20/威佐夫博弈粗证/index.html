@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="/img/icon.ico">
+    <title>
+        威佐夫博弈粗证
+    </title>
+    <!-- 引入firacode字体，给代码块用的 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
+    
+<link rel="stylesheet" href="/css/main.css">
+
+    
+<link rel="stylesheet" href="/css/index.css">
+
+    
+<link rel="stylesheet" href="/css/post.css">
+
+    
+<link rel="stylesheet" href="/css/category.css">
+
+    
+<link rel="stylesheet" href="/css/aside.css">
+
+    
+<link rel="stylesheet" href="/css/archive.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <!-- 生成导航栏 -->
+    <nav>
+        
+            <div class="navBox">
+                <a href="/" class="navText">
+                    首页
+                </a>
+            </div>
+        
+            <div class="navBox">
+                <a href="/categories" class="navText">
+                    分类
+                </a>
+            </div>
+        
+            <div class="navBox">
+                <a href="/archives" class="navText">
+                    归档
+                </a>
+            </div>
+        
+            <div class="navBox">
+                <a href="/about" class="navText">
+                    关于
+                </a>
+            </div>
+        
+    </nav>
+    <main>
+        <!-- 插入主体内容 -->
+        <container id="container">
+            <postContent>
+    <postHeader>
+        <h1 style="margin-bottom: 10px;" class="postTitle"> 威佐夫博弈粗证 </h1>
+        
+        <!-- 生成副标题，就是显示作者分类那一行 -->
+        <div id="postSubtitle">
+            作者 : BWmagician | 分类 :  
+            
+                
+                    <a href="/categories/?category=数论">
+                        
+                            数论
+                        
+                    </a>
+                
+                    <a href="/categories/?category=博弈論">
+                        
+                            &gt; 博弈論
+                        
+                    </a>
+                
+            
+        </div>
+    </postHeader>
+    <h2 id="威佐夫博弈的情境">威佐夫博弈的情境</h2>
+<p>有两堆石子，两人轮流取石子，无石子可取的人输，每一轮的规则为</p>
+<ol>
+<li>选择一堆取至少一个石子</li>
+<li>在两堆取相同数量的石子，至少各取一个</li>
+</ol>
+<p>给出两堆石子的数量，判定先手是否必胜。</p>
+<h2 id="构造奇异局势">构造奇异局势</h2>
+<h3 id="先试试枚举">先试试枚举</h3>
+<p>由于威佐夫博弈中只有两堆石子，我们可以用$(x,y)$表示一堆石子数量为$x$，另一堆数量为$y$。为方便后续讨论，我们规定$x \leq y$</p>
+<p>注意到先手必输的第一个情况是$(1,2)$。于是我们可以断定$(1,x), x \geq 2$和$(2,y), y\geq 2$都是必胜情况，因为这些情况都可以通过规则一转变为$(1,2)$。同理，由于规则二，$(x,x+1),x\geq 2$也一定是必胜状态。</p>
+<p>此时， 我们如果要枚举下一个石子总数最小的必输情况，则其中不可以包含$1$或者$2$，并且差不可以为$1$。发现满足这些条件的石子总数最小的情况为$(3,5)$，如果你耐心去推算的话，你会发现$(3,5)$也是一个先手必输的情况。同理，下一个可能的必输情况应该没有$1$,$2$,$3$,$5$的石子数量，并且差大于$2$...</p>
+<p>我们尝试延续这种递推。</p>
+<h3 id="构造">构造</h3>
+<p>我们设第$k$个奇异局势为 $(a_k,b_k)$， 其中，$a_k= mex \{a_1,b_1,a_2,b_2, ...,a_{k-1},b_{k-1}\}$，$a_k=b_k+k$，$a_1=1,b_1=2$</p>
+<p>奇异局势满足了一个特点，就是奇异局势间无法通过一步转移。换言之，不论使用规则一还是规则二，取一次石子后，奇异局势必定转变为非奇异局势，而非奇异局势必定可以一步转变为奇异局势。</p>
+<h4 id="奇异局势间无法一步转变">奇异局势间无法一步转变</h4>
+<p>不论$a_k$还是$b_k$，都只在所有奇异局势的石子堆数量中出现过一次。因为$b_k = a_k +k \gt a_{k-1}+k = b_{k-1} - (k-1)+k=b_{k-1} +1$，所以$a_k \gt a_{k-1},b_k \gt b_{k-1}$<br>
+对于某个奇异局势，如果使用规则一，对奇异局势的某一堆石子操作，则另一堆石子数保留。由于所有奇异局势的每一堆石子数都不同，则不可能转变为奇异局势。<br>
+如果使用规则二，则两堆石子的差不变，由于每个奇异局势的差都是不同的，则不可能转变为奇异局势。</p>
+<h4 id="非奇异局势一定可以一步变为奇异局势">非奇异局势一定可以一步变为奇异局势</h4>
+<p>设某非奇异局势为$(x,y)$<br>
+若$x \gt a_{y-x}$，则可以通过规则二将局势变为$(a_{y-x},b_{y-x})$<br>
+若$x \lt a_{y-x}$，则找到$a_k=x$，将局势变为$(a_k,b_k)$。我们可以分两类讨论，如果$x + k \gt  y$，则$y-x \lt k$，那么$a_{y-x}&lt;a_x$，则不属于这个分类。如果$x+k&lt;y$，意味着$b_k=x+k=a_k+k&lt;y$，那么$(x,y)$可以通过规则一转变为$(a_k,b_k)$</p>
+<h3 id="注意力惊人">注意力惊人</h3>
+<p>注意到先手把$(0,0)$丢给对面的前，局势必定为$(x,x)$或$(0,x)$。然而这两种局势都不属于奇异局势，因此奇异局势为先手必败状态，非奇异局势为先手必胜状态。</p>
+<h2 id="如果注意力不惊人">如果注意力不惊人</h2>
+<p>虽然以上的证明是充分的，但在构造时省略了好几步，其实是对着结果推过程，不是正向的逻辑。<br>
+以下尝试用正向逻辑推导奇异局势。</p>
+<h3 id="仍然从枚举开始">仍然从枚举开始</h3>
+<p>我们仍从$(1,2)$这个关键的例子开始。在上文中，我们直接从必败状态$(1,2),(3,5),...$的规律里假设出了奇异局势的构造。<br>
+然而，这只是大胆的一种假设。接下来的过程中，我们不可以直接构造出奇异局势来。</p>
+<h3 id="证明">证明</h3>
+<p>设第$k$对威佐夫博弈的必败状态，为$(a_k,b_k)$，目前先不强调$a_k$和$b_k$的大小关系</p>
+<h4 id="1-任意-a-i-或-b-i-在可重集-a-1-b-1-a-2-b-2-a-k-b-k-k-to-infty-中只出现一次">1. 任意$a_i$或$b_i$在可重集$\{a_1,b_1,a_2,b_2,...,a_k,b_k\},k \to \infty$中只出现一次</h4>
+<p>就是说，任意必败状态的一堆石子的数量在所有必败状态中都是唯一的。<br>
+如果不唯一， 则存在$(x,y)$，$(x,z)$两个必败状态。假设$y \lt z$，则$(x,z)$能通过规则一一步转变为$(x,y)$。因为奇异局势$(x,y)$是必输态，则$(x,z)$为必胜态，而$(x,z)$也应为必输态，产生矛盾。<br>
+因此，命题成立。</p>
+<h4 id="2-对于任意-x-in-N-，要么-exists-n-a-n-x-，要么-exists-m-b-m-x">2. 对于任意$x \in N^+ $，要么$\exists n, a_n=x$，要么$\exists m,b_m=x$</h4>
+<p>就是说，不可能出现一个$x$，让$(x,i), i \in N^+$都不是必败状态<br>
+这里的证明参考了<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%A8%81%E4%BD%90%E5%A4%AB%E5%8D%9A%E5%BC%88/19858256">百度百科</a>方法二中的定理六。<br>
+用反证，设$x$为最小的，不出现在所有必败状态中的数。也就是说$(x,i), i \in N^+$都为必胜状态。<br>
+$(x,i)$的下一步一定是$(x-j,i-j)$，$(x-j,i)$，$(x,i-j)$这三种情况一种，其中$j$为取的石子数量。<br>
+由于$(x,i)$是必胜状态，则这三种一种中的至少一种包含了必败的情况。首先排除$(x,i-j)$，因为带有$x$的不可能为奇异局势，不可能为必败状态。<br>
+那么，对于$(x,i)，i \in N^+$，至少 $(x-j,i-j)$ 或 $(x-j,i)$的其中一种包含了必败状态。这里隐含的矛盾是，$x-j$是有限的，而$i$是无限的。<br>
+我们选出$(x,x)$到$(x,3x)$的情况，根据假设，这$2x+1$个情况都是必胜情况。我们设这些必胜状态转为必败状态是在一堆取了$j$个石子或同时取了$j$个石子。由于$j \leq x$，根据鸽巢原理，至少能找到三个相同的$j$，使得$(x-j,m)$，$(x-j,n)$，$(x-j,k)$为必败状态。又因为鸽巢原理，这三者中至少有两者是采用了相同的规则，所以一定存在$(x-j,y),(x-j,z),y \neq z$同时为必败状态。这与证明$1$是矛盾的，$x-j$不可以重复出现在必败态中。</p>
+<h4 id="由证明1和证明2得到">由证明1和证明2得到..</h4>
+<p>在这里，我们规定$(a_k,b_k)$要是$a_k &lt; b_k$，在把所有的必败态按照$a_i$升序排序，让第$k$对必败态为$a_k$第$k$小的必败态，则得到存在一定递推关系的数对。<br>
+其关系为$a_k= mex \{a_1,b_1,a_2,b_2, ...,a_{k-1},b_{k-1}\}$，$a_1=1,b_1=2$<br>
+$mex$出现的理由是，每个正整数都出现在必败态中并且不重复，而且我们排序了。</p>
+<h4 id="3-b-k-a-k-k">3. $b_k=a_k+k$</h4>
+<p>这一步是可以直接通过观察得出的，因此我们可以采用数学归纳法。</p>
+<p><em><strong>初始状态：</strong></em> $a_1=1$，$b_1=2$，$step=1$<br>
+<em><strong>当前$k-1$对都是必败态，证明第$k$对数对是必败态：</strong></em>  当前为$(a_k,a_k+k)$。由于前$k-1$对数对占据了从$1$到$k-1$的所有差值，所以当我们使用规则二操作$(a_k,a_k+k)$这种情况时，差值保持为$k$，不会变为前$k-1$对中的任意一种必败态。当我们使用操作一时，$(a_k,a_k+k)$中必然有一个数与前$k-1$对数对中的任意一个数不一样，则也不可能通过规则一转变为必败态。由于我们给数对排序过，则不可能转变为第$k$对之后的必败态。既然$(a_k,a_k+k)$不能一步转为任何一种必败态，则自己为必败态。</p>
+<h4 id="以上三个证明说明必败态就是奇异局势">以上三个证明说明必败态就是奇异局势</h4>
+<h2 id="Beaty-序列">Beaty 序列</h2>
+<p>奇异局势还可以用纯数学的方式计算出来，没有必要为了$mex$去打一个dp。</p>
+<h3 id="Beaty-序列的情境">Beaty 序列的情境</h3>
+<p>$\displaystyle \frac{1}{a}+\frac{1}{b}=1$，其中$a$与$b$为正的无理数。<br>
+$n,m\in N^+$，则$\{ \lfloor{na} \rfloor \}$和$\{ \lfloor{mb} \rfloor \}$分割$N^+$<br>
+换言之，任意一个正整数要么属于$\{ \lfloor{na} \rfloor \}$，要么属于$\{ \lfloor{mb} \rfloor \}$</p>
+<h3 id="证明-2">证明</h3>
+<h4 id="1-不会出现正整数-x-同时属于-lfloor-na-rfloor-和-lfloor-mb-rfloor">1.不会出现正整数$x$同时属于$\{ \lfloor{na} \rfloor \}$和$\{ \lfloor{mb} \rfloor \}$</h4>
+<p>若$\lfloor{na} \rfloor=x$，代表$x &lt; na &lt;x+1$<br>
+注意由于$a$，$b$是无理数，所以左边会取到小于号而不是小于等于。<br>
+如果$x$同时出现在$\{ \lfloor{mb} \rfloor \}$中，则$\exists m,x &lt; mb &lt;x+1$<br>
+改写成这样：$\displaystyle \frac{n}{x+1}&lt;\frac{1}{a}&lt;\frac{n}{x}$，$\displaystyle \frac{m}{x+1}&lt;\frac{1}{b}&lt;\frac{m}{x}$<br>
+加起来可得$\displaystyle \frac{n+m}{x+1}&lt;1&lt;\frac{n+m}{x}$<br>
+变个形状有$n+m-1&lt;x&lt;n+m$，由于$n,m\in N^+$，所以$x$不是一个整数，于是不存在这样的$x$</p>
+<h4 id="2-不会出现正整数-x-同时不属于-lfloor-na-rfloor-和-lfloor-mb-rfloor">2.不会出现正整数$x$同时不属于$\{ \lfloor{na} \rfloor \}$和$\{ \lfloor{mb} \rfloor \}$</h4>
+<p>一定存在这样的$n$和$m$满足：$na&lt;x,x+1&lt;(n+1)a\ ;\ mb&lt;x,x+1&lt;(m+1)b$<br>
+等效于 $na&lt;x&lt;(n+1)a-1,mb&lt;x&lt;(m+1)b-1$<br>
+有$\displaystyle \frac{n}{x}&lt;\frac{1}{a}&lt;\frac{n+1}{x+1},\frac{m}{x}&lt;\frac{1}{b}&lt;\frac{m+1}{x+1}$<br>
+加起来有$\displaystyle \frac{m+n}{x}&lt;1&lt;\frac{m+n+2}{x+1}$<br>
+变形，有$n+m&lt;x&lt;n+m+1$，则$x$不为正整数，不存这样的$x$。</p>
+<h3 id="有趣的性质">有趣的性质</h3>
+<p>对于$\displaystyle \frac{1}{a}+\frac{1}{b}=1$，我们让$a&lt;b$<br>
+则$\{ \lfloor{na} \rfloor \}$从小到大的每一项都小于$\{ \lfloor{mb} \rfloor \}$从小到大的每一项<br>
+Beaty序列满足这两个集合为正整数的一个分割，换言之，每个正整数只在这两个集合中出现一次。如果我们叫$\{ \lfloor{na} \rfloor \}$从小到大的第$k$项为$a_k,a_k=\lfloor{ka} \rfloor$，$\{ \lfloor{mb} \rfloor \}$从小到大的第$k$项为$b_k,b_k=\lfloor{kb} \rfloor$。<br>
+那么Beaty序列天生满足$a_k= mex \{a_1,b_1,a_2,b_2, ...,a_{k-1},b_{k-1}\}$。很显然，因为$a_{k+1},a_{k+2},a_{k+3}...$与$b_{k},b_{k+1},b_{k+2},b_{k+3}...$都比$a_k$大($b_k&gt;a_k$因为$kb&gt;ka$且$\lfloor{ka} \rfloor \neq \lfloor{kb} \rfloor$)，又因为每一个正整数都会出现在这两个集合中，所以所有小于$a_k$的数都会出现在$\{a_1,b_1,a_2,b_2, ...,a_{k-1},b_{k-1}\}$中，那么可以使用$mex$。</p>
+<h3 id="构造奇异局势的Beaty序列">构造奇异局势的Beaty序列</h3>
+<p>如果我们想构造一个Beaty序列让他满足奇异局势的递推，那么当我们选择Beaty序列的时候，就已经解决了$mex$。<br>
+我们仍要满足奇异局势递推的另一个性质：$b_k=a_k+k$<br>
+那么你应该可以想到，这个其实就是当$b=a+1$时的Beaty序列</p>
+<h4 id="证明-3">证明</h4>
+<p>如果你算一下，就会发现$a$解出来是个无理数，所以这满足Beaty序列的条件<br>
+$\displaystyle \frac{1}{a}+\frac{1}{a+1}=1$正数解为$\displaystyle a=\frac{1 + \sqrt 5}{2},b=\frac{3 + \sqrt 5}{2}$<br>
+那么$b_k=\lfloor kb\rfloor=\lfloor k(a+1)\rfloor=\lfloor ka\rfloor+k=a_k+k$</p>
+<h4 id="结论">结论</h4>
+<p>则第$k$对的奇异局势为$(\displaystyle \lfloor(\frac{1 + \sqrt 5}{2})^{k} \rfloor,\lfloor(\frac{3 + \sqrt 5}{2})^{k} \rfloor)$</p>
+<h2 id="Code">$Code$</h2>
+<p>例题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2252">P2252 [SHOI2002] 取石子游戏|【模板】威佐夫博弈</a><br>
+由于给定范围很大，容易造成精度丢失，可以用二分做，具体看代码。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">namespace</span> Faster_Bound&#123;</span><br><span class="line">	<span class="type">const</span> <span class="type">int</span> SIZE = (<span class="number">1</span>&lt;&lt;<span class="number">20</span>)<span class="number">+1</span>;</span><br><span class="line">	<span class="type">char</span> *p1,*p2,buf[SIZE];</span><br><span class="line">	<span class="meta">#<span class="keyword">define</span> gc() (p1==p2&amp;&amp;(p2=(p1=buf)+fread(buf,1,SIZE,stdin),p1==p2)?EOF:*p1++)</span></span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function">	<span class="keyword">inline</span> <span class="type">void</span> <span class="title">read</span><span class="params">(T &amp;x)</span></span>&#123;</span><br><span class="line">		T f=<span class="number">1</span>; x=<span class="number">0</span>; <span class="type">char</span> c=<span class="built_in">gc</span>();</span><br><span class="line">		<span class="keyword">for</span>(;c&lt;<span class="string">&#x27;0&#x27;</span>||c&gt;<span class="string">&#x27;9&#x27;</span>;c=<span class="built_in">gc</span>()) <span class="keyword">if</span>(c==<span class="string">&#x27;-&#x27;</span>) f=<span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">for</span>(;c&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;c&lt;=<span class="string">&#x27;9&#x27;</span>;c=<span class="built_in">gc</span>()) x=(x&lt;&lt;<span class="number">3</span>)+(x&lt;&lt;<span class="number">1</span>)+(c^<span class="number">48</span>);</span><br><span class="line">		x=x*f;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T, <span class="keyword">typename</span>... Args&gt;</span></span><br><span class="line"><span class="function">	<span class="keyword">inline</span> <span class="type">void</span> <span class="title">read</span><span class="params">(T &amp;x, Args&amp;... args)</span></span>&#123;<span class="built_in">read</span>(x);<span class="built_in">read</span>&lt;T&gt;(args...);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> Faster_Bound;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> db;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">double</span> ldb;</span><br><span class="line"></span><br><span class="line">ll a,b;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">read</span>(a,b);</span><br><span class="line">	<span class="keyword">if</span>(a&gt;b) <span class="built_in">swap</span>(a,b);</span><br><span class="line">	<span class="keyword">if</span>(a==<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(b==<span class="number">0</span>)&#123;<span class="built_in">printf</span>(<span class="string">&quot;0&quot;</span>);<span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;<span class="built_in">printf</span>(<span class="string">&quot;1&quot;</span>);<span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	ll l=<span class="number">1</span>,r=<span class="number">1000000000</span>;</span><br><span class="line">	<span class="keyword">while</span>(l&lt;=r)&#123;</span><br><span class="line">		ll mid=l+r&gt;&gt;<span class="number">1</span>;</span><br><span class="line">		ll res=(<span class="number">1.0</span>*mid+<span class="built_in">sqrtl</span>(<span class="number">5</span>*mid*mid))/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(res&lt;=a) l=mid<span class="number">+1</span>;</span><br><span class="line">		<span class="keyword">else</span> r=mid<span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>((ll)(<span class="number">1.0</span>*r+<span class="built_in">sqrtl</span>(<span class="number">5</span>*r*r))/<span class="number">2</span>==a&amp;&amp;(a+r==b)) <span class="built_in">printf</span>(<span class="string">&quot;0&quot;</span>);</span><br><span class="line">	<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</postContent>
+
+<aside>
+    <div>
+    
+        
+        
+            
+                
+                    
+                
+                <details class="asiderDetails">
+                <summary>
+                    <a href="#威佐夫博弈的情境">
+                        <!-- 防止闪现 -->
+                        <div class="asiderH2" style="display: none">
+                            威佐夫博弈的情境
+                        </div>
+                    </a>
+                </summary>
+            
+        
+            
+                
+                   </details> 
+                
+                <details class="asiderDetails">
+                <summary>
+                    <a href="#构造奇异局势">
+                        <!-- 防止闪现 -->
+                        <div class="asiderH2" style="display: none">
+                            构造奇异局势
+                        </div>
+                    </a>
+                </summary>
+            
+        
+            
+                <a href="#先试试枚举">
+                    <div class="asiderH3" style="display: none">
+                        先试试枚举
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#构造">
+                    <div class="asiderH3" style="display: none">
+                        构造
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#注意力惊人">
+                    <div class="asiderH3" style="display: none">
+                        注意力惊人
+                    </div>
+                </a>
+            
+        
+            
+                
+                   </details> 
+                
+                <details class="asiderDetails">
+                <summary>
+                    <a href="#如果注意力不惊人">
+                        <!-- 防止闪现 -->
+                        <div class="asiderH2" style="display: none">
+                            如果注意力不惊人
+                        </div>
+                    </a>
+                </summary>
+            
+        
+            
+                <a href="#仍然从枚举开始">
+                    <div class="asiderH3" style="display: none">
+                        仍然从枚举开始
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#证明">
+                    <div class="asiderH3" style="display: none">
+                        证明
+                    </div>
+                </a>
+            
+        
+            
+                
+                   </details> 
+                
+                <details class="asiderDetails">
+                <summary>
+                    <a href="#Beaty-序列">
+                        <!-- 防止闪现 -->
+                        <div class="asiderH2" style="display: none">
+                            Beaty 序列
+                        </div>
+                    </a>
+                </summary>
+            
+        
+            
+                <a href="#Beaty-序列的情境">
+                    <div class="asiderH3" style="display: none">
+                        Beaty 序列的情境
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#证明-2">
+                    <div class="asiderH3" style="display: none">
+                        证明
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#有趣的性质">
+                    <div class="asiderH3" style="display: none">
+                        有趣的性质
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#构造奇异局势的Beaty序列">
+                    <div class="asiderH3" style="display: none">
+                        构造奇异局势的Beaty序列
+                    </div>
+                </a>
+            
+        
+            
+                
+                   </details> 
+                
+                <details class="asiderDetails">
+                <summary>
+                    <a href="#Code">
+                        <!-- 防止闪现 -->
+                        <div class="asiderH2" style="display: none">
+                            $Code$
+                        </div>
+                    </a>
+                </summary>
+            
+        
+        <!-- 补齐最后一个 -->
+        </details>
+    
+</div>
+</aside>
+        </container>
+        <!-- 生成页脚 -->
+        <!-- 防止footer闪现 -->
+        <footer id="footer" style="display:none">
+            
+                <p> ©2025 - 2025 by BWmagician </p>
+                <p> 框架: <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/"> hexo </a> |
+                    主题: <a target="_blank" rel="noopener" href="https://bwmagician.github.io/2025/06/24/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98/">bw</a> </p>
+            
+            <div> 若要转载，请先联系作者 </div>
+            <div>  </div>
+        </footer>
+    </main>
+    
+<script src="/js/main.js"></script>
+
+    <!-- 插入mathjax的cdn，具体配置可以参照https://www.cnblogs.com/wangxin37/p/8185688.html这篇文章 -->
+    <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"], 
+        linebreaks: { automatic:true }, 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+    },
+    tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {  
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
+        Macros: { href: "{}" } 
+    },
+    messageStyle: "none"
+    }); 
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    <!-- 引入必要的js代码 -->
+    
+    
+        
+<script src="/js/aside.js"></script>
+
+        
+            
+<script src="/js/post.js"></script>
+
+        
+    
+    
+</body>
+
+</html>
