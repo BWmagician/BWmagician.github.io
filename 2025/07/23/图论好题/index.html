@@ -33,35 +33,50 @@
     <!-- 生成导航栏 -->
     <nav>
         
-            <div class="navBox">
+        <div id="navBoxsLeft">
+            <span class="navBox" id="navHome">
                 <a href="/" class="navText">
                     首页
                 </a>
-            </div>
-        
-            <div class="navBox">
-                <a href="/categories" class="navText">
-                    分类
-                </a>
-            </div>
-        
-            <div class="navBox">
-                <a href="/archives" class="navText">
-                    归档
-                </a>
-            </div>
-        
-            <div class="navBox">
-                <a href="/about" class="navText">
-                    关于
-                </a>
-            </div>
-        
+            </span>
+            <span class="navBox">
+                <button id="lightDarkButton" onclick="changeModel()"> 亮 暗</button>
+            </span>
+        </div>
+        <div id="navBoxsRight">
+            
+                
+            
+                
+                    <div class="navBox">
+                        <a href="/categories" class="navText">
+                            分类
+                        </a>
+                    </div>
+                
+            
+                
+                    <div class="navBox">
+                        <a href="/archives" class="navText">
+                            归档
+                        </a>
+                    </div>
+                
+            
+                
+                    <div class="navBox">
+                        <a href="/about" class="navText">
+                            关于
+                        </a>
+                    </div>
+                
+             
+        <div>
     </nav>
     <main>
         <!-- 插入主体内容 -->
         <container id="container">
-            <postContent>
+            <postContent id="postContent">
     <postHeader>
         <h1 style="margin-bottom: 10px;" class="postTitle"> 图论好题 </h1>
         
@@ -120,7 +135,7 @@
         <footer id="footer" style="display:none">
             
                 <p> ©2025 - 2025 by BWmagician </p>
-                <p> 框架: <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/"> hexo </a> |
+                <p> 框架: <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/"> hexo</a> |
                     主题: <a target="_blank" rel="noopener" href="https://bwmagician.github.io/2025/06/24/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98/">bw</a> </p>
             
             <div> 若要转载，请先联系作者 </div>
@@ -138,7 +153,7 @@
         preferredFont: "TeX", 
         availableFonts: ["STIX","TeX"], 
         linebreaks: { automatic:true }, 
-        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
     },
     tex2jax: { 
         inlineMath: [ ["$", "$"], ["\\(","\\)"] ], 
@@ -151,7 +166,7 @@
         noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, 
         Macros: { href: "{}" } 
     },
-    messageStyle: "none"
+    messageStyle: "none",
     }); 
 </script>
 <!-- 给MathJax元素添加has-jax class -->
@@ -165,7 +180,25 @@
 </script>
 <!-- 通过连接CDN加载MathJax的js代码 -->
 <script type="text/javascript" async
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script>
+MathJax = {
+  loader: {load: ['[tex]/ams']},
+  tex: {
+    inlineMath: [['$', '$']],
+    packages: {'[+]': ['ams']}
+  },
+  // 关键设置：全局缩放比例（1.2表示放大20%）
+  chtml: {
+    scale: 2
+  },
+  // 或 SVG 渲染器
+  svg: {
+    scale: 2
+  }
+};
 </script>
     <!-- 引入必要的js代码 -->
     
