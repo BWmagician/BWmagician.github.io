@@ -32,7 +32,6 @@
 <body>
     <!-- 生成导航栏 -->
     <nav>
-        
         <div id="navBoxsLeft">
             <span class="navBox" id="navHome">
                 <a href="/" class="navText">
@@ -40,7 +39,7 @@
                 </a>
             </span>
             <span class="navBox">
-                <button id="lightDarkButton" onclick="changeModel()"> 亮 暗</button>
+                <img id="lightDarkButton" onclick="changeModel()"> 
             </span>
         </div>
         <div id="navBoxsRight">
@@ -149,6 +148,23 @@
 <p>把整体往右移动了一点</p>
 <h4 id="分类-2">分类</h4>
 <p>发现了一个页脚的bug，details的展开导致的整体元素的变大无法被resizeObserver监听，目前还没想法怎么修。</p>
+<h3 id="2025-7-25">2025/7/25</h3>
+<p>大更新</p>
+<h4 id="布局改变">布局改变</h4>
+<p>为了适配手机端，索性直接把navigation放到了上面，删掉首页的神秘背影图</p>
+<h4 id="手机端适配">手机端适配</h4>
+<p>碰到了很多问题，最神奇的是苹果手机的浏览器自动把小字体加大。这个问题导致文字和markdown渲染出来的字体大小不一致，非常难想到。</p>
+<p>大部分的布局都改成了居中，某些图标和字体做了手机端的差分修改。</p>
+<p>具体有：<br>
+1.手机端强制隐藏asider<br>
+2.手机端代码块强制不可以换行，电脑端还是有缩放换行的功能的，虽然有点意义不明<br>
+3.手机端的各种字体都有适当比例的放大<br>
+4.手机端的各种padding和margin也都有微调<br>
+5.迷你八卦炉的图标也微调了</p>
+<h4 id="亮暗模式">亮暗模式</h4>
+<p>为了调亮暗模式，发现css有一个很好用的:root属性，感觉就是css的内置变量，能直接用js改，非常方便。</p>
+<p>虽然亮暗模式点击意义不明的迷你八卦炉看起来缺乏引导，<s>但是还是就先这样吧</s>。</p>
+<p>顺便知道了还有一个localstorage的功能，看起来能比cookie存更多东西，这个确实方便，以后页面间互动也不用在url里加?了。</p>
 
 </postContent>
 
@@ -254,6 +270,14 @@
                 <a href="#2025-7-8">
                     <div class="asiderH3" style="display: none">
                         2025/7/8
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#2025-7-25">
+                    <div class="asiderH3" style="display: none">
+                        2025/7/25
                     </div>
                 </a>
             

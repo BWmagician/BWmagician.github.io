@@ -67,5 +67,5 @@ for(let i = 0; i < code.length; ++i) {
 
 if(isMobile()){
     console.log(postContent);
-    postContent.setAttribute('style',`font-size:${3}rem;margin-right:${15}svw;padding-right:${0}vw;`);
+    postContent.setAttribute('style',`font-size:${3.5}rem;margin-right:${10}svw;margin-left:${10}svw;padding-right:${0}vw;`);
 }

@@ -32,6 +32,7 @@ postContent a {
     padding-right: 2px;
     margin-left: 1px;
     margin-right: 1px;
+    display: inline-block;
 }
 
 postContent p a{
@@ -116,7 +117,6 @@ pre,
 code,
 .code {
     font-family: 'Fira Code', monospace;
-    font-size: 1.6rem;
     font-feature-settings: 'liga', 'calt';
     /* 启用连字 */
 }
@@ -127,6 +127,7 @@ code {
     border-radius: 5px;
     padding: 0px 2px 0px 2px;
     margin-left: 3px;
+    display: inline-block;
 }
 
 img,
@@ -138,13 +139,20 @@ figure {
 }
 
 .code span{
-    white-space: pre-wrap;
+    white-space: var(--codeWrap);
 }
 
 .gutter span{
     display: inline-block;
 }
-postContent .MathJax{
-    white-space: collapse;
+
+postContent .MathJax,
+postContent span{
+    white-space: pre-wrap;
     font-size: 100%;
+}
+
+table {
+    overflow-x: auto;
+    display: block;
 }

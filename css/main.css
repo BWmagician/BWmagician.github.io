@@ -15,6 +15,11 @@ html {
     --txtcolor: black;
     --sdcolor: rgba(0, 0, 0, 0.135);
     --cdcolor: rgb(234, 234, 234);
+
+    --navText: 3rem;
+    --arcText: 2rem;
+
+    --codeWrap: pre-wrap;
 }
 
 ::selection {
@@ -58,14 +63,24 @@ a:active {
     text-decoration: underline dashed 1px;
 }
 
+#container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 #footer {
     height: 10rem;
     width: 100lvw;
     text-align: center;
     border-top: 2px solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .navBox {
+    height: 100%;
     margin-right: 2rem;
     margin-left: 2rem;
 }
@@ -78,11 +93,6 @@ a:active {
     display: flex;
     flex-direction: row;
     align-items: center;
-}
-
-#navBoxsLeft{
-    width: 15vw;
-    min-width: 190px;
 }
 
 #navBoxsRight{
@@ -98,7 +108,7 @@ a:active {
 }
 
 .navText {
-    font-size: 3rem;
+    font-size: var(--navText);
     text-decoration: none;
     text-align: center;
 }
@@ -115,13 +125,11 @@ a:active {
 }
 
 .page-prev {
-    width: 50px;
     margin-right: 10px;
     text-align: right;
 }
 
 .page-next {
-    width: 50px;
     margin-left: 10px;
     text-align: left;
 }

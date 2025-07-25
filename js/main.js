@@ -38,20 +38,32 @@ function isMobile() {
     return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
 }
 
+let mobileStr = "";
+
+if(isMobile()){
+    document.body.setAttribute('style','font-size:3.5rem');
+    document.documentElement.style.setProperty('--navText', '5rem');
+    document.documentElement.style.setProperty('--codeWrap', 'pre');
+        document.documentElement.style.setProperty('--arcText', '4rem');
+    mobileStr = "mobile";
+}
 
 
+let ldPic = document.getElementById("lightDarkButton");
 function checkMode(){
     if(modelCount==0){
         document.documentElement.style.setProperty('--bgcolor', 'white');
         document.documentElement.style.setProperty('--txtcolor', 'black');
         document.documentElement.style.setProperty('--sdcolor','rgba(0, 0, 0, 0.135)');
         document.documentElement.style.setProperty('--cdcolor', 'rgb(234, 234, 234)');
+        ldPic.src=`/img/light${mobileStr}.drawio.svg`;
     }
     if(modelCount==1){
         document.documentElement.style.setProperty('--bgcolor', '#252525');
         document.documentElement.style.setProperty('--txtcolor', '#c7c7c7ff');
         document.documentElement.style.setProperty('--sdcolor','rgba(255, 255, 255, 0.135)');
-        document.documentElement.style.setProperty('--cdcolor', 'rgba(47, 47, 47, 1)');
+        document.documentElement.style.setProperty('--cdcolor', 'rgba(62, 62, 62, 1)');
+        ldPic.src=`/img/dark${mobileStr}.drawio.svg`;
     }
 }
 
