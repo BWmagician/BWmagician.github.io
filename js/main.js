@@ -6,46 +6,7 @@ let articles = document.getElementById("articles");
 function max(a, b){return a > b ? a : b;}
 function min(a, b){return a < b ? a : b;}
 
-// 如果页面过短则自动把footer放在底部，防止latex加载带来的高度变化
-const resizeObserverContainer = new ResizeObserver(x => {
-    console.log(container.offsetHeight);
-    let navHeight = max(window.innerHeight*0.07 , 65);
-    let paginationHeight = pagination ? pagination.offsetHeight : 0;
-    let footerHeight = 100;
-
-    if(articles){
-        if (pagination && articles.offsetHeight + paginationHeight + navHeight + footerHeight + 20 < window.innerHeight) {
-            // console.log(pagination.offsetHeight);
-            pagination.setAttribute('style', `position:absolute;bottom: ${footerHeight + 10}px;left:50%;transform:translateX(-50%)`);
-            footer.setAttribute('style', 'position: absolute;');
-            footer.style.bottom = 0;
-        }
-        else footer.setAttribute('style','');
-        // 如果页面过短则自动把页码放在底部
-    }
-    else{
-        console.log(container.offsetHeight+" window:"+window.innerHeight);
-        if ( container.offsetHeight*3 + footerHeight + navHeight < window.innerHeight){
-            footer.setAttribute('style', 'position: absolute;');
-            footer.style.bottom = 0;
-        }
-        else footer.setAttribute('style',''); 
-    }
-});
-
-resizeObserverContainer.observe(container);
-
-//由于deatails标签的展开不会被监听，额外加一个点击事件的监听
-// window.addEventListener('click', function() {
-//     console.log(this.window.innerHeight);
-//     console.log(container.getBoundingClientRect().height);
-//     if (container.offsetHeight + footer.scrollHeight < window.innerHeight) {
-//         footer.setAttribute('style', 'position: absolute;');
-//         footer.style.bottom = 0;
-//     }
-//     else footer.setAttribute('style','');
-// });
-
+//手机端适配
 function isMobile() {
     let userAgent = navigator.userAgent.toLowerCase();
     return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
@@ -62,10 +23,57 @@ if(isMobile()){
 }
 
 let nav = document.getElementById('navigation');
-console.log(nav.offsetHeight);
+// console.log(nav.offsetHeight);
 if(nav.scrollHeight>100){
     mobileStr = "mobile";
 }
+
+// 如果页面过短则自动把footer放在底部，防止latex加载带来的高度变化
+function modify_footer(){
+    // console.log(container.offsetHeight);
+    let navHeight = max(window.innerHeight*0.07 , 65);
+    let paginationHeight = pagination ? pagination.offsetHeight : 0;
+    let footerHeight = 100;
+    
+    // console.log(paginationHeight,container.offsetHeight,articles.offsetHeight,window.innerHeight,document.documentElement.clientHeight);
+    if(articles){
+        if (pagination && articles.offsetHeight + paginationHeight + navHeight + footerHeight + 20 < window.innerHeight) {
+            // console.log(paginationHeight,articles.offsetHeight);
+            pagination.setAttribute('style', `position:absolute;bottom: ${footerHeight + 10}px;left:50%;transform:translateX(-50%)`);
+            footer.setAttribute('style', 'position: absolute;');
+            footer.style.bottom = 0;
+        }
+        else footer.setAttribute('style','');
+        // 如果页面过短则自动把页码放在底部
+    }
+    else{
+        // console.log(container.offsetHeight+footerHeight+navHeight+" window:"+window.innerHeight);
+        if ( container.offsetHeight + footerHeight + navHeight < window.innerHeight){
+            footer.setAttribute('style', 'position: absolute;');
+            footer.style.bottom = 0;
+        }
+        else footer.setAttribute('style',''); 
+    }
+}
+
+const resizeObserverContainer = new ResizeObserver(x => {
+    modify_footer();
+});
+
+resizeObserverContainer.observe(container);
+
+modify_footer();
+
+//由于deatails标签的展开不会被监听，额外加一个点击事件的监听
+// window.addEventListener('click', function() {
+//     console.log(this.window.innerHeight);
+//     console.log(container.getBoundingClientRect().height);
+//     if (container.offsetHeight + footer.scrollHeight < window.innerHeight) {
+//         footer.setAttribute('style', 'position: absolute;');
+//         footer.style.bottom = 0;
+//     }
+//     else footer.setAttribute('style','');
+// });
 
 //亮暗模式
 let ldPic = document.getElementById("lightDarkButton");
