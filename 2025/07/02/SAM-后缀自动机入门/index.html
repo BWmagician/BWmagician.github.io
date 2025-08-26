@@ -133,15 +133,15 @@
 <p><img src="/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/ParentTree%20abbb.drawio.svg" alt="alt text"></p>
 <p>我们可以明显的观察到：parent tree的子节点们对应的等价类其实对父节点的等价类做了一个分割，这就是等价类间不相交集产生的现象。并且parent tree的某一条链上的等价类中的子串应该是越下面的子串越长，这很显然，因为同一个结束位置下，越长的子串出现的位置一定越少，包含结束位置越少的等价类一定在下方。并且位于上方的等价类的子串一定是下方等价类子串的一个后缀。</p>
 <h4 id="关于parent-tree的根-空串对应的等价类">关于parent tree的根(空串对应的等价类)</h4>
-<p>对于一个长度为n的字符串来说，在大多数情况下是不可能存在一个$\{1,2,3,4,...,n\}$的等价类，然而对于一棵parent tree来说，这个“等价类”却对应着根节点。因此$endpos('')=\{1,2,3,4,...,n\}$<br>
+<p>对于一个长度为n的字符串来说，在大多数情况下是不可能存在一个$\{1,2,3,4,…,n\}$的等价类，然而对于一棵parent tree来说，这个“等价类”却对应着根节点。因此$endpos(‘’)=\{1,2,3,4,…,n\}$<br>
 通常，人们把这个“等价类”理解为空串的等价类，因为空串确实出现在每一个位置上。<br>
-然而，我们注意到，如果一个字符串全由同样的一个字符构成……譬如说S全由字符c构成，则$endpos('c')=endpos('')=\{1,2,3,4,...,n\}$。</p>
+然而，我们注意到，如果一个字符串全由同样的一个字符构成……譬如说S全由字符c构成，则$endpos(‘c’)=endpos(‘’)=\{1,2,3,4,…,n\}$。</p>
 <h4 id="parent-tree的节点是线性的">parent tree的节点是线性的</h4>
 <p>分割必然存在界限，换言之，以单个结束位置为集合的等价类是不可以再分割的。parent tree节点数的上限肯定是由一颗叶子全是单位置等价类的parent tree决定的。我们可以反过来想，要构成一颗树，先决定所有的叶子节点，然后我们每次挑选多个节点决定他们的父节点，那么要想构造出理论上限，就需要叶子节点不可分割为好并且每次只挑选两个节点。若叶子可分割，为何不取分割后的点为叶子呢？<br>
-如果这个理论上限存在，那么对于长度为n的字符串，其parent tree最多存在2n-1个节点。因为其最多有n个单位置等价类的叶子节点$(\{1\},\{2\},\{3\}..,\{n\})$，每次连两个节点到一个新节点则减少一个可选节点的总数，那么最多选n-1次，于是最多为2n-1个节点。<br>
+如果这个理论上限存在，那么对于长度为n的字符串，其parent tree最多存在2n-1个节点。因为其最多有n个单位置等价类的叶子节点$(\{1\},\{2\},\{3\}…,\{n\})$，每次连两个节点到一个新节点则减少一个可选节点的总数，那么最多选n-1次，于是最多为2n-1个节点。<br>
 那么存不存在一棵parent tree，他的叶子节点都是单位置的等价类并且为二叉树呢？</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">S=&quot;abbbbbb... </span><br><span class="line">n=len(S)</span><br><span class="line"></span><br><span class="line">endpos(&quot;a&quot;)=&#123;1&#125;</span><br><span class="line">endpos(&quot;ab&quot;)=&#123;2&#125;</span><br><span class="line">endpos(&quot;abb&quot;)=&#123;3&#125;</span><br><span class="line">...</span><br><span class="line">endpos(&quot;ab..b&quot;)=&#123;n&#125;</span><br><span class="line"></span><br><span class="line">endpos(&quot;b&quot;)=&#123;2,3,...,n&#125;</span><br><span class="line">endpos(&quot;bb&quot;)=&#123;3,...,n&#125;</span><br><span class="line">endpos(&quot;bbb&quot;)=&#123;4,..,n&#125;</span><br><span class="line">...</span><br><span class="line">endpos(&quot;bb..b&quot;)=&#123;n&#125;</span><br></pre></td></tr></table></figure>
-<p>我们尝试类似于如上的构造，则$S$的每一个前缀的等价类必定只含有单个位置，并且我们已经列举出了他的所有等价类，刚好是$S$所有前缀和&quot;bb..bb&quot;的所有后缀对应的等价类，为$2n-1$个状态。<br>
+<p>我们尝试类似于如上的构造，则$S$的每一个前缀的等价类必定只含有单个位置，并且我们已经列举出了他的所有等价类，刚好是$S$所有前缀和&quot;bb…bb&quot;的所有后缀对应的等价类，为$2n-1$个状态。<br>
 我们还可以得出一个有趣的结论：$S$串的parent tree是一棵二叉树。<br>
 于是这个理论上限存在：对于长度为$n$的字符串S，其parent tree最多只有$2n-1$个节点，换言之，最多只有$2n-1$个等价类。</p>
 <h2 id="SAM-后缀自动机">SAM(后缀自动机)</h2>
