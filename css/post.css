@@ -15,7 +15,8 @@ aside {
 postContent {
     display: block;
     min-width: 650px;
-    margin-left: 15vw;
+    /* margin-top: max(65px,7svh); */
+    margin-left: max(15vw,100px);
     margin-right: 20vw;
     padding-right: 30px;
     padding-bottom: 20px;

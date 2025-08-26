@@ -1,12 +1,11 @@
 archiveContent{
     width: 80svw;
+    margin-left: 10svw;
+    padding: 20px;
     min-width: 800px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .archives{

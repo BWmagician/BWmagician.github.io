@@ -8,3 +8,8 @@ if(isMobile()){
         articleTitles[i].setAttribute('style',`font-size: 4rem`);
     }
 }
+else{
+    for(let i = 0; i < articleBox.length; ++i){
+        articleBox[i].setAttribute('style',``); //去掉隐藏
+    }
+}

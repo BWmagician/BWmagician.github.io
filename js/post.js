@@ -69,6 +69,5 @@ if(isMobile()){
     postContent.setAttribute('style',`font-size:100%;margin-right:${10}svw;margin-left:${10}svw;padding-right:${0}vw;`);
 }
 
-if(footer){
-    
-}
+
+    // let navHeight = max(window.innerHeight*0.07 , 65);

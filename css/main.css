@@ -21,6 +21,13 @@
     box-sizing: inherit;
 }
 
+offset {
+    display: block;
+    height: max(65px,7svh); /* 导航栏高度 */
+    margin-top: max(65px,7svh); /* 导航栏高度 */
+    visibility: hidden;
+}
+
 html {
     font-size: 62.5%;
     height: 100%;
@@ -43,7 +50,7 @@ nav {
     top: 0;
     width: 100lvw;
     min-height: 65px;
-    height: 7vh;
+    height: 7svh;
     position: fixed;
     z-index: 1;
     background-color: var(--bgcolor);
@@ -51,9 +58,7 @@ nav {
 }
 
 main {
-    min-height: 100vh;
     margin-top: max(65px,7svh);
-    position: relative;
 }
 
 a {
@@ -70,7 +75,7 @@ a:active {
 }
 
 #footer {
-    height: 100px;
+    min-height: 100px;
     width: 100svw;
     text-align: center;
     border-top: 2px solid;
@@ -126,13 +131,15 @@ a:active {
 }
 
 .page-prev {
+    text-align: center;
+    min-width: 40px;
     margin-right: 10px;
-    text-align: right;
 }
 
 .page-next {
+    text-align: center;
+    min-width: 40px;
     margin-left: 10px;
-    text-align: left;
 }
 
 .current {
