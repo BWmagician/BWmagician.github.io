@@ -38,9 +38,9 @@ postContent a {
 }
 
 postContent a:hover {
+    /* padding-left: 1.5px;
+    padding-right: 1.5px; */
     border: 2.5px solid;
-    padding-left: 1.5px;
-    padding-right: 1.5px;
     box-shadow: 2px 2px 10px var(--sdcolor);
 }
 
@@ -168,12 +168,14 @@ postContent span{
 
 /* 去掉mathjax自带的不能换行 */
 postContent .has-jax{
+    overflow-x: auto;
+    overflow-y: hidden;
     white-space: pre-wrap;
 }
 
 postContent .MJXc-display{
     overflow-x: auto;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 table {

@@ -97,13 +97,19 @@
 <h3 id="下载图片插件"><a href="#下载图片插件" class="headerlink" title="下载图片插件"></a>下载图片插件</h3><p><code>$ npm install https://github.com/CodeFalling/hexo-asset-image --save</code></p>
 <p>如果不装这个插件会产生很奇怪的bug</p>
 <h3 id="更换渲染插件"><a href="#更换渲染插件" class="headerlink" title="更换渲染插件"></a>更换渲染插件</h3><p>由于hexo自带的渲染器hexo-renderer和markdown语法有很多冲突。为避免页面出现布局混乱，需要更换一个渲染器。</p>
-<h4 id="卸载默认渲染器"><a href="#卸载默认渲染器" class="headerlink" title="卸载默认渲染器"></a>卸载默认渲染器</h4><p><code>$ npm uninstall hexo-renderer-marked</code></p>
-<h4 id="装hexo-renderer-markdown-it"><a href="#装hexo-renderer-markdown-it" class="headerlink" title="装hexo-renderer-markdown-it"></a>装hexo-renderer-markdown-it</h4><p><code>$ npm install hexo-renderer-markdown-it</code></p>
+<h4 id="卸载默认渲染器"><a href="#卸载默认渲染器" class="headerlink" title="卸载默认渲染器"></a>卸载默认渲染器</h4><p><code>$ npm uninstall hexo-renderer-marked --save</code></p>
+<h4 id="装hexo-renderer-kramed"><a href="#装hexo-renderer-kramed" class="headerlink" title="装hexo-renderer-kramed"></a>装hexo-renderer-kramed</h4><p><code>$ npm install hexo-renderer-kramed --save</code></p>
 <h2 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h2><p>bw主题已经配置了mathjax的cdn</p>
-<p>由于hexo-renderer-markdown-it的基础渲染器markdown-it在文章渲染时设置了转义，所以为了打出一个<code>\</code>,你必须要再打一个<code>\</code>, 比如说为了打出<code>&#123;</code>，你要写<script type="math/tex">\\{</script>。<br>这个只需要在转义的代码里把你想要保留的符号删掉就行，代价是你在正文中无法使用这些符号的转义，看起来没什么影响。</p>
-<p>当你安装了hexo-renderer-markdown-it后，在<code>Root\node_modules\markdown-it\lib\rules_inline\escape.js</code>中修改，具体来说，把第11行的代码里面的花括号和下划线删了就行。</p>
+<p><del>由于hexo-renderer-markdown-it的基础渲染器markdown-it在文章渲染时设置了转义，所以为了打出一个<code>\</code>,你必须要再打一个<code>\</code>, 比如说为了打出<code>&#123;</code>，你要写<script type="math/tex">\\{</script>。</del></p>
+<p><del>这个只需要在转义的代码里把你想要保留的符号删掉就行，代价是你在正文中无法使用这些符号的转义，看起来没什么影响。</del></p>
+<p><del>当你安装了hexo-renderer-markdown-it后，在<code>Root\node_modules\markdown-it\lib\rules_inline\escape.js</code>中修改，具体来说，把第11行的代码里面的花括号和下划线删了就行</del> </p>
 <hr>
-<p>2025/7/4</p>
+<p><del>2025/7/4</del> (2025/8/30删)</p>
+<h3 id="2025-8-30-关于kramed的配置和一些问题"><a href="#2025-8-30-关于kramed的配置和一些问题" class="headerlink" title="2025/8/30 关于kramed的配置和一些问题"></a>2025/8/30 关于kramed的配置和一些问题</h3><p>在hexo的根目录下找到 <code>node_modules/kramed/lib/rules/inline.js</code><br>参考了<a target="_blank" rel="noopener" href="https://blog.csdn.net/Cool_breeze_/article/details/115104683">这篇</a></p>
+<p>在文件的大约11行左右</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 修改前</span><br><span class="line">escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">// 修改后：去掉对 &#123;, &#125;, \ 的转义</span><br><span class="line">escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 修改前</span><br><span class="line">em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br><span class="line">// 修改后：移除下划线 _ 的斜体含义，避免与 LaTeX 下标冲突</span><br><span class="line">em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br></pre></td></tr></table></figure>
+<p>仍然存在问题，对于内联符号<script type="math/tex"> </script>中的星号可能仍会被转换为斜体，使用$$$ $$$则不会发生这个问题。</p>
 <h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><h3 id="2025-6-21"><a href="#2025-6-21" class="headerlink" title="2025/6/21"></a>2025/6/21</h3><p>最初版本</p>
 <h3 id="2025-6-24"><a href="#2025-6-24" class="headerlink" title="2025/6/24"></a>2025/6/24</h3><h4 id="分类页面"><a href="#分类页面" class="headerlink" title="分类页面"></a>分类页面</h4><p>上一版用url传参，分类路径不能带空格且空格导致进程卡死，已修复。</p>
 <p>小优化了一写不必要的参数传递。</p>
@@ -200,6 +206,14 @@
                         </div>
                     </a>
                 </summary>
+            
+        
+            
+                <a href="#2025-8-30-关于kramed的配置和一些问题">
+                    <div class="asiderH3" style="display: none">
+                        2025/8/30 关于kramed的配置和一些问题
+                    </div>
+                </a>
             
         
             
