@@ -167,10 +167,8 @@ postContent span{
 }
 
 /* 去掉mathjax自带的不能换行 */
-postContent .has-jax{
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: pre-wrap;
+postContent .has-jax .mjx-chtml{
+    white-space: wrap;
 }
 
 postContent .MJXc-display{
