@@ -93,27 +93,22 @@
             
         </div>
     </postHeader>
-    <p>如果你只想了解bw主题，阅读准备工作后可以直接跳转到<a href="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/#bw-%E4%B8%BB%E9%A2%98">最后一部分</a></p>
-<h2 id="准备工作">准备工作</h2>
-<p>首先你要先确保安装了hexo的框架。</p>
+    <p>如果你只想了解bw主题，阅读准备工作后可以直接跳转到<a href="/2025/06/20/关于bw主题和主题搭建/#bw-主题">最后一部分</a></p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>首先你要先确保安装了hexo的框架。</p>
 <p>具体来说，你应该在根目录(有themes文件夹的那个目录)git bash并输入</p>
-<p><code>$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s </code></p>
+<p><code>$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code></p>
 <p>后在对应的端口看到博客页面生成(一般是4000端口，推荐用谷歌浏览器看，edge加载会莫名卡顿，非常影响主题搭建)。</p>
 <p>这一部分网上的教程很多，如果你难以抉择，根据官方文档的<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">概述</a>并完成建站即可。</p>
 <p>本文章没有提到部署的操作。</p>
 <p>在开始搭建主题之前，请确保hexo能正常工作。至少html和css和js语法要能懂。</p>
-<h2 id="关于作者可能是⑨这件事">关于作者可能是⑨这件事</h2>
-<p>由于作者对css和html和js的了解都不深入，并且在审美方面存在某种异变，因此整个主题与代码看起来会十分甚至⑨分简陋(非常便于理解)，如果某些大佬想尝试自己写一个主题，可以拿此主题当作一个参考例子。</p>
+<h2 id="关于作者可能是⑨这件事"><a href="#关于作者可能是⑨这件事" class="headerlink" title="关于作者可能是⑨这件事"></a>关于作者可能是⑨这件事</h2><p>由于作者对css和html和js的了解都不深入，并且在审美方面存在某种异变，因此整个主题与代码看起来会十分甚至⑨分简陋(非常便于理解)，如果某些大佬想尝试自己写一个主题，可以拿此主题当作一个参考例子。</p>
 <p>并且，这篇博客写于完成主题的搭建<strong>之后</strong>，这篇博客实际上类似于文学上说的那种回忆录。因此有可能存在一些错误和偏差，如果你在实操中发现有什么不对劲的地方，请大胆的怀疑有可能是⑨犯了错误。</p>
-<h2 id="关于主题的搭建">关于主题的搭建</h2>
-<h3 id="从哪里获取参考">从哪里获取参考</h3>
-<p><s>官方文档永远是最官方的</s>，不懂就查<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">文档 | Hexo</a></p>
+<h2 id="关于主题的搭建"><a href="#关于主题的搭建" class="headerlink" title="关于主题的搭建"></a>关于主题的搭建</h2><h3 id="从哪里获取参考"><a href="#从哪里获取参考" class="headerlink" title="从哪里获取参考"></a>从哪里获取参考</h3><p><del>官方文档永远是最官方的</del>，不懂就查<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">文档 | Hexo</a></p>
 <p>但是对于主题的搭建来说，hexo文档不够详细。</p>
 <p>网络上很少有详细的主题搭建教程，<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yyhh/p/11058985.html">Hexo主题开发 - ﹏猴子请来的救兵 - 博客园</a>是⑨找到非常详细的一篇，⑨在搭建主题的时候就是参照这一篇的流程，如果你对自己的主题没什么具体的构思，可以看这一篇。</p>
 <p>如果不懂怎么去使用某个变量，可以尝试输出看看(下文会提到)，或直接问deepseek，但直接让deepseek生成的代码不一定非常正确。</p>
-<h3 id="工作环境的选择-文本编辑器和ejs">工作环境的选择(文本编辑器和ejs)</h3>
-<p>文本编辑器首先推荐vscode，vscode用来写这种中小型的project是非常合适的。</p>
-<p>hexo默认提供了两种模板，分别是ejs和Nunjucks。请使用ejs吧 (<s>因为没试过另外一种</s></p>
+<h3 id="工作环境的选择-文本编辑器和ejs"><a href="#工作环境的选择-文本编辑器和ejs" class="headerlink" title="工作环境的选择(文本编辑器和ejs)"></a>工作环境的选择(文本编辑器和ejs)</h3><p>文本编辑器首先推荐vscode，vscode用来写这种中小型的project是非常合适的。</p>
+<p>hexo默认提供了两种模板，分别是ejs和Nunjucks。请使用ejs吧 (<del>因为没试过另外一种</del></p>
 <p>ejs的作用就是能在你的html代码中插入一些js代码或其他东西，这会让你的主题搭建有一个质的飞跃。譬如说，hexo会给你准备的一些变量，其中包括了文章的标题。那么你该如何在写仅一份的html代码中展示不同文章的标题呢？</p>
 <p>假设变量 page.title 就代表了当前页面的标题，我们可以写</p>
 <p><code>&lt;h1&gt; &lt;%= page.title %&gt; &lt;/h1&gt;</code></p>
@@ -121,17 +116,13 @@
 <p>那么当hexo把这个ejs语法的代码成真的html语法的代码时，他就会把真真切切的变量插入生成的html代码中，这对于码字的人来说可以一劳永逸了。</p>
 <p>详细的语法可以参考ejs官方的<a target="_blank" rel="noopener" href="https://ejs.bootcss.com/#docs">文档</a></p>
 <p>一般来说，我们只会用到<code>&lt;% %&gt;</code> <code>&lt;%- %&gt;</code> <code>&lt;%= %&gt;</code>三种百分尖括号的格式，具体情况下文会展开说，我们先把编辑器的环境配置好。</p>
-<h4 id="逆天缩进">逆天缩进</h4>
-<p>如果你采用vscode默认的缩进格式，你会遇到一个致命的问题。vscode会把形如<code>&lt;% %&gt;</code>当成html中的标签，从而让本该并行的两行错开，比较要命的是当你保存的时候他还会自动给你缩进成扭曲的样子。</p>
+<h4 id="逆天缩进"><a href="#逆天缩进" class="headerlink" title="逆天缩进"></a>逆天缩进</h4><p>如果你采用vscode默认的缩进格式，你会遇到一个致命的问题。vscode会把形如<code>&lt;% %&gt;</code>当成html中的标签，从而让本该并行的两行错开，比较要命的是当你保存的时候他还会自动给你缩进成扭曲的样子。</p>
 <p>很遗憾，我并没有找到什么完美的解决方案，我的vscode在装了ejs的语法插件和Prettier插件后再也不会在保存时给我的代码缩进成鬼畜的样子了，但他也不会自动缩进了。</p>
-<h4 id="vscode的保存设置">vscode的保存设置</h4>
-<p>还有，为了方便调试，建议把保存模式设置成失去聚焦就保存，这样我们改完代码在去浏览器点刷新之前就可以自动保存了。</p>
+<h4 id="vscode的保存设置"><a href="#vscode的保存设置" class="headerlink" title="vscode的保存设置"></a>vscode的保存设置</h4><p>还有，为了方便调试，建议把保存模式设置成失去聚焦就保存，这样我们改完代码在去浏览器点刷新之前就可以自动保存了。</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620173115717.png" alt="image-20250620173115717"></p>
-<h3 id="hexo在干什么">hexo在干什么</h3>
-<p>在建主题之前，我们应该先了解一些hexo的一些逻辑，这有助于理解hexo的功能。</p>
-<h4 id="hexo的渲染和打包">hexo的渲染和打包</h4>
-<p>首先hexo有一个渲染器，默认的应该是hexo-renderer-marked。这个渲染器能把一篇markdown格式的文章转化成了html的代码，感性理解一下就是把</p>
-<p><code># 这是一个一级标题</code></p>
+<h3 id="hexo在干什么"><a href="#hexo在干什么" class="headerlink" title="hexo在干什么"></a>hexo在干什么</h3><p>在建主题之前，我们应该先了解一些hexo的一些逻辑，这有助于理解hexo的功能。</p>
+<h4 id="hexo的渲染和打包"><a href="#hexo的渲染和打包" class="headerlink" title="hexo的渲染和打包"></a>hexo的渲染和打包</h4><p>首先hexo有一个渲染器，默认的应该是hexo-renderer-marked。这个渲染器能把一篇markdown格式的文章转化成了html的代码，感性理解一下就是把 </p>
+<p><code># 这是一个一级标题</code> </p>
 <p>变成了(不一定对，但就是这个意思)</p>
 <p><code>&lt;h1&gt; 这是一个一级标题 &lt;h1&gt;</code></p>
 <p>然后hexo把你的markdown语法的文章都转换成html之后，他会打包一个文件夹，也就是你在根目录看到的public文件夹，这个文件夹的路径就对应了你生成的静态博客的url的路径。</p>
@@ -143,43 +134,38 @@
 <p><code>http://localhost:4000/2025/06/20/hello-world/</code></p>
 <p>你可以打开一下public文件夹里的那个html文件，应该会长这个样子。</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620154312313.png" alt="image-20250620154312313">非常质朴，因为此时，hexo仅仅把layout.ejs的代码和post.ejs的代码和渲染出来的html代码搓到一起，直到浏览器自己把css代码和js代码加进去。public文件夹是为了方便在浏览器展示而生成的静态文件存放点。</p>
-<p>layout.ejs 和 post.ejs 是什么及其具体功用会在下文提到，不必着急，至少我们已经知道了一个<strong>照着public文件夹路径找某篇文章的url</strong>的能力(<s>你必须有一种直觉，就是我们刚开始写出来的东西很可能是一片空白</s>)。</p>
-<h4 id="关于hexo的指令和变量">关于hexo的指令和变量</h4>
-<p><code>$ hexo clean</code> 是删除public文件夹和缓存</p>
+<p>layout.ejs 和 post.ejs 是什么及其具体功用会在下文提到，不必着急，至少我们已经知道了一个<strong>照着public文件夹路径找某篇文章的url</strong>的能力(<del>你必须有一种直觉，就是我们刚开始写出来的东西很可能是一片空白</del>)。</p>
+<h4 id="关于hexo的指令和变量"><a href="#关于hexo的指令和变量" class="headerlink" title="关于hexo的指令和变量"></a>关于hexo的指令和变量</h4><p><code>$ hexo clean</code> 是删除public文件夹和缓存</p>
 <p><code>$ hexo g</code> 是生成public文件夹和缓存</p>
 <p><code>$ hexo s</code>是部署服务，也就是把这个页面接到你的4000端口上</p>
 <p>这三个是最常用的指令并且经常是连着用的，于是我们可以直接三合一</p>
 <p><code>$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code></p>
 <p>如果你仔细阅读了hexo的官方文档，你一定会注意到hexo会给用户提供很多变量，hexo会解析你的文章和你文章和各种yaml配置并把他们变成变量。</p>
-<p>如果你的hexo版本比较低或者你可以在根目录的_config.yml中添加了</p>
+<p>如果你的hexo版本比较低或者你可以在根目录的_config.yml中添加了 </p>
 <p><code>cache: false</code></p>
 <p>那么你甚至可以直接在根目录下看到db.json，也就是数据的缓存，他们会被解析成变量。</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620164038269.png" alt="image-20250620164038269"></p>
 <p>也就是说</p>
-<p><code>$ hexo clean</code></p>
+<p><code>$ hexo clean</code> </p>
 <p>是一个非常强大的指令，它能够清除缓存。换言之就是强刷新。在之后的搭建中，我们可能需要自己写一些函数，而这些函数的产生的数据可能就要存在缓存里。不幸的是这些函数难以一次性写到完美，当你要调试的时候，你不得不刷新错误的缓存，所以如果你遇到一些离奇的bug，不如直接试试这款强力的三合一指令吧</p>
 <p><code>$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code></p>
 <p>当然，如果你没有特别需求，直接<code>hexo g</code> 即可，因为<code>hexo clean</code>会消耗更多的时间。</p>
-<h3 id="那么，去建一个主题吧">那么，去建一个主题吧</h3>
-<p>首先我们从根目录进入themes，新建一个文件夹，这个文件夹的名字应该是你的主题的名字。</p>
+<h3 id="那么，去建一个主题吧"><a href="#那么，去建一个主题吧" class="headerlink" title="那么，去建一个主题吧"></a>那么，去建一个主题吧</h3><p>首先我们从根目录进入themes，新建一个文件夹，这个文件夹的名字应该是你的主题的名字。</p>
 <p>让后参考官方的文档：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/themes">主题</a> ，你的主题的文件夹下建立一些文件夹和文件。</p>
 <p>一般来说，可以建立如下这些文件夹和文件，不要忘记在主题文件夹下建立一个_config.yml，这是属于你的主题的配置文件，.gitkeep 是themes文件夹下原来就有的，我们可以不用管他。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">└─yourThemeName</span><br><span class="line">    │  _config.yml</span><br><span class="line">    │</span><br><span class="line">    ├─layout</span><br><span class="line">    ├─scripts</span><br><span class="line">    └─source</span><br><span class="line">        ├─css</span><br><span class="line">        ├─img</span><br><span class="line">        └─js</span><br></pre></td></tr></table></figure>
 <p>回到根目录，需要把根目录的_config.yml中的 theme 改为 你的主题的名字，大概在第99行左右。</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620155405783.png" alt="image-20250620155405783"></p>
-<h3 id="layout-ejs-和-index-ejs-与-post-ejs">layout.ejs 和 index.ejs 与 post.ejs</h3>
-<h4 id="建文件夹">建文件夹</h4>
-<p>你必须在layout底下建这三个文件，这是渲染你博客页面至少需要的三个组件。</p>
+<h3 id="layout-ejs-和-index-ejs-与-post-ejs"><a href="#layout-ejs-和-index-ejs-与-post-ejs" class="headerlink" title="layout.ejs 和 index.ejs 与 post.ejs"></a>layout.ejs 和 index.ejs 与 post.ejs</h3><h4 id="建文件夹"><a href="#建文件夹" class="headerlink" title="建文件夹"></a>建文件夹</h4><p>你必须在layout底下建这三个文件，这是渲染你博客页面至少需要的三个组件。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">│  _config.yml</span><br><span class="line">│</span><br><span class="line">├─layout</span><br><span class="line">│      index.ejs</span><br><span class="line">│      layout.ejs</span><br><span class="line">│      post.ejs</span><br><span class="line">│</span><br><span class="line">├─scripts</span><br><span class="line">└─source</span><br><span class="line">    ├─css</span><br><span class="line">    ├─img</span><br><span class="line">    └─js</span><br></pre></td></tr></table></figure>
-<h4 id="理解layout-ejs的作用">理解layout.ejs的作用</h4>
-<p>你可以分别往这些文件里写入以下代码</p>
+<h4 id="理解layout-ejs的作用"><a href="#理解layout-ejs的作用" class="headerlink" title="理解layout.ejs的作用"></a>理解layout.ejs的作用</h4><p>你可以分别往这些文件里写入以下代码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- layout.ejs  --&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;here is layout.ejs&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- post.ejs --&gt;</span><br><span class="line">&lt;p&gt; here is post.ejs &lt;/p&gt;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- index.ejs --&gt;</span><br><span class="line">&lt;p&gt;here is index.ejs&lt;/p&gt;</span><br></pre></td></tr></table></figure>
-<p>理论上只要刷新一下页面你的修改可以实时显示，不必反复<code>hexo g</code>，<s>除非你的版本过低</s>。</p>
+<p>理论上只要刷新一下页面你的修改可以实时显示，不必反复<code>hexo g</code>，<del>除非你的版本过低</del>。</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620172042025.png" alt="image-20250620172042025"></p>
 <p>那么非常好，主页显示了layout.ejs的内容。</p>
-<p>我们再看一下那篇hello world里面有什么。别忘了我们可以直接通过public的路径得出那篇文章的url，<s>浏览器会把斜杠反过来的，放心复制粘贴</s>。</p>
+<p>我们再看一下那篇hello world里面有什么。别忘了我们可以直接通过public的路径得出那篇文章的url，<del>浏览器会把斜杠反过来的，放心复制粘贴</del>。</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620172306122.png" alt="image-20250620172306122"></p>
 <p>还是只，并且也显示了layout.ejs 的内容。</p>
 <p>至此，我们可以得出layout.ejs是一个大的框架，某页面的形成过程都是把其html代码嵌入到layout.ejs中并展示。</p>
@@ -190,31 +176,26 @@
 <p>右键，选检查，你可以看到如下代码</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620173318757.png" alt="image-20250620173318757"></p>
 <p>我们可以看到hexo会把实际html代码直接插入到<code>&lt;%- body %&gt;</code>的位置</p>
-<h4 id="index-ejs">index.ejs</h4>
-<p>由此可知，index.ejs实际上就是首页的html代码</p>
-<h4 id="post-ejs">post.ejs</h4>
-<p>同理，⑨在那篇文章的路径可以访问到 post.ejs 嵌入到 layout.ejs 的html代码</p>
+<h4 id="index-ejs"><a href="#index-ejs" class="headerlink" title="index.ejs"></a>index.ejs</h4><p>由此可知，index.ejs实际上就是首页的html代码</p>
+<h4 id="post-ejs"><a href="#post-ejs" class="headerlink" title="post.ejs"></a>post.ejs</h4><p>同理，⑨在那篇文章的路径可以访问到 post.ejs 嵌入到 layout.ejs 的html代码</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620173451530.png" alt="image-20250620173451530"></p>
 <p>post.ejs 也就是实际上文章展示的html代码</p>
 <p>我们再给post.ejs的代码改一下</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- post.ejs --&gt;</span><br><span class="line">&lt;p&gt; here is post.ejs &lt;/p&gt;</span><br><span class="line">&lt;%- page.content %&gt;</span><br></pre></td></tr></table></figure>
 <p>你就能看到这样的页面</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620173934940.png" alt="image-20250620173934940"></p>
-<h4 id="其实并不一定要是post-ejs-，但约定">其实并不一定要是post.ejs ，但约定</h4>
-<p>找到那篇 hello-world，路径应该是根目录下 <code>source\_posts</code>里</p>
+<h4 id="其实并不一定要是post-ejs-，但约定"><a href="#其实并不一定要是post-ejs-，但约定" class="headerlink" title="其实并不一定要是post.ejs ，但约定"></a>其实并不一定要是post.ejs ，但约定</h4><p>找到那篇 hello-world，路径应该是根目录下 <code>source\_posts</code>里</p>
 <p>加入一行<code>layout: index</code> 如下图</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620174306703.png" alt="image-20250620174306703"></p>
 <p>保存文件，刷新页面，你将会看到如下图的变化。</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620174344195.png" alt="image-20250620174344195"></p>
 <p>你刚刚做的，是修改了文章的yaml配置，把他的默认layout从post改成了index，也就是让hello-world这篇文章的 <code>body</code> 从  <code>post.ejs</code> 变成了 <code>index.ejs</code> 。为什么默认会是post，此事在根目录配置文件_config.yml中亦有记载。</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620174649048.png" alt="image-20250620174649048"></p>
-<p>好了，<s>别忘了</s>把layout: index 那一行删了，我们后续还是在post.ejs里写</p>
-<h3 id="变量和ejs语法">变量和ejs语法</h3>
-<p>如你所见，body 就是一个变量，他会根据你当前的页面载入不同的代码，如果你当前是在主页，他就返回index.ejs。这部分你可以参照官方档案的<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/templates">模版</a>进行理解，body变量是一个必要的组件。</p>
+<p>好了，<del>别忘了</del>把layout: index 那一行删了，我们后续还是在post.ejs里写</p>
+<h3 id="变量和ejs语法"><a href="#变量和ejs语法" class="headerlink" title="变量和ejs语法"></a>变量和ejs语法</h3><p>如你所见，body 就是一个变量，他会根据你当前的页面载入不同的代码，如果你当前是在主页，他就返回index.ejs。这部分你可以参照官方档案的<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/templates">模版</a>进行理解，body变量是一个必要的组件。</p>
 <p>那么 <code>&lt;%- %&gt;</code>又代表了什么呢？</p>
 <p>就⑨来说，⑨总共只用到了3种ejs的百分尖括号语法，我们可以举一些实例</p>
-<h4 id><code>&lt;% %&gt;</code></h4>
-<p>内容可以写js代码，但不在html中显示</p>
+<h4 id="lt-gt"><a href="#lt-gt" class="headerlink" title="&lt;% %&gt;"></a><code>&lt;% %&gt;</code></h4><p>内容可以写js代码，但不在html中显示</p>
 <p>我们可以在 layout.ejs 中写</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- layout.ejs  --&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;here is layout.ejs&lt;/p&gt;</span><br><span class="line">    &lt;% if(1+1!=3)&#123; %&gt;</span><br><span class="line">        &lt;p&gt;wow, I&#x27;m not 9&lt;/p&gt;</span><br><span class="line">    &lt;% &#125; %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p>于是我们得到了这个结果，我们可以看到，这个if语句并没有显示在页面上</p>
@@ -223,47 +204,39 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- layout.ejs  --&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;here is layout.ejs&lt;/p&gt;</span><br><span class="line">    &lt;% if(1+1==3)&#123; %&gt;</span><br><span class="line">        &lt;p&gt;wow, I&#x27;m 9&lt;/p&gt;</span><br><span class="line">    &lt;% &#125; %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p>则if逻辑成功，所以我们能在html中嵌入一些逻辑和循环</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620180054090.png" alt="image-20250620180054090"></p>
-<h4 id="-2"><code>&lt;%- %&gt;</code></h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- layout.ejs  --&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;here is layout.ejs&lt;/p&gt;</span><br><span class="line">    &lt;%- &quot;&lt;h1&gt; haha, qilunuo is baka!. &lt;h1&gt;&quot; %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="lt-gt-1"><a href="#lt-gt-1" class="headerlink" title="&lt;%- %&gt;"></a><code>&lt;%- %&gt;</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- layout.ejs  --&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;here is layout.ejs&lt;/p&gt;</span><br><span class="line">    &lt;%- &quot;&lt;h1&gt; haha, qilunuo is baka!. &lt;h1&gt;&quot; %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620180441353.png" alt="image-20250620180441353"></p>
-<h4 id="-3"><code>&lt;%= %&gt;</code></h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- layout.ejs  --&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;here is layout.ejs&lt;/p&gt;</span><br><span class="line">    &lt;%= &quot;&lt;h1&gt; haha, qilunuo is baka!. &lt;h1&gt;&quot; %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="lt-gt-2"><a href="#lt-gt-2" class="headerlink" title="&lt;%= %&gt;"></a><code>&lt;%= %&gt;</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- layout.ejs  --&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;here is layout.ejs&lt;/p&gt;</span><br><span class="line">    &lt;%= &quot;&lt;h1&gt; haha, qilunuo is baka!. &lt;h1&gt;&quot; %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620180545561.png" alt="image-20250620180545561"></p>
-<p><code>&lt;%= %&gt;</code>与 <code>&lt;%- %&gt;</code>的不同就在于是否转义，以上是一个非常直接的例子，<s>只可意会</s>。这也解释了我们为什么我们要写 <code>&lt;%- body% &gt;</code> 而不是 <code>&lt;%= body %&gt;</code>不然你会看到一坨东西。</p>
+<p><code>&lt;%= %&gt;</code>与 <code>&lt;%- %&gt;</code>的不同就在于是否转义，以上是一个非常直接的例子，<del>只可意会</del>。这也解释了我们为什么我们要写 <code>&lt;%- body% &gt;</code> 而不是 <code>&lt;%= body %&gt;</code>不然你会看到一坨东西。</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620181341990.png" alt="image-20250620181341990"></p>
-<h3 id="常用的技巧和变量">常用的技巧和变量</h3>
-<h4 id="console-log">console.log()</h4>
-<p>如果你在ejs语法中写了这个，输出理论上会出现在你的git控制台上。</p>
+<h3 id="常用的技巧和变量"><a href="#常用的技巧和变量" class="headerlink" title="常用的技巧和变量"></a>常用的技巧和变量</h3><h4 id="console-log"><a href="#console-log" class="headerlink" title="console.log()"></a>console.log()</h4><p>如果你在ejs语法中写了这个，输出理论上会出现在你的git控制台上。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- layout.ejs  --&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;here is layout.ejs&lt;/p&gt;</span><br><span class="line">    &lt;%= body %&gt;</span><br><span class="line">    &lt;% console.log(&#x27;where is 9?&#x27;); %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p>刷新一下页面，⑨点了三下刷新</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620182136630.png" alt="image-20250620182136630"></p>
 <p>譬如说我对site这个变量不是很理解，⑨就可以这样写</p>
-<p><code>  &lt;% console.log(site); %&gt;</code></p>
+<p><code>&lt;% console.log(site); %&gt;</code></p>
 <p>我们就可以看到site这个变量有5个子变量。</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620182312856.png" alt="image-20250620182312856"></p>
 <p>如果我们还想继续看下去：</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620182643933.png" alt="image-20250620182643933"></p>
 <p>所有这些变量都是可以调用的</p>
-<h4 id="forEach">forEach</h4>
-<p>是一个很方便的循环，以下代码填入的<code>function(post)</code>代表了让post去遍历上数第二张图的data包含的每一个_Document，于是我们不必去手动拆解例如site或page这样的大变量。但我们仍需要知道这样的post包含了什么，要么去输出看一眼， <s>要么直接问deepseek</s></p>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><p>是一个很方便的循环，以下代码填入的<code>function(post)</code>代表了让post去遍历上数第二张图的data包含的每一个_Document，于是我们不必去手动拆解例如site或page这样的大变量。但我们仍需要知道这样的post包含了什么，要么去输出看一眼， <del>要么直接问deepseek</del></p>
 <p>我们改一下代码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- layout.ejs  --&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;here is layout.ejs&lt;/p&gt;</span><br><span class="line">    &lt;%- body %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- index.ejs --&gt;</span><br><span class="line">&lt;p&gt;here is index.ejs&lt;/p&gt;</span><br><span class="line">&lt;% console.log(page.posts); %&gt;</span><br><span class="line">&lt;% page.posts.forEach(function(post)&#123; %&gt;</span><br><span class="line">    &lt;a href=&quot;&lt;%= url_for(post.path) %&gt;&quot;&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;%= post.title%&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/a&gt;</span><br><span class="line">    &lt;span&gt; &lt;%= moment(post.date).format(&quot;YYYY-MM-DD&quot;) %&gt; &lt;/span&gt;</span><br><span class="line">&lt;% &#125;) %&gt;</span><br></pre></td></tr></table></figure>
 <p>刷新首页，效果如下图，这里我输出了page.posts</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620183713884.png" alt="image-20250620183713884"></p>
 <p>我们实际上遍历了每个data下的变量，如果有多篇博客，我们的首页就会生成多篇内容，博客搭建的逻辑已经显现。</p>
-<p>很多时候，你并不知道子变量会是什么，那么你就需要console出来自己找了，<s>或者问deepseek</s>。</p>
-<h4 id="常用变量">常用变量</h4>
-<p>site 最全的变量，什么都有，在归档和分类的时候可能会用到</p>
+<p>很多时候，你并不知道子变量会是什么，那么你就需要console出来自己找了，<del>或者问deepseek</del>。</p>
+<h4 id="常用变量"><a href="#常用变量" class="headerlink" title="常用变量"></a>常用变量</h4><p>site 最全的变量，什么都有，在归档和分类的时候可能会用到</p>
 <p>page 存有当前页面的内容，一般来说index页面和post页面的布置只需要用到page变量</p>
 <p>page.content 文章实际的内容，必须放入post.ejs。另外需要注意的是，此变量内容为html代码，不要转义</p>
 <p>theme 这个变量实际上就是从你主题内的_config.yml的文件解析出来的</p>
 <p>body 这个变量一般是必须放在layout.ejs 中的，用于插入对应的post.ejs, index.ejs archive.ejs…</p>
-<h4 id="常用函数">常用函数</h4>
-<p>url_for() 能补齐相对路径，例如 url_for(page.path)，</p>
+<h4 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h4><p>url_for() 能补齐相对路径，例如 url_for(page.path)，</p>
 <p>eachFor 上面介绍过了，能极大增加代码可读性，推荐。</p>
-<h3 id="yaml格式">yaml格式</h3>
-<p>post的开头，根目录和主题目录下的_config.yml都是yaml格式的数据</p>
+<h3 id="yaml格式"><a href="#yaml格式" class="headerlink" title="yaml格式"></a>yaml格式</h3><p>post的开头，根目录和主题目录下的_config.yml都是yaml格式的数据</p>
 <p>其中post开头的数据会被解析到page这个变量中</p>
 <p>拿hello_world举例子，加入一个变量和一个数组(⑨目前只用到这两个)</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hello</span> <span class="string">World</span></span><br><span class="line"><span class="attr">bakaindex:</span> <span class="number">9999999</span></span><br><span class="line"><span class="attr">bakalist:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">9</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">99</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">999</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
@@ -273,13 +246,12 @@
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620221757057.png" alt="image-20250620221757057"></p>
 <p>你得到了一个变量，和一个数组，但注意，只有在 post.ejs的page变量才解析文章的数据，如果你在其他地方想获得这些数据，⑨估计你只能去site里面找了。</p>
 <p>具体的语法可以去网上搜，不赘述。</p>
-<p>themes里的config.yml会被解析到 theme变量中，我们可以往主题目录以下\_config.yml写入以下代码</p>
+<p>themes里的config.yml会被解析到 theme变量中，我们可以往主题目录以下_config.yml写入以下代码</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># _config.yml</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">&quot;This is my blog&quot;</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">me</span></span><br></pre></td></tr></table></figure>
 <p>然后我们跑回ejs加两行代码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;% console.log(theme.title) %&gt;</span><br><span class="line">&lt;% console.log(theme.author) %&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620222650468.png" alt="image-20250620222650468"></p>
-<h3 id="具体架构">具体架构</h3>
-<p>为了方便调整，我们可以新开一个文章</p>
+<h3 id="具体架构"><a href="#具体架构" class="headerlink" title="具体架构"></a>具体架构</h3><p>为了方便调整，我们可以新开一个文章</p>
 <p>在根目录git bash 输入</p>
 <p><code>hexo new name</code></p>
 <p>name你可以自己改，⑨这里填了tmp</p>
@@ -291,13 +263,11 @@
 <p>在根目录 <code>hexo s</code></p>
 <p>现在首页应该是这样的</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620224205242.png" alt="image-20250620224205242"></p>
-<h4 id="举个例子：加入导航栏">举个例子：加入导航栏</h4>
-<p>后面就应该是各位大佬发挥想象力的地方了，这里⑨拿导航栏举个例子。如果我们想设计一个导航栏，那么他应该出现在任何页面，换言之，他应该写在layout.ejs中，所以我们打开layout.ejs</p>
+<h4 id="举个例子：加入导航栏"><a href="#举个例子：加入导航栏" class="headerlink" title="举个例子：加入导航栏"></a>举个例子：加入导航栏</h4><p>后面就应该是各位大佬发挥想象力的地方了，这里⑨拿导航栏举个例子。如果我们想设计一个导航栏，那么他应该出现在任何页面，换言之，他应该写在layout.ejs中，所以我们打开layout.ejs</p>
 <p>注意到我们在主题的配置文件中列好了menu，于是我们可以直接拿出来用</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- layout.ejs  --&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;&lt;%= theme.language %&gt;&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;here is layout.ejs&lt;/p&gt;</span><br><span class="line">    &lt;% for(i in theme.menu)&#123;%&gt;</span><br><span class="line">        &lt;a href=&quot;&lt;%=theme.menu[i]%&gt;&quot;&gt; </span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;%= i %&gt;  </span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/a&gt;</span><br><span class="line">    &lt;%&#125;%&gt;</span><br><span class="line">    &lt;%- body %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620230811002.png" alt="image-20250620230811002"></p>
-<h4 id="加入新页面">加入新页面</h4>
-<p>如果你点击了archives，categories或archive，你会发现这些页面目前还不存在</p>
+<h4 id="加入新页面"><a href="#加入新页面" class="headerlink" title="加入新页面"></a>加入新页面</h4><p>如果你点击了archives，categories或archive，你会发现这些页面目前还不存在</p>
 <p>这个时候我们需要回到根目录</p>
 <p>我们拿archives举例</p>
 <p><code>hexo new page archives</code></p>
@@ -307,14 +277,13 @@
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620231343490.png" alt="image-20250620231343490"></p>
 <p>但是你会发现这个归档页面嵌入了index.ejs的代码</p>
 <p>这是因为你没有为这个新页面设置layout，他默认对应到了index.ejs的代码</p>
-<p>回到<code>根目录\source\archives</code>，<a target="_blank" rel="noopener" href="http://xn--index-hr2j95q.md">打开index.md</a>，加入layout</p>
+<p>回到<code>根目录\source\archives</code>，打开index.md，加入layout</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">archives</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2025-06-20 23:10:53</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">archive</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br></pre></td></tr></table></figure>
-<p>在主题目录的layout文件夹中新建archive.ejs，此文件名需与layout填入的名称对应，但我们的路径是依据new page指令填入的archives而不是archive，请注意。</p>
+<p> 在主题目录的layout文件夹中新建archive.ejs，此文件名需与layout填入的名称对应，但我们的路径是依据new page指令填入的archives而不是archive，请注意。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- archive.ejs --&gt;</span><br><span class="line">&lt;p&gt; this is archives&lt;/p&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250620231753227.png" alt="image-20250620231753227"></p>
 <p>我们可以看到新页面就配置好了，其余页面也可以仿照</p>
-<h4 id="categories及一些预设的变量对应的页面是特殊的">categories及一些预设的变量对应的页面是特殊的</h4>
-<p>我们可以尝试在hello-world.md里面加入分类信息</p>
+<h4 id="categories及一些预设的变量对应的页面是特殊的"><a href="#categories及一些预设的变量对应的页面是特殊的" class="headerlink" title="categories及一些预设的变量对应的页面是特殊的"></a>categories及一些预设的变量对应的页面是特殊的</h4><p>我们可以尝试在hello-world.md里面加入分类信息</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hello</span> <span class="string">World</span></span><br><span class="line"><span class="attr">bakaindex:</span> <span class="number">9999999</span></span><br><span class="line"><span class="attr">bakalist:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">9</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">99</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">999</span></span><br><span class="line"><span class="attr">categories:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;make a theme&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;first step&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;second step&quot;</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
 <p>我们把分别把page.bakalist和page.categories输出一下进行对比</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;% console.log(page.categories) %&gt;</span><br><span class="line">&lt;% console.log(page.bakalist) %&gt;</span><br></pre></td></tr></table></figure>
@@ -333,23 +302,19 @@
 <p>这个时候我们就可以对分类页面产生一些思路：</p>
 <p>⑨的灵感是这样的，我们单独开设一个categories页面，让他的layout也变成category.ejs即可。如果我们想做一些差分，比如让一个总页面和子页面产生区别，我们也可以把新开页面的layout改为其他的名称，譬如说categories.ejs而不是category。</p>
 <p>看到根目录下的配置文件有tag_dir, archive_dir, category_dir，也就可以推断这三个页面有差不多的性质，如果我们在文件的配置中为这几个变量加入路径，理论上他们都会生成路径，我么也可以为这些页面做差分。</p>
-<h3 id="关联-js-css-ejs和-scripts">关联 js css ejs和 scripts</h3>
-<p>partial与include基本一致，所以不说了。</p>
-<h4 id="关联其他代码">关联其他代码</h4>
-<p>hexo提供了非常好的引入语法</p>
+<h3 id="关联-js-css-ejs和-scripts"><a href="#关联-js-css-ejs和-scripts" class="headerlink" title="关联 js css ejs和 scripts"></a>关联 js css ejs和 scripts</h3><p>partial与include基本一致，所以不说了。</p>
+<h4 id="关联其他代码"><a href="#关联其他代码" class="headerlink" title="关联其他代码"></a>关联其他代码</h4><p>hexo提供了非常好的引入语法</p>
 <p>如果我们想把css通过外部样式表的方法加进来，那么只要写</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;% css(&#x27;css\name&#x27;) %&gt;</span><br></pre></td></tr></table></figure>
 <p>同理还有 js 和 ejs 的引入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;% js(&#x27;js\name&#x27;) %&gt;</span><br><span class="line">&lt;% include(&#x27;name.ejs&#x27;) %&gt;</span><br></pre></td></tr></table></figure>
 <p>关于路径，⑨的理解是，js和css代码的引入很可能发生在非常后面的阶段，因此路径以public文件夹为根目录的，而include则是发生在很前面的阶段，是以当前文件夹为根目录的。</p>
 <p>参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yyhh/p/11058985.html">大佬的文章</a>，我们可以把页面的组成拆到不同的ejs中简化代码密度。</p>
-<h4 id="scripts">scripts</h4>
-<p>我们可以用scripts写一些函数，这些函数可以被layout文件夹中的ejs们直接调用，相当于你可以写和url_for同级别的函数。</p>
+<h4 id="scripts"><a href="#scripts" class="headerlink" title="scripts"></a>scripts</h4><p>我们可以用scripts写一些函数，这些函数可以被layout文件夹中的ejs们直接调用，相当于你可以写和url_for同级别的函数。</p>
 <p>我们需要在主题文件夹下的scripts中建立js文件，先随便建一个文件test.js</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">│  _config.yml</span><br><span class="line">│</span><br><span class="line">├─layout</span><br><span class="line">│      archive.ejs</span><br><span class="line">│      categories.ejs</span><br><span class="line">│      category.ejs</span><br><span class="line">│      index.ejs</span><br><span class="line">│      layout.ejs</span><br><span class="line">│      post.ejs</span><br><span class="line">│</span><br><span class="line">├─scripts</span><br><span class="line">│      test.js</span><br><span class="line">│</span><br><span class="line">└─source</span><br><span class="line">    ├─css</span><br><span class="line">    ├─img</span><br><span class="line">    └─js</span><br></pre></td></tr></table></figure>
 <p>一般来说，我们可以写两种类型的函数，helper和filter</p>
-<h4 id="helper">helper</h4>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> x = <span class="string">&quot;bakabakabaka&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">dividedByZero</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在hexo的helper里插入一个自己写的helper，名字叫thisisaexample</span></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">helper</span>.<span class="title function_">register</span>(<span class="string">&#x27;thisisaexample&#x27;</span>,<span class="keyword">function</span>(<span class="params">x</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(x==<span class="number">0</span>) <span class="keyword">return</span> <span class="title function_">dividedByZero</span>();</span><br><span class="line">    <span class="keyword">return</span> x/x*<span class="number">9</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="helper"><a href="#helper" class="headerlink" title="helper"></a>helper</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> x = <span class="string">&quot;bakabakabaka&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">dividedByZero</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在hexo的helper里插入一个自己写的helper，名字叫thisisaexample</span></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">helper</span>.<span class="title function_">register</span>(<span class="string">&#x27;thisisaexample&#x27;</span>,<span class="keyword">function</span>(<span class="params">x</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(x==<span class="number">0</span>) <span class="keyword">return</span> <span class="title function_">dividedByZero</span>();</span><br><span class="line">    <span class="keyword">return</span> x/x*<span class="number">9</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>在某个ejs里调用一下</p>
 <p><code>&lt;% console.log(thisisaexample(-1)) %&gt;</code></p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250621165207516.png" alt="image-20250621165207516"></p>
@@ -359,73 +324,56 @@
 <p>⑨的理解是：scripts文件里的代码会在hexo启动server的非常早期进入那个数据缓存，并不是动态更新的。如果你不删除掉缓存或重启server，这段代码相当于没有更改过。</p>
 <p>这个问题相当玄学，有的时候需要<code>hexo clean</code>之后才能解决，需要各位大佬自己调试</p>
 <p>至此，我们注意到helper的自由度非常之高，我们甚至可以通过helper返回html代码片段，具体实例可以参考下文bw主题对于categories页面的搭建。</p>
-<h4 id="filter">filter</h4>
-<p>filter的作用是提供一个渠道让你修改hexo的变量。</p>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h4><p>filter的作用是提供一个渠道让你修改hexo的变量。</p>
 <p>具体语法和helper的加入是类似的。</p>
 <p>⑨并没有实际写过filter函数，因为具体函数需要查官方文档，⑨觉得还是太难了。</p>
 <p>在搭建主题时，⑨向好朋友deepseek要了一份自动处理出所有二级标题的代码，在这里贴一下</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// by deepseek </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> cheerio = <span class="built_in">require</span>(<span class="string">&#x27;cheerio&#x27;</span>);</span><br><span class="line"></span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;after_post_render&#x27;</span>, <span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> $ = cheerio.<span class="title function_">load</span>(data.<span class="property">content</span>);</span><br><span class="line">    <span class="keyword">const</span> headings = $(<span class="string">&#x27;h2&#x27;</span>).<span class="title function_">map</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">text</span>: $(<span class="variable language_">this</span>).<span class="title function_">text</span>(),</span><br><span class="line">            <span class="attr">id</span>: $(<span class="variable language_">this</span>).<span class="title function_">attr</span>(<span class="string">&#x27;id&#x27;</span>)</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;).<span class="title function_">get</span>();</span><br><span class="line">    data.<span class="property">toc</span> = headings; <span class="comment">// 将标题数组存储在data.toc中，可以在模板中使用</span></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>这样的话，原本的toc就填入headings的内容了，我们在调用page.toc变量的时候其实际存储的就是所有二级标题的text和id了。</p>
-<h3 id="常见问题">常见问题</h3>
-<p>如果你写入了如下图的代码</p>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><p>如果你写入了如下图的代码</p>
 <p><img src="/2025/06/20/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98%E5%92%8C%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA/image-20250621160017165.png" alt="image-20250621160017165"></p>
 <p>请一定要确保这个变量是实际存在的，如果连page.categories都不存在，怎么去访问data呢？如果你的页面没有变化，检查一下控制器是否报错。</p>
-<h4 id="玄学问题">玄学问题</h4>
-<p>浏览器是否刷新了</p>
+<h4 id="玄学问题"><a href="#玄学问题" class="headerlink" title="玄学问题"></a>玄学问题</h4><p>浏览器是否刷新了</p>
 <p>文件是否保存了</p>
 <p>最后方案，三合一指令</p>
-<p><code>$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s </code></p>
-<h3 id="end">end</h3>
-<p>至此，大佬们已经掌握搭建主题的必要技巧了，剩下的部分就是设计和美化。</p>
+<p><code>$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code></p>
+<h3 id="end"><a href="#end" class="headerlink" title="end"></a>end</h3><p>至此，大佬们已经掌握搭建主题的必要技巧了，剩下的部分就是设计和美化。</p>
 <p>⑨在这里提供一个实例，就是⑨写的bw主题，如果你需要更详细的实现，可以参考下文bw主题的搭建。</p>
-<h2 id="bw-主题">bw 主题</h2>
-<h3 id="特色">特色</h3>
-<p>bw就是black and white的意思，<s>所以没有特色</s>，极简</p>
-<p><s>特色是某一页贴了一张好看的zun绘，疑似饺子醋</s></p>
-<h3 id="下载">下载</h3>
-<p>到hexo的根目录下git bash</p>
-<h4 id="装个插件-重要">装个插件(重要)</h4>
-<p>首先需要预装一个图片插件，这个插件能把图片放到正确的位置，如果你不装这个插件，hexo很可能会生成不了public文件夹(那些静态文件)导致进程卡死</p>
+<h2 id="bw-主题"><a href="#bw-主题" class="headerlink" title="bw 主题"></a>bw 主题</h2><h3 id="特色"><a href="#特色" class="headerlink" title="特色"></a>特色</h3><p>bw就是black and white的意思，<del>所以没有特色</del>，极简</p>
+<p><del>特色是某一页贴了一张好看的zun绘，疑似饺子醋</del></p>
+<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>到hexo的根目录下git bash</p>
+<h4 id="装个插件-重要"><a href="#装个插件-重要" class="headerlink" title="装个插件(重要)"></a>装个插件(重要)</h4><p>首先需要预装一个图片插件，这个插件能把图片放到正确的位置，如果你不装这个插件，hexo很可能会生成不了public文件夹(那些静态文件)导致进程卡死</p>
 <p><code>$ npm install https://github.com/CodeFalling/hexo-asset-image --save</code></p>
 <p>我们最好把渲染插件从默认的hexo-renderer-marked换成hexo-render-markdown-it，这样能避免渲染器和mathjax左右脑互搏。</p>
 <p>卸载默认渲染器</p>
 <p><code>$ npm uninstall hexo-renderer-marked</code></p>
 <p>装hexo-renderer-markdown-it</p>
 <p><code>$ npm install hexo-renderer-markdown-it</code></p>
-<h4 id="下载主题">下载主题</h4>
-<p>然后我们可以下载一下bw主题，<s>无毒</s></p>
+<h4 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h4><p>然后我们可以下载一下bw主题，<del>无毒</del></p>
 <p><code>git clone https://github.com/BWmagician/hexo-theme-bw.git themes/bw</code></p>
 <p>之后还需要创建一些页面，在下文的<strong>整体布局</strong>中提及</p>
-<h4 id="启用主题">启用主题</h4>
-<p>打开根目录下的_cogfig.yml文件</p>
+<h4 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h4><p>打开根目录下的_cogfig.yml文件</p>
 <p>找到theme变量，改为</p>
-<p><code>theme: bw </code></p>
+<p><code>theme: bw</code></p>
 <p>更改主题后需要<code>hexo clean</code>以清空缓存</p>
-<h3 id="能直接改哪些配置">能直接改哪些配置</h3>
-<p>请看主题文件夹下的配置文件<code>themes\bw\_config.yml</code>，文件中有详细的注释</p>
+<h3 id="能直接改哪些配置"><a href="#能直接改哪些配置" class="headerlink" title="能直接改哪些配置"></a>能直接改哪些配置</h3><p>请看主题文件夹下的配置文件<code>themes\bw\_config.yml</code>，文件中有详细的注释</p>
 <p>这个配置文件里面的参数都是能改的</p>
-<h4 id="详细调整">详细调整</h4>
-<p>如果对hexo的主题搭建不太熟悉，可以阅读这篇文章的第三个部分(关于主题的搭建)了解应该修改哪些文件以达到效果。</p>
+<h4 id="详细调整"><a href="#详细调整" class="headerlink" title="详细调整"></a>详细调整</h4><p>如果对hexo的主题搭建不太熟悉，可以阅读这篇文章的第三个部分(关于主题的搭建)了解应该修改哪些文件以达到效果。</p>
 <p>请参照<strong>整体布局</strong>对应到ejs代码。例如你想修改文章页面的布局，就进入post.ejs中查找对应的html代码，再对应到post.css中的具体属性进行修改。</p>
 <p>ejs和js代码内配有少量注释，可以放心食用(uuz.jpg</p>
-<h3 id="整体布局">整体布局</h3>
-<p>可以在浏览器内右键检查快速找到对应的元素或类</p>
-<h4 id="layout-ejs-框架">layout.ejs 框架</h4>
-<p>css配置在index.css</p>
+<h3 id="整体布局"><a href="#整体布局" class="headerlink" title="整体布局"></a>整体布局</h3><p>可以在浏览器内右键检查快速找到对应的元素或类</p>
+<h4 id="layout-ejs-框架"><a href="#layout-ejs-框架" class="headerlink" title="layout.ejs 框架"></a>layout.ejs 框架</h4><p>css配置在index.css</p>
 <p>所有页面都拥有<strong>导航栏</strong>(左)，<strong>页脚</strong>(底)，修改这两部分的css设置在main.css</p>
-<h4 id="index-ejs-首页">index.ejs 首页</h4>
-<p>css配置在index.css</p>
+<h4 id="index-ejs-首页"><a href="#index-ejs-首页" class="headerlink" title="index.ejs 首页"></a>index.ejs 首页</h4><p>css配置在index.css</p>
 <p>如果多余一页，则会显示<em>页码</em>，这部分代码在 <code>themes\bw\layout\_partialpagination.ejs</code> 修改</p>
 <p>页码会把当前页自动居中，具体做法是如果左右页码数量不够就强制填入一定量的空块。左右显示页码的数量可以在 <code>themes\bw\_config.yml</code> 中的 <code>pagination.number</code> 修改</p>
-<h4 id="post-ejs-文章页面">post.ejs 文章页面</h4>
-<p>css配置在post.css</p>
+<h4 id="post-ejs-文章页面"><a href="#post-ejs-文章页面" class="headerlink" title="post.ejs 文章页面"></a>post.ejs 文章页面</h4><p>css配置在post.css</p>
 <p>文章内的链接，即a标签做了差分，会有一个框，在 post.css 的  <code>postContent a&#123;&#125;</code> 中修改</p>
 <p>数学公式的渲染使用了mathjax的cdn，具体请参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wangxin37/p/8185688.html">https://www.cnblogs.com/wangxin37/p/8185688.html</a></p>
 <p>代码块的字体是<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/65362086">Fira Code </a>，如果你要给代码块开启列号，在hexo根目录下的_config.yml中找到line_number，改为true</p>
 <p>对于各级标题和文字的美化同样在 post.css</p>
 <p>对于二级标题做了一个跟随文章进度右侧边栏条，这一部分代码在<code>themes\bw\source\js\aside.js</code>中，你可以在其中的myStyle变量修改跟随显示。</p>
-<h4 id="categories-ejs-分类-category-ejs-分类子页">categories.ejs 分类, category.ejs 分类子页</h4>
-<p>需要手动添加categories页面。</p>
+<h4 id="categories-ejs-分类-category-ejs-分类子页"><a href="#categories-ejs-分类-category-ejs-分类子页" class="headerlink" title="categories.ejs 分类, category.ejs 分类子页"></a>categories.ejs 分类, category.ejs 分类子页</h4><p>需要手动添加categories页面。</p>
 <p>回到根目录，git bash，</p>
 <p><code>$ hexo new page categories</code></p>
 <p>在<code>source\categories\index.md</code>中，加入layout这一行，表示对应到categories.ejs文件</p>
@@ -435,42 +383,32 @@
 <p>如果你从文章页面的具体分类链接进入分类子页，该文章的路径会自动打开折叠。</p>
 <p>由于hexo自带的categories变量写的比较捞。那么只能自己写一个helper函数，在<code>themes\bw\scripts\categries_folder.js</code>中。考虑到html的折叠是details标签和summary标签的嵌套，可以先按照每篇category的路径把树建出来，然后在扫这颗树的时候，对于每一个节点用details标签夹住它的所有子树。对于分类子页，我们只要把某条路径的details标签改为<code>&lt;details open&gt;</code>即可。具体见代码注释。</p>
 <p>这样做的好处是，可以在生成的html代码写入特定的类，然后我们只要在css里美化这些类即可。</p>
-<h4 id="about-关于">about 关于</h4>
-<p>同样需要手动添加页面</p>
+<h4 id="about-关于"><a href="#about-关于" class="headerlink" title="about 关于"></a>about 关于</h4><p>同样需要手动添加页面</p>
 <p>需要手动添加categories页面。</p>
 <p>回到根目录，git bash，</p>
 <p><code>$ hexo new page about</code></p>
-<p>这次什么都不用改，因为layout不填默认就是关联到 post.ejs。此作者是⑨，并没有对about做出什么美化，<s>你找不到about.ejs的</s> ，我们就把关于页面当作博客写好了。</p>
+<p>这次什么都不用改，因为layout不填默认就是关联到 post.ejs。此作者是⑨，并没有对about做出什么美化，<del>你找不到about.ejs的</del> ，我们就把关于页面当作博客写好了。</p>
 <p>你可以直接往<code>source\about\index.md</code>写入东西，会显示在对应页面上。</p>
-<h4 id="archive-ejs-归档">archive.ejs 归档</h4>
-<p>css配置在 archive.css</p>
+<h4 id="archive-ejs-归档"><a href="#archive-ejs-归档" class="headerlink" title="archive.ejs 归档"></a>archive.ejs 归档</h4><p>css配置在 archive.css</p>
 <p>根据日期降序排列（即新的靠上），最小区分为月。</p>
-<h4 id="tags">tags</h4>
-<p>新建文件夹.jpg</p>
+<h4 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h4><p>新建文件夹.jpg</p>
 <p>不打算写这个页面了，如果你想添加，可以参照本篇第三部分(主题的搭建)中关于新开页面部分的内容。</p>
-<h3 id="文章的yaml配置">文章的yaml配置</h3>
-<p>每篇文章都有一个</p>
+<h3 id="文章的yaml配置"><a href="#文章的yaml配置" class="headerlink" title="文章的yaml配置"></a>文章的yaml配置</h3><p>每篇文章都有一个</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="comment">#这里面是yaml语法的配置,你可以填入很多参数</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
 <p>可以添加分类的路径，理论上你可以加无限层，但目前一篇文章只能有一种分类(写于2025/6/21)，例如</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">categories:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">2</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">3</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">4</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>这表示一条 <code>1-2-3-4</code> 的折叠。为了显示这些关系，需要先开一个categories的页面(参照上文 <code> categories.ejs 分类, category.ejs 分类子页</code>) 。</p>
+<p>这表示一条 <code>1-2-3-4</code> 的折叠。为了显示这些关系，需要先开一个categories的页面(参照上文 <code>categories.ejs 分类, category.ejs 分类子页</code>) 。</p>
 <p><code>author: name</code> , 默认为主题配置文件的作者，如果填入，此参数优先级更高。</p>
 <p><code>fixed: true/false</code>, 默认为false，如果填入true则在首页上右上角显示小三角，对于首页排版并没有实际影响</p>
 <p><code>sticky: number</code>, number越大在首页展示的优先级就越高，number大于1自动加上小三角</p>
-<h3 id="可能存在的bug">可能存在的bug</h3>
-<h4 id="二级标题的地元突破">二级标题的地元突破</h4>
-<p>如果你写入过多的二级标题，其100%会突破屏幕。</p>
-<p>为什么会出现这个bug呢，因为⑨太<s>懒</s>苯了目前还没有想好怎么处理(此话写于2025/6/21，希望以后能修)。</p>
-<h4 id="魔理沙的判定点怎么跑到屏幕外面了？">魔理沙的判定点怎么跑到屏幕外面了？</h4>
-<p>如果你缩放了浏览器，那两个魔理沙的图可能会显示的很奇怪，有可能被卡到屏幕外，这是因为⑨在贴这两张图的时候就是根据屏幕比例设置的位置，<s>比较偷懒了</s>。</p>
-<h4 id="如果还有其他bug，">如果还有其他bug，</h4>
-<p><s>当他不存在吧，哈哈，筋疲力尽.jpg</s></p>
+<h3 id="可能存在的bug"><a href="#可能存在的bug" class="headerlink" title="可能存在的bug"></a>可能存在的bug</h3><h4 id="二级标题的地元突破"><a href="#二级标题的地元突破" class="headerlink" title="二级标题的地元突破"></a>二级标题的地元突破</h4><p>如果你写入过多的二级标题，其100%会突破屏幕。</p>
+<p>为什么会出现这个bug呢，因为⑨太<del>懒</del>苯了目前还没有想好怎么处理(此话写于2025/6/21，希望以后能修)。</p>
+<h4 id="魔理沙的判定点怎么跑到屏幕外面了？"><a href="#魔理沙的判定点怎么跑到屏幕外面了？" class="headerlink" title="魔理沙的判定点怎么跑到屏幕外面了？"></a>魔理沙的判定点怎么跑到屏幕外面了？</h4><p>如果你缩放了浏览器，那两个魔理沙的图可能会显示的很奇怪，有可能被卡到屏幕外，这是因为⑨在贴这两张图的时候就是根据屏幕比例设置的位置，<del>比较偷懒了</del>。</p>
+<h4 id="如果还有其他bug，"><a href="#如果还有其他bug，" class="headerlink" title="如果还有其他bug，"></a>如果还有其他bug，</h4><p><del>当他不存在吧，哈哈，筋疲力尽.jpg</del></p>
 <p>邮箱地址在<code>关于</code>里。</p>
-<h4 id="输错路径之后为什么没有提示页面啊">输错路径之后为什么没有提示页面啊</h4>
-<p><s>当然是还没写啊</s></p>
+<h4 id="输错路径之后为什么没有提示页面啊"><a href="#输错路径之后为什么没有提示页面啊" class="headerlink" title="输错路径之后为什么没有提示页面啊"></a>输错路径之后为什么没有提示页面啊</h4><p><del>当然是还没写啊</del></p>
 <p>其实光靠鼠标点不到错误路径的，</p>
-<h3 id="展望未来">展望未来</h3>
-<p>应该会做一个搜索功能吧，(写于2025/6/21)</p>
+<h3 id="展望未来"><a href="#展望未来" class="headerlink" title="展望未来"></a>展望未来</h3><p>应该会做一个搜索功能吧，(写于2025/6/21)</p>
 <p>应该会做一个404 not fuond吧，(2025/6/21)</p>
 <p>应该会做一个tags页面吧，(2025/6/31)</p>
 

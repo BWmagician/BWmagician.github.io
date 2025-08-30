@@ -99,54 +99,45 @@
             
         </div>
     </postHeader>
-    <h4 id="裴蜀定理">裴蜀定理</h4>
-<p>$ax+by=c\ 有整数解\Leftrightarrow gcd(a,b)|c$</p>
+    <h4 id="裴蜀定理"><a href="#裴蜀定理" class="headerlink" title="裴蜀定理"></a>裴蜀定理</h4><p>$ax+by=c\ 有整数解\Leftrightarrow gcd(a,b)|c$</p>
 <p>充分性证明是比较显然的：</p>
 <p>$gcd(a,b)|ax,gcd(a,b)|by\Longrightarrow gcd(a,b)|c$</p>
 <p>根据网络上最广泛流传的一种巧妙解法，必要性证明如下：</p>
 <p>设$ax+by$的最小<strong>正整数</strong>线性表示为 $s$ ，这句话等价于$|ax+by|\geq s或ax+by=0$</p>
 <p>（这里不必担心$a$,$b$是负数，因为他们的负号可以提到$x$和$y$中</p>
-<p>假设 $a \equiv r\  (mod\ s)$, 写开就是$a=\lfloor \frac{a}{s} \rfloor*s+r\Leftrightarrow r= a(1-\lfloor \frac{a}{s} \rfloor x)+b(-\lfloor \frac{a}{s} \rfloor y)$</p>
+<p>假设 $a \equiv r\  (mod\ s)$, 写开就是$a=\lfloor \frac{a}{s} \rfloor*s+r\Leftrightarrow r= a(1-\lfloor \frac{a}{s} \rfloor x)+b(-\lfloor \frac{a}{s} \rfloor y)$ </p>
 <p>那么我们可以发现$r$也是$a$和$b$的线性表示，由于$a \equiv r\  (mod\ s)$，$r&lt;s$， $r$只能为$0$</p>
 <p>至此推出 $s|a$</p>
 <p>对于$b$ 同理,  有  $s|b$</p>
 <p>①由 $s|a,s|b$推出$s|gcd(a,b)$</p>
 <p>②同理于充分性证明，$gcd(a,b)|(ax+by)\Leftrightarrow gcd(a,b)|s$</p>
 <p>于是有 $s=gcd(a,b)$，即$gcd(a,b)$为$ax+by$的最小线性表示</p>
-<p>那么想要求得整数解$c$必须为$gcd(a,b)$倍数，否则$ax+by=c%gcd(a,b)$这个部分将无法被表示</p>
-<h4 id="扩展欧几里得-exgcd">扩展欧几里得 exgcd</h4>
-<p>当我们知道裴蜀定理之后，我们就可以尝试解出一个二元一次方程的一组解</p>
-<p>欲求 $ax+by=c \ , (a\geq b)$的一组解。我们应该先解出  $ax+by=gcd(a,b)$ 这个方程的一组解，根据裴蜀定理的必要性证明，我们可以知道后者的方程组是必然有解的，如果前者的方程有解，则前方程组的解$x_1,y_1$必然可以表示为后方程组解$x_0,y_0$的$\frac{c}{gcd(a,b)}$倍，即$x1=\frac{c}{gcd(a,b)}*x_0,y1=\frac{c}{gcd(a,b)}*y_0$。</p>
-<p>直接看$ax+by=gcd(a,b)$ … ① 这个方程我们可能无从下手</p>
-<p>列出$bx+(a%b)y=gcd(b,a%b)$ … ②，根据辗转相除法，我们知道$gcd(a,b)=gcd(b,a%b)$</p>
+<p>那么想要求得整数解$c$必须为$gcd(a,b)$倍数，否则$ax+by=c\%gcd(a,b)$这个部分将无法被表示</p>
+<h4 id="扩展欧几里得-exgcd"><a href="#扩展欧几里得-exgcd" class="headerlink" title="扩展欧几里得 exgcd"></a>扩展欧几里得 exgcd</h4><p>当我们知道裴蜀定理之后，我们就可以尝试解出一个二元一次方程的一组解</p>
+<p>欲求 $ax+by=c \ , (a\geq b)$的一组解。我们应该先解出  $ax+by=gcd(a,b)$ 这个方程的一组解，根据裴蜀定理的必要性证明，我们可以知道后者的方程组是必然有解的，如果前者的方程有解，则前方程组的解$x_1,y_1$必然可以表示为后方程组解$x_0,y_0$的$\frac{c}{gcd(a,b)}$倍，即$x1=\frac{c}{gcd(a,b)}<em>x_0,y1=\frac{c}{gcd(a,b)}</em>y_0$。</p>
+<p>直接看$ax+by=gcd(a,b)$ …… ① 这个方程我们可能无从下手</p>
+<p>列出$bx+(a\%b)y=gcd(b,a\%b)$ …… ②，根据辗转相除法，我们知道 $gcd(a,b)=gcd(b,a\%b)$</p>
 <p>列出第二个方程的原因可以有三：一是满足了我们的求解形式，即等号右侧为两系数的公约数，保证了方程有解；二是利用辗转相除法，使两个方程可以直接联立；三是契合的辗转相除法的特性，使两个系数的大小缩小了</p>
-<p>于是我们可以相似的形式，根据②继续列出③，以③列出④…</p>
+<p>于是我们可以相似的形式，根据②继续列出③，以③列出④….</p>
 <p>由于辗转相除法的特性，最后一个式子必定为</p>
-<p>$gcd(a,b)<em>x+0</em>y=gcd(a,b)$ …  $last\ one$</p>
-<p>对于最后这个方程，我们可以迅速得到一组解 $x_{last}=1,y_{last}=0$</p>
+<script type="math/tex; mode=display">gcd(a,b)*x+0*y=gcd(a,b) \ ......\  last\ one</script><p>对于最后这个方程，我们可以迅速得到一组解 $x_{last}=1,y_{last}=0$</p>
 <p>于是我们需要想办法把这一组解回代到前一方程，这些方程组可以直接联立的特点，用①和②式做一个演示</p>
-<p>我们有<br>
-$$<br>
-\left\{\begin{align}<br>
-ax+by=gcd(a,b)\ \ \ \ \ \<br>
-bx^{\prime}+(a-\lfloor \frac{a}{b}\rfloor*b)y^{\prime}=gcd(a,b)\ \ \ \ \ <br>
-\end{align}\right.<br>
-$$<br>
-假设我们现在已经解出了$x^{\prime}$和$y^{\prime}$, 将②变形<br>
-$$<br>
-\left\{\begin{align}<br>
-ax+by=gcd(a,b)\ \ \ \ \ \<br>
-ay^{\prime}+b(x^{\prime}-\lfloor \frac{a}{b}\rfloor y^{\prime})=gcd(a,b)\ \ \ \ <br>
-\end{align}\right.<br>
-$$<br>
-可以直接联立解得<br>
-$$<br>
-\left\{\begin{align}<br>
-&amp;x=y^{\prime}\<br>
-&amp;y=x^{\prime}-\lfloor \frac{a}{b}\rfloor y^{\prime}<br>
-\end{align}\right.<br>
-$$<br>
-于是我们得到了从下一组解回代到上一组解的方法。我们就可以通过递归，将最后一组容易得到的解反复回代直至原始的方程。</p>
+<p>我们有</p>
+<script type="math/tex; mode=display">
+\left\{\begin{align}
+  ax+by=gcd(a,b)\ \ \ \ \ \\ 
+  bx^{\prime}+(a-\lfloor \frac{a}{b}\rfloor*b)y^{\prime}=gcd(a,b)\ \ \ \ \ 
+\end{align}\right.</script><p>假设我们现在已经解出了$x^{\prime}$和$y^{\prime}$, 将②变形</p>
+<script type="math/tex; mode=display">
+\left\{\begin{align}
+  ax+by=gcd(a,b)\ \ \ \ \ \\ 
+  ay^{\prime}+b(x^{\prime}-\lfloor \frac{a}{b}\rfloor y^{\prime})=gcd(a,b)\ \ \ \ \
+\end{align}\right.</script><p>可以直接联立解得</p>
+<script type="math/tex; mode=display">
+\left\{\begin{align}
+  &x=y^{\prime}\\
+  &y=x^{\prime}-\lfloor \frac{a}{b}\rfloor y^{\prime}
+\end{align}\right.</script><p>于是我们得到了从下一组解回代到上一组解的方法。我们就可以通过递归，将最后一组容易得到的解反复回代直至原始的方程。</p>
 <p>需要注意的是，我们仅仅求的是方程的一组解,</p>
 <p>如果我们求出了方程 $ax+by=gcd(a,b)$的一组特解$x^{<em>}$和$y^{</em>}$，其通解可以表示为 $x=x^{<em>}+k,y=y^{</em>}-\frac{a}{b}*k$, 其中$k$为$b$的倍数</p>
 <p>具体操作流程大致如下</p>
@@ -156,62 +147,50 @@ $$<br>
 <p>这里把负号提在里面是为了方便和上面的形式对照，实际上在程序里输入负系数也不太会有问题，如果你疑心比较重，可以都把负号提在$x,y$里面，那么不要忘记在解出后乘以$-1$</p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1516">P1516 青蛙的约会 - 洛谷 | 计算机科学教育新生态</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2613">P2613 【模板】有理数取余 - 洛谷 | 计算机科学教育新生态</a></p>
-<h4 id="中国剩余定理">中国剩余定理</h4>
-<p>$$<br>
-保证任意m_i⊥m_j,(i\neq j),求x最小值<br>
-\left\{\begin{align}<br>
-&amp;x\equiv a_1 (mod\ m_1)\<br>
-&amp;x\equiv a_2(mod\ m_2)\<br>
-&amp;…\<br>
-&amp;x=a_n(mod\ m_n)<br>
-\end{align}\right.<br>
-$$</p>
-<p>这里的⊥指的是互质，在中国剩余定理的证明中是个非常重要的特性。</p>
-<p>在这里借用 [阮行止大佬博客](<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/lr8vtpzl">扩展中国剩余定理 - 洛谷专栏</a>) 的讲法(原篇写的极好，学习扩展中国剩余定理必看)。</p>
-<p>我们可以把这个问题转化为构造出一个特别的系数 $R_i$ , 使其满足<br>
-$$<br>
-\left\{\begin{align}<br>
-&amp;R_i\equiv1\ (mod\ m_i)\<br>
-&amp;R_i\equiv0\ (mod\ m_j), j\ne i<br>
-\end{align}\right.<br>
-$$<br>
-那么 $\displaystyle x=\sum^{n}_{i=1}R_i*a_i$ ，则$x$满足同余方程组，但不保证是最小的</p>
-<p>在证明开始前，我们先来做两个令人愉快的令：令 $\displaystyle M=\prod_{i=1}^{n}m_i,\ M_i=\frac{M}{m_i}$</p>
-<p>我们可以做出一个大胆的推测，$x%M$即答案</p>
-<p>首先，对于任意第$i$个同余方程，由于$M=M_i*m_i$ ，我们可以有$x%M=x-kM=x-kM_im_i$ ，于是发现，$x-kM_im_i\equiv a_i(mod\  m_i)$，这说明 $x%M$至少是一个符合同余方程组的解</p>
-<p>接下来，我们需要说明$x_0=x%M$是最小解。转化一下思路，在$mod\ M$的意义下，我们不妨去证在$[0,M-1]$的范围内$x_0$是唯一解。</p>
+<h4 id="中国剩余定理"><a href="#中国剩余定理" class="headerlink" title="中国剩余定理"></a>中国剩余定理</h4><script type="math/tex; mode=display">
+保证任意m_i⊥m_j,(i\neq j),求x最小值
+\left\{\begin{align}
+  &x\equiv a_1 (mod\ m_1)\\
+  &x\equiv a_2(mod\ m_2)\\
+  &...\\
+  &x=a_n(mod\ m_n)
+\end{align}\right.</script><p>这里的⊥指的是互质，在中国剩余定理的证明中是个非常重要的特性。</p>
+<p>在这里借用 <a href="[扩展中国剩余定理 - 洛谷专栏](https://www.luogu.com.cn/article/lr8vtpzl">阮行止大佬博客</a>) 的讲法(原篇写的极好，学习扩展中国剩余定理必看)。</p>
+<p>我们可以把这个问题转化为构造出一个特别的系数 $R_i$ , 使其满足</p>
+<script type="math/tex; mode=display">
+\left\{\begin{align}
+  &R_i\equiv1\ (mod\ m_i)\\
+  &R_i\equiv0\ (mod\ m_j), j\ne i
+\end{align}\right.</script><p>那么 $\displaystyle x=\sum^{n}_{i=1}R_i*a_i$ ，则$x$满足同余方程组，但不保证是最小的</p>
+<p>在证明开始前，我们先来做两个令人愉快的令：令 $\displaystyle M=\prod_{i=1}^{n}m_i,\ M_i=\frac{M}{m_i}$ </p>
+<p>我们可以做出一个大胆的推测，$x\%M$即答案</p>
+<p>首先，对于任意第$i$个同余方程，由于$M=M_i*m_i$ ，我们可以有$x\%M=x-kM=x-kM_im_i$ ，于是发现，$x-kM_im_i\equiv a_i(mod\  m_i)$，这说明 $x\%M$至少是一个符合同余方程组的解</p>
+<p>接下来，我们需要说明$x_0=x\%M$是最小解。转化一下思路，在$mod\ M$的意义下，我们不妨去证在$[0,M-1]$的范围内$x_0$是唯一解。</p>
 <p>设在$[0,M-1]$的范围内另有一解$y_0$，也满足所有的同余方程组。</p>
-<p>我们把$x_0$,$y_0$分别代入成两坨方程组，再将两坨方程组联立(请想象，有<br>
-$$<br>
-\left\{\begin{align}<br>
-&amp;x_0-y_0\equiv 0 (mod\ m_1)\<br>
-&amp;x_0-y_0\equiv 0(mod\ m_2)\<br>
-&amp;…\<br>
-&amp;x_0-y_0=0(mod\ m_n)<br>
-\end{align}\right.<br>
-$$<br>
-由于$m_i⊥m_j,i\ne j$, 可以得到 $|x_0-y_0|=kM$, 由于$x_0$,$y_0$都是小于$M-1$的$|x_0-y_0|$绝不可能超过$M-1$, 得出$k=0$，即$x_0=y_0$，说明 $x_0$ 就是$[0,M-1]$上的唯一解, 也就是我们要求的最小值</p>
-<p>证明完 $ans=(\displaystyle \sum^{n}_{i=1}R_i*a_i)%M$ 之后，我们再回到$R_i$的构造问题上</p>
-<p>先关注第二个式子<br>
-$$<br>
-\begin{equation}<br>
-R_i\equiv0\ (mod\ m_j), j\ne i<br>
-\end{equation}.<br>
-$$<br>
-大胆一些，我们可以让 $R_i=M_i*k_i$，那么直接满足了上面这个条件</p>
-<p>再代入到前一个式子<br>
-$$<br>
-\begin{equation}<br>
-M_i<em>k_i\equiv1\ (mod\ m_i)\<br>
-\end{equation}.<br>
-$$<br>
-我们发现，他可以打开为二元一次方程，由于任意两个模数互质，那么$Mi$与$m_i$互质，即$gcd(M_i,m_i)=1 $，说明此方程必有解<br>
-$$<br>
-M_i</em>k_i+m_i*(-y)=1<br>
-$$<br>
-我们解出一个$k_i$后，就可以得到 $R_i=M_i*k_i$</p>
-<p>于是$ans=(\displaystyle \sum^{n}_{i=1}M_i<em>k_i</em>a_i)%M$</p>
-<p>中国剩余定理就是这样巧妙地直接构造出了答案。</p>
+<p>我们把$x_0$,$y_0$分别代入成两坨方程组，再将两坨方程组联立(请想象，有</p>
+<script type="math/tex; mode=display">
+\left\{\begin{align}
+  &x_0-y_0\equiv 0 (mod\ m_1)\\
+  &x_0-y_0\equiv 0(mod\ m_2)\\
+  &...\\
+  &x_0-y_0=0(mod\ m_n)
+\end{align}\right.</script><p>由于$m_i⊥m_j,i\ne j$, 可以得到 $|x_0-y_0|=kM$, 由于$x_0$,$y_0$都是小于$M-1$的$|x_0-y_0|$绝不可能超过$M-1$, 得出$k=0$，即$x_0=y_0$，说明 $x_0$ 就是$[0,M-1]$上的唯一解, 也就是我们要求的最小值</p>
+<p>证明完 $ans=(\displaystyle \sum^{n}_{i=1}R_i*a_i)\%M$ 之后，我们再回到$R_i$的构造问题上</p>
+<p>先关注第二个式子</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  R_i\equiv0\ (mod\ m_j), j\ne i
+\end{equation}</script><p>大胆一些，我们可以让 $R_i=M_i*k_i$，那么直接满足了上面这个条件</p>
+<p>再代入到前一个式子</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+  M_i*k_i\equiv1\ (mod\ m_i)\\
+\end{equation}</script><p>我们发现，他可以打开为二元一次方程，由于任意两个模数互质，那么$Mi$与$m_i$互质，即$gcd(M_i,m_i)=1 $，说明此方程必有解</p>
+<script type="math/tex; mode=display">
+M_i*k_i+m_i*(-y)=1</script><p>我们解出一个$k_i$后，就可以得到 $R_i=M_i*k_i$</p>
+<p>于是</p>
+<script type="math/tex; mode=display">
+\displaystyle ans=( \sum^{n}_{i=1}M_i* k_i *a_i)\%M</script><p>中国剩余定理就是这样巧妙地直接构造出了答案。</p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1495">P1495 【模板】中国剩余定理（CRT）/ 曹冲养猪 - 洛谷 | 计算机科学教育新生态</a></p>
 <p>Code:</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">exgcd</span><span class="params">(ll a,ll b,ll &amp;x,ll &amp;y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b==<span class="number">0</span>)&#123;x=<span class="number">1</span>,y=<span class="number">0</span>; <span class="keyword">return</span>;&#125;</span><br><span class="line">	ll x1=<span class="number">0</span>,y1=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">exgcd</span>(b,a%b,x1,y1);</span><br><span class="line">	x=y1,y=x1-a/b*y1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">10</span><span class="number">+5</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line">ll a[N],m[N];</span><br><span class="line">__int128 M=<span class="number">1</span>,ans=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) cin&gt;&gt;m[i]&gt;&gt;a[i],M*=m[i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">		ll x,y;</span><br><span class="line">		<span class="built_in">exgcd</span>(M/m[i],m[i],x,y);</span><br><span class="line">		ans=(ans+M/m[i]*x%M*a[i]%M+M)%M;<span class="comment">//注: x可能是负数</span></span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;(ll)ans;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

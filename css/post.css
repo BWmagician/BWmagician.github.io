@@ -167,11 +167,20 @@ postContent span{
 }
 
 /* 去掉mathjax自带的不能换行 */
-postContent .mjx-chtml{
+postContent .has-jax{
     white-space: pre-wrap;
+}
+
+postContent .MJXc-display{
+    overflow-x: auto;
+    overflow-y: auto;
 }
 
 table {
     overflow-x: auto;
     display: block;
+}
+
+.headerlink{
+    display: none;
 }
