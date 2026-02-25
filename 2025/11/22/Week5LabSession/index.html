@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Week5LabSession | UUZ's Blog</title><meta name="author" content="BWmagician"><meta name="copyright" content="BWmagician"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="rgba(256, 256, 256, 0.5)"><meta name="description" content="Week3 LabsessionBig O NotationBig O is a asymptotic analysis of the run time of an algorithm. Concept in MathWe say $g(n)$ is a function that describes the run time of your code. Then we should find a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Week5LabSession">
+<meta property="og:url" content="http://example.com/2025/11/22/Week5LabSession/index.html">
+<meta property="og:site_name" content="UUZ&#39;s Blog">
+<meta property="og:description" content="Week3 LabsessionBig O NotationBig O is a asymptotic analysis of the run time of an algorithm. Concept in MathWe say $g(n)$ is a function that describes the run time of your code. Then we should find a">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/bgs/wudi.png">
+<meta property="article:published_time" content="2025-11-22T10:26:36.000Z">
+<meta property="article:modified_time" content="2026-02-25T01:28:21.388Z">
+<meta property="article:author" content="BWmagician">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/bgs/wudi.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Week5LabSession",
+  "url": "http://example.com/2025/11/22/Week5LabSession/",
+  "image": "http://example.com/img/bgs/wudi.png",
+  "datePublished": "2025-11-22T10:26:36.000Z",
+  "dateModified": "2026-02-25T01:28:21.388Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BWmagician",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/light.drawio.svg"><link rel="canonical" href="http://example.com/2025/11/22/Week5LabSession/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(0, 0, 0, 0.5)')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(256, 256, 256, 0.5)')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#09b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Week5LabSession',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/tianzizuomingtang.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/bgs/wudi.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">UUZ's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Week5LabSession</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Week5LabSession</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-11-22T10:26:36.000Z" title="Created 2025-11-22 18:26:36">2025-11-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-02-25T01:28:21.388Z" title="Updated 2026-02-25 09:28:21">2026-02-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Week3-Labsession"><a href="#Week3-Labsession" class="headerlink" title="Week3 Labsession"></a>Week3 Labsession</h1><h2 id="Big-O-Notation"><a href="#Big-O-Notation" class="headerlink" title="Big O Notation"></a>Big O Notation</h2><p>Big O is a asymptotic analysis of the run time of an algorithm.</p>
+<h3 id="Concept-in-Math"><a href="#Concept-in-Math" class="headerlink" title="Concept in Math"></a>Concept in Math</h3><p>We say $g(n)$ is a function that describes the run time of your code. Then we should find a proper $f(n)$ such that </p>
+<script type="math/tex; mode=display">
+g(n) \le c f(n) \,\,\,\, ,n \ge N_0</script><p>Then we can say </p>
+<script type="math/tex; mode=display">g(n)=O(f(n))</script><p>This statement simply means when n is large, $f(n)$ is at the same level of $g(n)$ or even higher level of $g(n)$. And the equivalence here means $g(n)$ is in the set of $O(f(n))$. You can regard $O(f(n))$ as a set that includes all the functions of the same (and lower) level of $f(n)$. </p>
+<p>Actually the statement should be like $g(n) \in O(f(n))$ if we only focus on the meaning.</p>
+<p>If you follow this statement, you will find a piece of code with runtime function $g(n)=3n+2$ can be included in many sets in big O. That is </p>
+<script type="math/tex; mode=display">
+g(n)=O(n),g(n)=O(n^2)</script><p>This does not mean $O(n)$ is equivalent to $O(n^2)$. This means </p>
+<script type="math/tex; mode=display">
+n \in O(n) \in O(n^2)</script><p>Then you will find big O simply gives a upper bound of the runtime of the code. You can say this piece of code has a uppper bound of $O(n^2)$ but this is not tight enough. Pratically, people always don’t say a piece of code is $O(n^2)$ if there is an obvious upper bound in $O(n)$. </p>
+<p><strong>PS: Please always try to find a tight upper bound in homework and tests. Otherwise, your analysis of the runtime is not accurate!</strong></p>
+<h3 id="Important-things"><a href="#Important-things" class="headerlink" title="Important things"></a>Important things</h3><ol>
+<li>A piece of code in $O(1)$ can be slower than another piece of code in $O(n)$. Big O tells nothing if $n$ is small.</li>
+<li>When $n$ is large, we can say code in $O(1)$ is more efficient than $O(n)$. </li>
+</ol>
+<p>Here is a table explains the efficiency of common big Os when $n$ is large(in ascending order by the efficiency). $n$ always refers to the size of the input.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Big O</th>
+<th style="text-align:center">Some examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$O(1)$</td>
+<td style="text-align:center">some constant. If a piece of code is in $O(1)$, it means that the complexity is not related to</td>
+</tr>
+<tr>
+<td style="text-align:center">$O(\log n)$</td>
+<td style="text-align:center">Binary Search. Opeartion on a balanced tree.</td>
+</tr>
+<tr>
+<td style="text-align:center">$O(\sqrt n)$</td>
+<td style="text-align:center">Directly check whether a numer is a prime. </td>
+</tr>
+<tr>
+<td style="text-align:center">$O(n)$</td>
+<td style="text-align:center">Read the input is always O(n). </td>
+</tr>
+<tr>
+<td style="text-align:center">$O(n\log n)$</td>
+<td style="text-align:center">Build a balanced tree with the given input.</td>
+</tr>
+<tr>
+<td style="text-align:center">$O(n \sqrt n)$</td>
+<td style="text-align:center">Blocking.</td>
+</tr>
+<tr>
+<td style="text-align:center">$O(n^2)$</td>
+<td style="text-align:center">Bubble sort. Insertion sort. </td>
+</tr>
+<tr>
+<td style="text-align:center">$O(n^3)$</td>
+<td style="text-align:center">Floyd.</td>
+</tr>
+<tr>
+<td style="text-align:center">$O(2^n)$</td>
+<td style="text-align:center">State compression.</td>
+</tr>
+<tr>
+<td style="text-align:center">$O(n!)$</td>
+<td style="text-align:center">Some dfs.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Example-in-the-class"><a href="#Example-in-the-class" class="headerlink" title="Example in the class"></a>Example in the class</h3><h4 id="O-1"><a href="#O-1" class="headerlink" title="$O(1)$"></a>$O(1)$</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// n is the input</span></span><br><span class="line"><span class="type">boolean</span> key=<span class="literal">true</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=<span class="number">10000000</span>;++i)&#123;</span><br><span class="line">    <span class="keyword">if</span>(n%i==<span class="number">0</span>)&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;not a prime&quot;</span>);</span><br><span class="line">        key=<span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(key) System.out.println(<span class="string">&quot;YES&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="O-sqrt-n"><a href="#O-sqrt-n" class="headerlink" title="$O(\sqrt n)$"></a>$O(\sqrt n)$</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// n is the input</span></span><br><span class="line"><span class="type">boolean</span> key=<span class="literal">true</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=Math.sqrt(n);++i)&#123;</span><br><span class="line">    <span class="keyword">if</span>(n%i==<span class="number">0</span>)&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;not a prime&quot;</span>);</span><br><span class="line">        key=<span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(key) System.out.println(<span class="string">&quot;YES&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="O-n-log-n"><a href="#O-n-log-n" class="headerlink" title="$O(n \log n)$"></a>$O(n \log n)$</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j+=i)</span><br><span class="line">        sum++;</span><br></pre></td></tr></table></figure>
+<h2 id="Array-and-LinkedList"><a href="#Array-and-LinkedList" class="headerlink" title="Array and LinkedList"></a>Array and LinkedList</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">DataStructure</th>
+<th style="text-align:center">Insert</th>
+<th style="text-align:center">Delete</th>
+<th style="text-align:center">Access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Array</td>
+<td style="text-align:center">$O(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+<td style="text-align:center">$O(1)$</td>
+</tr>
+<tr>
+<td style="text-align:center">LinkedList</td>
+<td style="text-align:center">$O(1)$</td>
+<td style="text-align:center">$O(1)$</td>
+<td style="text-align:center">$O(n)$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h3><p>Array is a kind of data structre that supports rondom access. Because an array always occupies continuous addresses in the memory which naturally fits the idea of random access(meaning that it only takes $O(1)$ to get, for exapmle, the value of $a[100000]$).</p>
+<h3 id="Singly-Linked-List-and-Doubly-Linked-List"><a href="#Singly-Linked-List-and-Doubly-Linked-List" class="headerlink" title="Singly Linked List and Doubly Linked List"></a>Singly Linked List and Doubly Linked List</h3><p>There is no big difference. But doubly linked list is more efficient if you want the information of <code>what is the previous node</code>.</p>
+<p>For singly linked list, for a given node, if you want to find the previous node, you have to start from the head to search which is $O(n)$. But for doubly linked list, if you simply want to access the previous node, you can directly do that.</p>
+<p>You should also pay attention to the insertion in doubly linked list. To implement, you have to match four new edges, but paying attention to where you get these information. We say you want to insert new node $x$ between $u$ and $v$. We say we are now at $u$,</p>
+<p><img src="/2025/11/22/Week5LabSession/image.png" alt="alt text"></p>
+<p>The order 1 2 3 4 is not correct,<br>Once 1 is implemented, $u.next$ will change and you can’t do others.<br>One valid order is 2 3 4 1. You can also use other method to match edges, this is just an reminder of taking care of your method.</p>
+<h2 id="Stack-and-Queue"><a href="#Stack-and-Queue" class="headerlink" title="Stack and Queue"></a>Stack and Queue</h2><h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><p>First in, First out.</p>
+<p>Example: badminton shuttlecock tube. The badminton you get from side is always the first one you put in another side.</p>
+<h4 id="Template-Problem-Caterpillar"><a href="#Template-Problem-Caterpillar" class="headerlink" title="Template Problem: Caterpillar"></a>Template Problem: <a target="_blank" rel="noopener" href="https://oj.dukekunshan.edu.cn/problem/p0011">Caterpillar</a></h4><p>Regard the head of the caterpillar as tail of a queue.<br>Regard the tail of the caterpillar as head of a queue.<br>It is first-in-first-out. Becase the caterpillar only moves to the right and never go back, the first position head touches will be the first position tail leaves.<br>Then head moving is pushing value into the queue.<br>Then tail moving is poping value out of the queue.</p>
+<p>When counting the color, we do a count for every color. The number of differnt color increases when a new color appears. The number of differnt color decreases when a kind of color disapears (see the code).</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">a</span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span>[] cnt = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">1000010</span>];</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">1000010</span>];</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">		Queue&lt;Integer&gt; q = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;Integer&gt;();</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> in.nextInt(),m = in.nextInt();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">			a[i] = in.nextInt();</span><br><span class="line">		&#125; </span><br><span class="line">		<span class="type">int</span> r=<span class="number">1</span>;</span><br><span class="line">		q.offer(a[<span class="number">1</span>]);</span><br><span class="line">		ans=cnt[a[<span class="number">1</span>]]=<span class="number">1</span>; <span class="comment">//At very beginning, the caterpillar already occupies one position</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;++i)&#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> in.nextInt();</span><br><span class="line">			<span class="keyword">if</span>(x==<span class="number">1</span>)&#123;<span class="comment">// head moves, so push values into the queue</span></span><br><span class="line">				r++; <span class="comment">// r is the position of the caterpillar&#x27;s head</span></span><br><span class="line">				q.offer(a[r]); <span class="comment">//push</span></span><br><span class="line">				<span class="keyword">if</span>(cnt[a[r]]==<span class="number">0</span>) ans++; <span class="comment">//new color appears</span></span><br><span class="line">				cnt[a[r]]++; <span class="comment">//count for the color +1</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> q.poll(); <span class="comment">//pop</span></span><br><span class="line">				cnt[p]--; <span class="comment">//count for the color -1 </span></span><br><span class="line">				<span class="keyword">if</span>(cnt[p]==<span class="number">0</span>) ans--; <span class="comment">//a kind of color disappears</span></span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(ans);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><p>First in, last out. (Last in, first out)</p>
+<p>Example: The recursion. The computer processes the most recently called function first(Last in, first out. You can regard the most recent called method is at the top of a stack).</p>
+<h4 id="Template-Problem-StackQuestion"><a href="#Template-Problem-StackQuestion" class="headerlink" title="Template Problem: StackQuestion"></a>Template Problem: <a target="_blank" rel="noopener" href="https://oj.dukekunshan.edu.cn/problem/p0012">StackQuestion</a></h4><p>We can simulate the process by following the <code>push order</code>. Only when the top of the stack is the same as the first value in remaining <code>pop order</code>, we can do a <code>pop</code>. Since each time we either do a <code>push</code> or a <code>pop</code>, if we don’t choose to do a <code>pop</code> when the top of the stack meets the <code>pop order</code>, we will never have a chance to pop this value because the next pushed value will become the top and the <code>pop order</code> will be stuck at present first value.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">a</span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> <span class="number">1000010</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> a[] = <span class="keyword">new</span> <span class="title class_">int</span>[N], b[] = <span class="keyword">new</span> <span class="title class_">int</span>[N];</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		Stack&lt;Integer&gt; s = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;&gt;();</span><br><span class="line">		<span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> in.nextInt();</span><br><span class="line">		<span class="keyword">while</span>(t--&gt;<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> in.nextInt();</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) a[i]=in.nextInt();</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) b[i]=in.nextInt();</span><br><span class="line">			<span class="type">int</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">1</span>; <span class="comment">//pointer to the first value in remaining pop order</span></span><br><span class="line">			<span class="keyword">while</span>(!s.isEmpty()) s.pop(); <span class="comment">//Remeber to clean the stack because there multiple test case</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">				s.push(a[i]);</span><br><span class="line">				<span class="comment">// pop all the values that satisfy, or never have a chance to pop</span></span><br><span class="line">				<span class="keyword">while</span>(!s.isEmpty()&amp;&amp;b[l]==s.peek())&#123; </span><br><span class="line">					s.pop();</span><br><span class="line">					++l; <span class="comment">// moves to the next one in the pop order</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(s.isEmpty()) System.out.println(<span class="string">&quot;YES&quot;</span>); </span><br><span class="line">			<span class="keyword">else</span> System.out.println(<span class="string">&quot;NO&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">BWmagician</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/11/22/Week5LabSession/">http://example.com/2025/11/22/Week5LabSession/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/bgs/wudi.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra"><img class="cover" src="/img/bgs/dontrideanymore.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">MATH202 Linear Algebra</div></div><div class="info-2"><div class="info-item-1">MATH202 Linear Algebra??This is the first time I giving a summary to learned knowledge in class in EN. Since tomorrow will have a quiz, I will give a quick summary of the knowledge in previous three weeks. By 2026/1/21. Matrix OperationWhat is matrix?System of linear equations \begin{cases} x+y+2z &= 5 \\ \,\,\,\,\,\,\,\,\,\,\,y+z &=2 \\ x+y\,\,\,\,\,\,\,\,\,\,\, &= 3 \end{cases}This is a system of linear equations. A system of linear equations contains multiple unknown variables but the high...</div></div></div></a><a class="pagination-related" href="/2025/11/12/Limit-de-problem-set-Record/" title="∂αтα ѕтяυ¢тυяє"><img class="cover" src="/img/bgs/dmhs.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">∂αтα ѕтяυ¢тυяє</div></div><div class="info-2"><div class="info-item-1">CF718C Sasha and ArrayThe idea is simple. For $fa+f_b+f_c$ store the next one $f{a+1}+f{b+1}+f{c+1}$ which can help to do recurrence. Reducing the constant is difficult 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114#include&lt;bits/stdc++.h&gt;using namespace std;typedef long long ll;const int N = 1e5+10;con...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">BWmagician</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/BWmagician"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This blog starts to write in English at October 5th, 2025. The previous blogs will probabaly() be translated into Egnlish later.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Week3-Labsession"><span class="toc-number">1.</span> <span class="toc-text">Week3 Labsession</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Big-O-Notation"><span class="toc-number">1.1.</span> <span class="toc-text">Big O Notation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Concept-in-Math"><span class="toc-number">1.1.1.</span> <span class="toc-text">Concept in Math</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Important-things"><span class="toc-number">1.1.2.</span> <span class="toc-text">Important things</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-in-the-class"><span class="toc-number">1.1.3.</span> <span class="toc-text">Example in the class</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#O-1"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">$O(1)$</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#O-sqrt-n"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">$O(\sqrt n)$</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#O-n-log-n"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">$O(n \log n)$</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array-and-LinkedList"><span class="toc-number">1.2.</span> <span class="toc-text">Array and LinkedList</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Array"><span class="toc-number">1.2.1.</span> <span class="toc-text">Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Singly-Linked-List-and-Doubly-Linked-List"><span class="toc-number">1.2.2.</span> <span class="toc-text">Singly Linked List and Doubly Linked List</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stack-and-Queue"><span class="toc-number">1.3.</span> <span class="toc-text">Stack and Queue</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Queue"><span class="toc-number">1.3.1.</span> <span class="toc-text">Queue</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Template-Problem-Caterpillar"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Template Problem: Caterpillar</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Stack"><span class="toc-number">1.3.2.</span> <span class="toc-text">Stack</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Template-Problem-StackQuestion"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">Template Problem: StackQuestion</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/nihao-TEST/" title="nihao__TEST"><img src="/img/bgs/54c15a11b1eca88158355fb46c6fc936b9e723fe.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nihao__TEST"/></a><div class="content"><a class="title" href="/2026/02/20/nihao-TEST/" title="nihao__TEST">nihao__TEST</a><time datetime="2026-02-20T02:04:12.000Z" title="Created 2026-02-20 10:04:12">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/TEST-docker/" title="TEST_docker"><img src="/img/bgs/b.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEST_docker"/></a><div class="content"><a class="title" href="/2026/02/20/TEST-docker/" title="TEST_docker">TEST_docker</a><time datetime="2026-02-19T20:38:39.000Z" title="Created 2026-02-20 04:38:39">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix"><img src="/img/bgs/mayyyyyuri.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Projection in Matrix"/></a><div class="content"><a class="title" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix">Projection in Matrix</a><time datetime="2026-02-09T05:08:02.000Z" title="Created 2026-02-09 13:08:02">2026-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix"><img src="/img/bgs/hollow%20night.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Subspaces in Matrix"/></a><div class="content"><a class="title" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix">Subspaces in Matrix</a><time datetime="2026-02-07T06:09:42.000Z" title="Created 2026-02-07 14:09:42">2026-02-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra"><img src="/img/bgs/dontrideanymore.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MATH202 Linear Algebra"/></a><div class="content"><a class="title" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra">MATH202 Linear Algebra</a><time datetime="2026-01-22T14:24:30.000Z" title="Created 2026-01-22 22:24:30">2026-01-22</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By BWmagician</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

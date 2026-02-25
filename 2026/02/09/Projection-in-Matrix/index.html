@@ -1,0 +1,614 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Projection in Matrix | UUZ's Blog</title><meta name="author" content="BWmagician"><meta name="copyright" content="BWmagician"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="rgba(256, 256, 256, 0.5)"><meta name="description" content="No Solution, but with Optimal SolutionConsider the linear regression. We want to fit a line $y(t)&#x3D;C+Dt$ to narrow down the error through three points. The best line would be the line passing through t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Projection in Matrix">
+<meta property="og:url" content="http://example.com/2026/02/09/Projection-in-Matrix/index.html">
+<meta property="og:site_name" content="UUZ&#39;s Blog">
+<meta property="og:description" content="No Solution, but with Optimal SolutionConsider the linear regression. We want to fit a line $y(t)&#x3D;C+Dt$ to narrow down the error through three points. The best line would be the line passing through t">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/bgs/mayyyyyuri.jpg">
+<meta property="article:published_time" content="2026-02-09T05:08:02.000Z">
+<meta property="article:modified_time" content="2026-02-25T01:28:21.357Z">
+<meta property="article:author" content="BWmagician">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/bgs/mayyyyyuri.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Projection in Matrix",
+  "url": "http://example.com/2026/02/09/Projection-in-Matrix/",
+  "image": "http://example.com/img/bgs/mayyyyyuri.jpg",
+  "datePublished": "2026-02-09T05:08:02.000Z",
+  "dateModified": "2026-02-25T01:28:21.357Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BWmagician",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/light.drawio.svg"><link rel="canonical" href="http://example.com/2026/02/09/Projection-in-Matrix/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(0, 0, 0, 0.5)')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(256, 256, 256, 0.5)')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#09b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Projection in Matrix',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/tianzizuomingtang.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/bgs/mayyyyyuri.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">UUZ's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Projection in Matrix</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Projection in Matrix</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-02-09T05:08:02.000Z" title="Created 2026-02-09 13:08:02">2026-02-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-02-25T01:28:21.357Z" title="Updated 2026-02-25 09:28:21">2026-02-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="No-Solution-but-with-Optimal-Solution"><a href="#No-Solution-but-with-Optimal-Solution" class="headerlink" title="No Solution, but with Optimal Solution"></a>No Solution, but with Optimal Solution</h2><p>Consider the linear regression.</p>
+<p>We want to fit a line $y(t)=C+Dt$ to narrow down the error through three points.</p>
+<p>The best line would be the line passing through this three points. However, in most cases, the three points won’t stay in a line. For example, $(0,1),(1,2),(2,2)$, in which you can never find a line to pass through this three points. The reason can be shown by matrices,</p>
+<script type="math/tex; mode=display">
+\text{construct } Ax=b\\
+\left[
+\begin{matrix}
+1 &0 \\
+1 &1 \\
+1 &2
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+C \\
+D
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+1 \\
+2 \\
+2
+\end{matrix}
+\right]</script><p>You can’t find a solution for the above matrix equation, because $b$ is not in $C(A)$. If you do Gaussian Elimination, you will find conflicts.</p>
+<p>However, the linear regression tells us there would be a optimal solution to narrow down the equation.</p>
+<p>By linear regression, we can have,</p>
+<script type="math/tex; mode=display">
+\hat C=\frac{\sum(x_i-\bar x)(y_i-\bar y)}{\sum(x_i-\bar x)^2}=\frac{1}{2}\\
+\hat D=\bar y -b\bar x=\frac{7}{6}</script><p>It seems that $\left[\begin{matrix}\hat C \ \hat D\end{matrix}\right]$ has an optimal solution $ \left[\begin{matrix}\frac{1}{2} \ \frac{7}{6}\end{matrix}\right]$. Recall that meaning of <strong>narrowing down error</strong> in linear regression. It means narrowing down the residual sum of squares.</p>
+<script type="math/tex; mode=display">
+\min \sum(y_i-\hat y(t_i))^2</script><p>Okay, so what is the minimized residual in this example? We can just write it down as a vector $e$, and write the fitted vector of $\hat y$ as a vector $p$</p>
+<script type="math/tex; mode=display">
+p=\hat y=
+\left[
+\begin{matrix}
+1 &0 \\
+1 &1 \\
+1 &2
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+\hat C \\
+\hat D
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+1 &0 \\
+1 &1 \\
+1 &2
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+\frac{7}{6} \\
+\frac{1}{2}
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+\frac{7}{6} \\
+\frac{5}{3} \\
+\frac{13}{6} \\
+\end{matrix}
+\right]
+\\
+e=
+\text{Residual}=
+\left[
+\begin{matrix}
+1 \\
+2 \\
+2
+\end{matrix}
+\right]
+-
+\hat y
+=
+\left[
+\begin{matrix}
+-\frac{1}{6} \\
+\frac{1}{3} \\
+-\frac{1}{6}
+\end{matrix}
+\right]</script><p>The magic thing is, $e\perp p$,</p>
+<script type="math/tex; mode=display">
+e^Tp=\frac{7}{6}(-\frac{1}{6})+\frac{5}{3}\frac{1}{3}+\frac{13}{6}(-\frac{1}{6})=0</script><p>This is not a coincidence. </p>
+<h2 id="Why-Projection"><a href="#Why-Projection" class="headerlink" title="Why Projection"></a>Why Projection</h2><p> Here is the fun fact, </p>
+<script type="math/tex; mode=display">
+e\in N(A) \\
+p \in C(A)</script><p>$p$ is in $C(A)$ because we obtain $\hat y$  by $A \left[\begin{matrix}\hat C \ \hat D\end{matrix}\right]$. $e$ is in $N(A)$ because $N(A)$ is orthogonal to $C(A)$ as well as $N(A)$ and $C(A)$ together span the whole vector space.</p>
+<p>Drawing on the idea of projection, we can learn this interesting phenomenon better.</p>
+<h3 id="Geometric-Meaning-of-Optimal-Solution"><a href="#Geometric-Meaning-of-Optimal-Solution" class="headerlink" title="Geometric Meaning of Optimal Solution"></a>Geometric Meaning of Optimal Solution</h3><p>Have you ever thought of what does the optimal solution represents?</p>
+<p>Luckily we have 3 by 2 $A$ in the above example , which means the vector space for columns of $A$ are $\mathbb{R}^3$. The above example is a good one to show the geometric meaning of the optimal solution because we human lives in $\mathbb{R}^3$ world. </p>
+<p>Here, let’s draw $C(A)$, which should be a plane through the origin because it has dimension of 2. Then we draw the vector $b$,$p$ and $e$ on the graph. </p>
+<p><img src="/2026/02/09/Projection-in-Matrix/geogebra-export.png" alt="geogebra-export"></p>
+<p>You will find that $p$ (refers to $\hat y$ in linear regression) is the orthogonal projection of $b$ onto $C(A)$. $e$ given by $b-p$ is the residual in linear regression. </p>
+<h3 id="Do-Orthogonal-Projection"><a href="#Do-Orthogonal-Projection" class="headerlink" title="Do Orthogonal Projection"></a>Do Orthogonal Projection</h3><p>Now we try to give the general idea of orthogonal projection.</p>
+<h4 id="Orthogonal-Projection-Gives-the-Minimum-Error"><a href="#Orthogonal-Projection-Gives-the-Minimum-Error" class="headerlink" title="Orthogonal Projection Gives the Minimum Error"></a>Orthogonal Projection Gives the Minimum Error</h4><p>This is a interesting proof. In $\mathbb{R}^3$ it is easy to see $e$ is perpendicular to the plane, which minimize the distance to the plane as well as the error in linear regression. </p>
+<p>However, in $\mathbb{R}^4$,$\mathbb{R}^5$, when the column space has more than 3 dimensions, this can’t be proved by human eyes (unless you are some super creatures). </p>
+<p>Since we need to prove the orthogonal decomposition gives a minimized, why don’t we prove orthogonal projection $p$ gives the $\min ||e||$ ?</p>
+<p>We do orthogonal projection first,</p>
+<script type="math/tex; mode=display">
+b=p+e,\text{where } e^TC(A)=0</script><p>Pick another vector on the columns space,</p>
+<script type="math/tex; mode=display">
+p^*=p+x</script><p>Then the decomposition becomes,</p>
+<script type="math/tex; mode=display">
+b=p^*+e^*=(p+x)+(e-x) \\
+e^*=e-x \\
+||e^*||=\sqrt{(e-x)^T(e-x)}=\sqrt{e^2-2e^Tx+x^2}</script><p>Recall that $e^TC(A)=0$. We have $e^Tx=0$</p>
+<script type="math/tex; mode=display">
+||e^*||=\sqrt{e^2+x^2}>||e||</script><p> So, the orthogonal projection gives the minimum $||e||$. </p>
+<h4 id="1D-case"><a href="#1D-case" class="headerlink" title="1D case"></a>1D case</h4><p>Given the condition that $a$, $b$ are vectors, we want to do orthogonal projection of $b$ onto $a$. Assume $p$ is the projection onto $a$ which should be a vector, and $e$ is $b-p$ which is perpendicular to $a$.</p>
+<p>Since $a$ is vector, $p$ can only be parallel to $a$, which can be written as, </p>
+<script type="math/tex; mode=display">
+p=ax</script><p>,where $x$ is a scalar. This step is necessary because it gives the role of $p$ which is a projection <strong>onto $a$</strong>.   </p>
+<p>Translate the conditions into math language, (if you write $e^Ta=0$, It’s also okay, but not that beautiful)</p>
+<script type="math/tex; mode=display">
+a^Te=0 \\
+p=ax \\
+b=p+e</script><p>Think of what do we want. We want to find $p$, in other words, find $x$. Thus, we should cancel $e$ and $p$. </p>
+<p>Why don’t put them into  the first equation?</p>
+<script type="math/tex; mode=display">
+a^T(b-ax)=0 \\
+a^Tax=a^Tb \\</script><p>Good thing is $a^Ta$ should be a 1 by 1 matrix, which has a inverse if it is not zero. Since $||a||$ should be more than 0, it is okay to move $a^Ta$ to the right.</p>
+<script type="math/tex; mode=display">
+x=\frac{a^Tb}{a^Ta}</script><script type="math/tex; mode=display">
+p=a\frac{a^Tb}{a^Ta}</script><h4 id="2D-case"><a href="#2D-case" class="headerlink" title="2D case"></a>2D case</h4><script type="math/tex; mode=display">
+p=a_1x_1+a_2x_2</script><p>where $a_1x_2$ and $a_2x_2$ should not be parallel (two unparallel line gives a plane) and $x_1$, $x_2$ are scalars. </p>
+<script type="math/tex; mode=display">
+a_1^Te=0 \\
+a_2^Te=0 \\
+b=p+e\\
+p=a_1x_1+a_2x_2</script><p>Plug in and solve these equations you can find $x_1$ and $x_2$,</p>
+<script type="math/tex; mode=display">
+a_1^T(b-a_1x_1-a_2x_2)=0 \\
+a_2^T(b-a_1x_1-a_2x_2)=0</script><p>Don’t you think it looks a little too complex? We can use matrix to simplify it a little bit.</p>
+<script type="math/tex; mode=display">
+A=
+\left[
+\begin{matrix}
+a_1 &a_2
+\end{matrix}
+\right]</script><p>Here we have an matrix $A$ to let its column space describes the plane spanned by $a_1$ and $a_2$. Then $e$ is orthogonal to the plane can be written as,</p>
+<script type="math/tex; mode=display">
+A^Te=0</script><p>This would be equivalent to these two conditions,</p>
+<script type="math/tex; mode=display">
+a_1^Te=0 \\
+a_2^Te=0 \\</script><p>The same way. Let </p>
+<script type="math/tex; mode=display">
+\hat x = 
+\left[
+\begin{matrix}
+x_1 \\
+x_2 \\
+\end{matrix}
+\right]</script><p>Plug in, we have.</p>
+<script type="math/tex; mode=display">
+A^T(b-A\hat x)=0 \\
+A^TA\hat x=A^Tb</script><h4 id="nD-case"><a href="#nD-case" class="headerlink" title="nD case"></a>nD case</h4><script type="math/tex; mode=display">
+A=
+\left[
+\begin{matrix}
+a_1 &a_2 &... &a_m
+\end{matrix}
+\right] 
+\\
+\hat x = 
+\left[
+\begin{matrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_m
+\end{matrix}
+\right]
+\\
+b=e+p \\
+p=A\hat x</script><p>We have,</p>
+<script type="math/tex; mode=display">
+A^Te=0</script><p>because $e$ is orthogonal to $C(A)$, which means $e$ is in $N(A^T)$. Same to say $e^TA=0$ because $e$ is in left null space.</p>
+<p>Solve them we have,</p>
+<script type="math/tex; mode=display">
+A^TA\hat x=A^Tb</script><p>Solve them we have $p=A\hat x$. </p>
+<p>Notice we write $m$ in the equations rather than $n$. $m$ is not necessary to be the same as $n$, $m\ge n$. </p>
+<p>…Wait, the only $\hat x$, or multiple $\hat x$?</p>
+<h3 id="How-to-Quickly-Get-the-Only-Solution-to-hat-x"><a href="#How-to-Quickly-Get-the-Only-Solution-to-hat-x" class="headerlink" title="How to Quickly Get the Only Solution to $\hat x$?"></a>How to Quickly Get the Only Solution to $\hat x$?</h3><p>Notice that when we write a matrix $A$, we don’t guarantee that each columns of $A$ is independent from each other. </p>
+<h4 id="A-TA-hat-x-A-Tb-will-always-has-solution-s-for-Any-A"><a href="#A-TA-hat-x-A-Tb-will-always-has-solution-s-for-Any-A" class="headerlink" title="$A^TA\hat x=A^Tb$ will always has solution(s) for Any $A$"></a>$A^TA\hat x=A^Tb$ will always has solution(s) for Any $A$</h4><p>The fun fact is $C(A^TA)=C(A^T)$</p>
+<p>This is because the left null space of $A^TA$ and $A^T$ is the same.</p>
+<p>Look at this equation which describes the left null space of $A^TA$ by $x$,</p>
+<script type="math/tex; mode=display">
+x^TA^TA=0 \\</script><p>You will find,</p>
+<script type="math/tex; mode=display">
+x^TA^TA=0 \Rightarrow x^TA^TAx=0 \\
+x^TA^TAx=(x^TA^T)(x^TA^T)^T=||x^TA^T|| \\
+x^TA^TA=0 \Rightarrow x^TA^T=0 \\</script><p>The converse is also true,</p>
+<script type="math/tex; mode=display">
+x^TA^T=0 \Rightarrow x^TA^TA=0</script><p>Thus, they are equivalent statements,</p>
+<script type="math/tex; mode=display">
+x^TA^TA=0 \Leftrightarrow x^TA^T=0</script><p>It means $N((A^TA)^T)=N((A^T)^T)$, their left null spaces are the same.</p>
+<p>We know the left null space and the column space are orthogonal. The more important thing is that they span the whole vector space. Thus, when the left null spaces of the two matrices are the same, the column spaces of the two will also be the same. A more detailed proof can be found in <a href>here</a> (<del>empty link now, fix one day</del>) .</p>
+<p>Then we know $A^Tb$, which is a vector in $C(A^T)$, should also be in $C(A^TA)$. This tells us there will always be solution(s) to $A^TAx=A^Tb$</p>
+<p>However, there might be multiple solutions to $\hat x$ because we don’t guarantee the null space of $A^TA$ is 0. But $p$ in $p=A\hat x$ is always the same because there is only one orthogonal projection.</p>
+<h4 id="If-A-TA-is-invertible-things-get-smoother"><a href="#If-A-TA-is-invertible-things-get-smoother" class="headerlink" title="If $A^TA$ is invertible, things get smoother"></a>If $A^TA$ is invertible, things get smoother</h4><p>Actually we can make the case more easier by moving $A^TA$ to the right hand side in the equation $A^TAx=Ab$, if $A^TA$ is invertible, </p>
+<script type="math/tex; mode=display">
+x=(A^TA)^{-1}Ab</script><h4 id="When-Would-A-TA-Be-Invertible"><a href="#When-Would-A-TA-Be-Invertible" class="headerlink" title="When Would $A^TA$ Be Invertible ?"></a>When Would $A^TA$ Be Invertible ?</h4><p>The idea is simple. Find $A$ with independent columns.</p>
+<p>But how do we generalize it? I think we should start from  the shape of $A^TA$. </p>
+<p>$A^TA$ should be a square matrix. $A$’s column numbers determines its size. Recall the idea of $A=RC$ decomposition. You will find when $A$ has independent column vectors, $A^T$ has full row rank and $A$ has full column rank. The two ranks are the same which is similar to $A=RC$ decomposition, and $A^TA$ is a square matrix. So we can have a thought of that $A^TA$ has full rank which means it is invertible.</p>
+<p>Once we have the idea, the proof becomes more clear. To show $A^TA$ has full ranks, we can try to prove $N(A^TA)$ is 0 or $N((A^TA)^T)$ is 0.</p>
+<p>That is, to prove $A^TAx=0 \Leftrightarrow Ax$ or to prove $x^TA^TA=0 \Leftrightarrow x^TA^T =0 $</p>
+<p>Choose one to prove. The proof of the latter one is given in the last last section.</p>
+<h4 id="Summary-A-Normal-Procedure-to-Get-p-and-hat-x"><a href="#Summary-A-Normal-Procedure-to-Get-p-and-hat-x" class="headerlink" title="Summary: A Normal Procedure to Get $p$ and $\hat x$"></a>Summary: A Normal Procedure to Get $p$ and $\hat x$</h4><p>Given $A^{<em>}$, we want to solve $A^{</em>} x=b$. If $b$ is not in $C(A^{<em>})$, we want to find the optimal solution which is $A^{</em>}x=p$, $p$ is the orthogonal projection of $b$ onto $C(A^{*})$</p>
+<ol>
+<li>Remain the pivot columns in $A^{<em>}$ in $A$. Then $A$ has full column rank. For the following steps, we are using $A$ instead of $A^{</em>}$  </li>
+<li>Solve $A^TA\hat x=A^Tb$, then $\hat x$ has the only solution. </li>
+<li>We can directly write them out, $\hat x=(A^TA)^{-1}A^Tb$ and $p=A\hat x=A(A^TA)^{-1}A^Tb$ </li>
+</ol>
+<h4 id="Least-Square-Method"><a href="#Least-Square-Method" class="headerlink" title="Least Square Method"></a>Least Square Method</h4><p>Finally, we can use matrix to solve everything gently.</p>
+<p>Here we want to fit a line for the given points $(x_1,y_1),(x_2,y_2)\,…\,,(x_n,y_n)$.</p>
+<p>Assume the expression for the line is </p>
+<script type="math/tex; mode=display">
+f(t)=c_0+c_1t</script><p>We can define, </p>
+<script type="math/tex; mode=display">
+A=
+\left[
+\begin{matrix}
+1 &x_1\\
+1 &x_2\\
+\vdots &\vdots \\
+1 &x_n
+\end{matrix}
+\right]
+,
+x=
+\left[
+\begin{matrix}
+c_0 \\
+c_1
+\end{matrix}
+\right]
+,b=
+\left[
+\begin{matrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{matrix}
+\right]</script><p>Then it is the same as solving,</p>
+<script type="math/tex; mode=display">
+Ax=b</script><p>For a more general form, solve an optimal solution for $x$, </p>
+<script type="math/tex; mode=display">
+A^TA\hat x=A^Tb</script><p>The optimal solution $\hat x$ tells us that $c_0$, $c_1$ are the best choice to narrow the error.</p>
+<h3 id="Orthogonal-Projection-Matrix"><a href="#Orthogonal-Projection-Matrix" class="headerlink" title="Orthogonal Projection Matrix"></a>Orthogonal Projection Matrix</h3><p>Notice that the form of $p=A(A^TA)^{-1}A^Tb$ is very interesting,</p>
+<p>Let,</p>
+<script type="math/tex; mode=display">
+P = A(A^TA)^{-1}A^T</script><p>Then,</p>
+<script type="math/tex; mode=display">
+p=Pb</script><p>You will find $P$ is a matrix that only relates to $A$. Then $P$ is the orthogonal projection matrix of $A^{<em>}$ (Notice that $A^{</em>}$ is the original matrix, while $A$ consists of the pivot columns in $A^{*}$)</p>
+<h4 id="Features-of-Orthogonal-Projection-Matrix"><a href="#Features-of-Orthogonal-Projection-Matrix" class="headerlink" title="Features of Orthogonal Projection Matrix"></a>Features of Orthogonal Projection Matrix</h4><script type="math/tex; mode=display">
+P^T=(A^T)^T((A^TA)^{-1})^TA^T=(A^T)^T((A^TA)^T)^{-1}A^T=P</script><p>The following one is quite amazing,</p>
+<script type="math/tex; mode=display">
+P^2=P</script><p>This is true because the column vectors in $P$ is in $C(A)$, see $P=A[A(A^TA)^{-1}A^T]$. The orthogonal projection of a vector onto the subspace including that vector should be the vector itself. Thus, $P\times P$  means projecting each column in $P$ onto the $C(A)$, which apparently should be that column itself. Then we can conclude that every column in $P\times P$ will be the every column in $P$, which means $P^2=P$</p>
+<h3 id="Orthonormal-Matrix"><a href="#Orthonormal-Matrix" class="headerlink" title="Orthonormal Matrix"></a>Orthonormal Matrix</h3><p>The definition of orthonormal matrix $A$ is that,</p>
+<script type="math/tex; mode=display">
+A^TA=I</script><p>Since the rows in $A^T$ are columns in $A$, we can have another explanation for this definition,</p>
+<script type="math/tex; mode=display">
+A=
+\left[
+\begin{matrix}
+q_1 &q_2 &\cdots &q_n
+\end{matrix}
+\right]
+
+\\
+
+\begin{cases}
+q_i^Tq_j=0 \,,i\neq j \\
+q_i^Tq_j=1 \,,i = j
+\end{cases}</script><h4 id="Orthonormal-Matrix-Has-Full-Column-Rank"><a href="#Orthonormal-Matrix-Has-Full-Column-Rank" class="headerlink" title="Orthonormal Matrix Has Full Column Rank"></a>Orthonormal Matrix Has Full Column Rank</h4><p>This is a fun proof I found on the class.</p>
+<p>Full column rank is the same as saying it has independent columns.</p>
+<p>Let see what is the feature for independent columns,</p>
+<script type="math/tex; mode=display">
+c_1q_1+c_2q_2+\,...\,+c_nq_n=0</script><p>This equation has no non-zero solution for $c$ is $q$ are independent to each other.</p>
+<p>Do you see the conflicts if orthonormal matrix has dependent column vectors? If you find a non-zero solution for $c$, something in the definition would be a mistake.</p>
+<p>The interesting thing is if the columns are dependent, some values in the diagonal of $A^TA$ would be zero.</p>
+<p>Say, for any $i$ of non-zero $c_i$</p>
+<script type="math/tex; mode=display">
+-c_iq_i=\sum_{j\neq i}c_jq_j\\
+q_i^Tq_i=q_i^T(-\frac{1}{c_i})\sum_{j\neq i}c_jq_j=(-\frac{1}{c_i})\sum_{j\neq i}c_jq_i^Tq_j=(-\frac{1}{c_i})\sum_{j\neq i}c_j\cdot0=0</script><p>This conflicts with the fact that the diagonal in $A^TA$ should be 1</p>
+<h4 id="A-QR-Decomposition"><a href="#A-QR-Decomposition" class="headerlink" title="$A=QR$ Decomposition"></a>$A=QR$ Decomposition</h4><p>The amazing thing is we can conduct Gram Schmidt’s Method to decompose $A$ into multiplication of $Q$ and $R$ where $Q$ is an orthonormal vector.</p>
+<p>To make the case simpler, we can directly think of the case that $A$ has independent columns.</p>
+<h4 id="Gram-Schmidt’s-Method"><a href="#Gram-Schmidt’s-Method" class="headerlink" title="Gram Schmidt’s Method"></a>Gram Schmidt’s Method</h4><p>Let’s say </p>
+<script type="math/tex; mode=display">
+A=
+\left[
+\begin{matrix}
+a_1 &a_2 &\cdots &a_n
+\end{matrix}
+\right]
+\\
+Q=
+\left[
+\begin{matrix}
+q_1 &q_2 &\cdots &q_n
+\end{matrix}
+\right]
+\\</script><p>We can get an orthogonal basis for $A$ first,</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+b_1=a_1 \\
+\displaystyle b_i=a_i-\sum_{j<i} \text{proj}_{b_j}a_i \,,i > 1
+\end{cases}</script><p>We can prove that b are orthogonal by induction,</p>
+<p>If $b_i$ are orthogonal to each other when $i \le n-1$, we now try to prove $b_n$ is orthogonal to all $b_j,j&lt; n$. </p>
+<script type="math/tex; mode=display">
+b_j^Tb_n=b_j^T(a_n-\sum_{i<n} \text{proj}_{b_i}a_n)
+=b_j^Ta_n-b_j^T\text{proj}_{b_j}a_n-\sum_{i<n,i\neq j} b_j^T\text{proj}_{b_i}a_n \\
+\text{Notice, } b_j\perp b_i \Rightarrow b_j\perp \text{proj}_{b_i}a_n \Rightarrow b_j^T\text{proj}_{b_i}a_n=0\\
+b_j^Tb_n=b_j^Ta_n-b_j^T\cdot [b_j(b_j^Tb_j)^{-1}b_j^Ta_n]-0=b_j^Ta_n-b_j^Ta_n=0</script><p>Then, we can construct $q$ to be,</p>
+<script type="math/tex; mode=display">
+q_i=\frac{b_i}{||b_i||}</script><p>To get $R$, we multiply $Q^T$ on left on both sides,</p>
+<script type="math/tex; mode=display">
+Q^TA=Q^TQR \\
+Q^TA=(Q^TQ)R \\
+Q^TA=IR \\
+R=Q^TA</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">BWmagician</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2026/02/09/Projection-in-Matrix/">http://example.com/2026/02/09/Projection-in-Matrix/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/bgs/mayyyyyuri.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/2026/02/20/TEST-docker/" title="TEST_docker"><img class="cover" src="/img/bgs/b.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">TEST_docker</div></div></div></a><a class="pagination-related" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix"><img class="cover" src="/img/bgs/hollow%20night.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Subspaces in Matrix</div></div><div class="info-2"><div class="info-item-1">Vector SpaceGenerally refers to the space with one operation. For most cases, this operation refers to addition. All elements in the vector space satisfies these laws. Here I use addition but it only means “certain operation”, it can be multiplication or even bit-wise XOR.  Exchange law  v+u=u+v Associative law  v+(u+w)=(v+u)+w Identity    v+0=v Inverse (Existence)  For every $v$, guarantee that $-v$ exists.  v+(-v)=0 Associative law of scalars  For $\alpha$ and $\beta$ in $\mathbb{F}$ , whic...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">BWmagician</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/BWmagician"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This blog starts to write in English at October 5th, 2025. The previous blogs will probabaly() be translated into Egnlish later.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#No-Solution-but-with-Optimal-Solution"><span class="toc-number">1.</span> <span class="toc-text">No Solution, but with Optimal Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-Projection"><span class="toc-number">2.</span> <span class="toc-text">Why Projection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Geometric-Meaning-of-Optimal-Solution"><span class="toc-number">2.1.</span> <span class="toc-text">Geometric Meaning of Optimal Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Do-Orthogonal-Projection"><span class="toc-number">2.2.</span> <span class="toc-text">Do Orthogonal Projection</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Orthogonal-Projection-Gives-the-Minimum-Error"><span class="toc-number">2.2.1.</span> <span class="toc-text">Orthogonal Projection Gives the Minimum Error</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1D-case"><span class="toc-number">2.2.2.</span> <span class="toc-text">1D case</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2D-case"><span class="toc-number">2.2.3.</span> <span class="toc-text">2D case</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nD-case"><span class="toc-number">2.2.4.</span> <span class="toc-text">nD case</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-to-Quickly-Get-the-Only-Solution-to-hat-x"><span class="toc-number">2.3.</span> <span class="toc-text">How to Quickly Get the Only Solution to $\hat x$?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#A-TA-hat-x-A-Tb-will-always-has-solution-s-for-Any-A"><span class="toc-number">2.3.1.</span> <span class="toc-text">$A^TA\hat x&#x3D;A^Tb$ will always has solution(s) for Any $A$</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#If-A-TA-is-invertible-things-get-smoother"><span class="toc-number">2.3.2.</span> <span class="toc-text">If $A^TA$ is invertible, things get smoother</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#When-Would-A-TA-Be-Invertible"><span class="toc-number">2.3.3.</span> <span class="toc-text">When Would $A^TA$ Be Invertible ?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Summary-A-Normal-Procedure-to-Get-p-and-hat-x"><span class="toc-number">2.3.4.</span> <span class="toc-text">Summary: A Normal Procedure to Get $p$ and $\hat x$</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Least-Square-Method"><span class="toc-number">2.3.5.</span> <span class="toc-text">Least Square Method</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Orthogonal-Projection-Matrix"><span class="toc-number">2.4.</span> <span class="toc-text">Orthogonal Projection Matrix</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Features-of-Orthogonal-Projection-Matrix"><span class="toc-number">2.4.1.</span> <span class="toc-text">Features of Orthogonal Projection Matrix</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Orthonormal-Matrix"><span class="toc-number">2.5.</span> <span class="toc-text">Orthonormal Matrix</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Orthonormal-Matrix-Has-Full-Column-Rank"><span class="toc-number">2.5.1.</span> <span class="toc-text">Orthonormal Matrix Has Full Column Rank</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#A-QR-Decomposition"><span class="toc-number">2.5.2.</span> <span class="toc-text">$A&#x3D;QR$ Decomposition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gram-Schmidt%E2%80%99s-Method"><span class="toc-number">2.5.3.</span> <span class="toc-text">Gram Schmidt’s Method</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/nihao-TEST/" title="nihao__TEST"><img src="/img/bgs/54c15a11b1eca88158355fb46c6fc936b9e723fe.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nihao__TEST"/></a><div class="content"><a class="title" href="/2026/02/20/nihao-TEST/" title="nihao__TEST">nihao__TEST</a><time datetime="2026-02-20T02:04:12.000Z" title="Created 2026-02-20 10:04:12">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/TEST-docker/" title="TEST_docker"><img src="/img/bgs/b.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEST_docker"/></a><div class="content"><a class="title" href="/2026/02/20/TEST-docker/" title="TEST_docker">TEST_docker</a><time datetime="2026-02-19T20:38:39.000Z" title="Created 2026-02-20 04:38:39">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix"><img src="/img/bgs/mayyyyyuri.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Projection in Matrix"/></a><div class="content"><a class="title" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix">Projection in Matrix</a><time datetime="2026-02-09T05:08:02.000Z" title="Created 2026-02-09 13:08:02">2026-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix"><img src="/img/bgs/hollow%20night.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Subspaces in Matrix"/></a><div class="content"><a class="title" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix">Subspaces in Matrix</a><time datetime="2026-02-07T06:09:42.000Z" title="Created 2026-02-07 14:09:42">2026-02-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra"><img src="/img/bgs/dontrideanymore.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MATH202 Linear Algebra"/></a><div class="content"><a class="title" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra">MATH202 Linear Algebra</a><time datetime="2026-01-22T14:24:30.000Z" title="Created 2026-01-22 22:24:30">2026-01-22</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By BWmagician</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

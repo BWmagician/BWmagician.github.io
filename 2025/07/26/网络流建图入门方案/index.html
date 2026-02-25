@@ -1,0 +1,293 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>网络流建图入门方案 | UUZ's Blog</title><meta name="author" content="BWmagician"><meta name="copyright" content="BWmagician"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="rgba(256, 256, 256, 0.5)"><meta name="description" content="如果你还没有学过网络流请看饼先生的还没有写完dicnic的博客捏 (2025&#x2F;7&#x2F;27 需要理解网络流的最大流等于最小割，在建图的时候我们会频繁转换语义 关于二分图最大匹配现在大部分人（估计 跑二分图最大匹配都会用网络流。dinic跑二分图的复杂度仅为$O(m \sqrt m)$，在稀疏图中比正统二分图匹配算法快很多。具体的建图方案是新建源点和汇点，让源点连向左侧的点集，让右侧的点集连向汇点，每条">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络流建图入门方案">
+<meta property="og:url" content="http://example.com/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="UUZ&#39;s Blog">
+<meta property="og:description" content="如果你还没有学过网络流请看饼先生的还没有写完dicnic的博客捏 (2025&#x2F;7&#x2F;27 需要理解网络流的最大流等于最小割，在建图的时候我们会频繁转换语义 关于二分图最大匹配现在大部分人（估计 跑二分图最大匹配都会用网络流。dinic跑二分图的复杂度仅为$O(m \sqrt m)$，在稀疏图中比正统二分图匹配算法快很多。具体的建图方案是新建源点和汇点，让源点连向左侧的点集，让右侧的点集连向汇点，每条">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/bgs/b.png">
+<meta property="article:published_time" content="2025-07-26T14:53:56.000Z">
+<meta property="article:modified_time" content="2026-02-25T01:28:21.408Z">
+<meta property="article:author" content="BWmagician">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/bgs/b.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "网络流建图入门方案",
+  "url": "http://example.com/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/",
+  "image": "http://example.com/img/bgs/b.png",
+  "datePublished": "2025-07-26T14:53:56.000Z",
+  "dateModified": "2026-02-25T01:28:21.408Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BWmagician",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/light.drawio.svg"><link rel="canonical" href="http://example.com/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(0, 0, 0, 0.5)')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(256, 256, 256, 0.5)')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#09b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '网络流建图入门方案',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/tianzizuomingtang.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/bgs/b.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">UUZ's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">网络流建图入门方案</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">网络流建图入门方案</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-07-26T14:53:56.000Z" title="Created 2025-07-26 22:53:56">2025-07-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-02-25T01:28:21.408Z" title="Updated 2026-02-25 09:28:21">2026-02-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9F%90%E4%BA%9B%E7%AE%97%E6%B3%95/">某些算法</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9F%90%E4%BA%9B%E7%AE%97%E6%B3%95/%E6%B6%82%E8%AE%BA/">涂论</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="如果你还没有学过网络流"><a href="#如果你还没有学过网络流" class="headerlink" title="如果你还没有学过网络流"></a>如果你还没有学过网络流</h2><p>请看饼先生的还没有写完dicnic的博客捏 (2025/7/27</p>
+<p>需要理解网络流的最大流等于最小割，在建图的时候我们会频繁转换语义</p>
+<h3 id="关于二分图最大匹配"><a href="#关于二分图最大匹配" class="headerlink" title="关于二分图最大匹配"></a>关于二分图最大匹配</h3><p>现在大部分人（估计 跑二分图最大匹配都会用网络流。<br>dinic跑二分图的复杂度仅为$O(m \sqrt m)$，在稀疏图中比正统二分图匹配算法快很多。<br>具体的建图方案是新建源点和汇点，让源点连向左侧的点集，让右侧的点集连向汇点，每条边按照左侧点集到右侧点集的方向连接，并且每一条边的<strong>边权都是1</strong>。<br><img src="/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/二分图匹配3.drawio.svg" alt="alt text"><br>这样连边的正确性在于，每一条从源点到汇点的路径全由相同边权的边构成，如果推进一次流量，那么所有边一起被流满，如下图(虚线表示这条边无残余流量)。那么此时V1中的其他点通过的流量不能再流向y点，这等效于我们在二分图匹配中所说的<em>一个V1的点选择了一个V2的点</em>。<br><img src="/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/二分图匹配+.drawio.svg" alt="alt text"></p>
+<h4 id="P3386-【模板】二分图最大匹配"><a href="#P3386-【模板】二分图最大匹配" class="headerlink" title="P3386 【模板】二分图最大匹配"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3386">P3386 【模板】二分图最大匹配</a></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">namespace</span> Faster_Bound&#123;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function">	<span class="keyword">inline</span> <span class="type">void</span> <span class="title">read</span><span class="params">(T &amp;x)</span></span>&#123;</span><br><span class="line">		T f=<span class="number">1</span>; x=<span class="number">0</span>; <span class="type">char</span> c=<span class="built_in">getchar</span>();</span><br><span class="line">		<span class="keyword">for</span>(;c&lt;<span class="string">&#x27;0&#x27;</span>||c&gt;<span class="string">&#x27;9&#x27;</span>;c=<span class="built_in">getchar</span>()) <span class="keyword">if</span>(c==<span class="string">&#x27;-&#x27;</span>) f=<span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">for</span>(;c&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;c&lt;=<span class="string">&#x27;9&#x27;</span>;c=<span class="built_in">getchar</span>()) x=(x&lt;&lt;<span class="number">3</span>)+(x&lt;&lt;<span class="number">1</span>)+(c^<span class="number">48</span>);</span><br><span class="line">		x=x*f;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T, <span class="keyword">typename</span>... Args&gt;</span></span><br><span class="line"><span class="function">	<span class="keyword">inline</span> <span class="type">void</span> <span class="title">read</span><span class="params">(T &amp;x, Args&amp;... args)</span></span>&#123;<span class="built_in">read</span>(x);<span class="built_in">read</span>&lt;T&gt;(args...);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> Faster_Bound;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> db;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">double</span> ldb;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> M = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="type">const</span> ll INF = <span class="number">1e16</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n,m,e,s,t,dep[N],cur[N];</span><br><span class="line">ll ans=<span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> head[N],edge_num=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">EDGE</span>&#123;</span><br><span class="line">	<span class="type">int</span> nxt,to;</span><br><span class="line">	ll dis;</span><br><span class="line">&#125;edge[M&lt;&lt;<span class="number">1</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add_edge</span><span class="params">(<span class="type">int</span> f,<span class="type">int</span> to,ll dis)</span></span>&#123;</span><br><span class="line">	edge[++edge_num].nxt=head[f];</span><br><span class="line">	edge[edge_num].to=to;</span><br><span class="line">	edge[edge_num].dis=dis;</span><br><span class="line">	head[f]=edge_num;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> f,<span class="type">int</span> to,ll dis)</span></span>&#123;</span><br><span class="line">	<span class="built_in">add_edge</span>(f,to,dis);</span><br><span class="line">	<span class="built_in">add_edge</span>(to,f,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">bfs</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=t;++i) dep[i]=<span class="number">0</span>;</span><br><span class="line">	q.<span class="built_in">push</span>(s),dep[s]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(!q.<span class="built_in">empty</span>())&#123;</span><br><span class="line">		<span class="type">int</span> x=q.<span class="built_in">front</span>(); q.<span class="built_in">pop</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=head[x];i;i=edge[i].nxt)&#123;</span><br><span class="line">			<span class="type">int</span> to=edge[i].to; ll dis=edge[i].dis;</span><br><span class="line">			<span class="keyword">if</span>(dis&gt;<span class="number">0</span>&amp;&amp;!dep[to])&#123;</span><br><span class="line">				dep[to]=dep[x]<span class="number">+1</span>;</span><br><span class="line">				q.<span class="built_in">push</span>(to);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(dep[t]) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">dfs</span><span class="params">(<span class="type">int</span> x,ll flow)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x==t) <span class="keyword">return</span> flow;</span><br><span class="line">	ll rest=flow;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=cur[x];i&amp;&amp;rest;i=edge[i].nxt)&#123;</span><br><span class="line">		cur[x]=i;</span><br><span class="line">		<span class="type">int</span> to=edge[i].to; ll dis=edge[i].dis,pass=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(dis&gt;<span class="number">0</span>&amp;&amp;dep[to]==dep[x]<span class="number">+1</span>)&#123;</span><br><span class="line">			pass=<span class="built_in">dfs</span>(to,<span class="built_in">min</span>(rest,dis));</span><br><span class="line">			edge[i].dis-=pass,edge[i^<span class="number">1</span>].dis+=pass;</span><br><span class="line">			rest-=pass;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> flow-rest;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dinic</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">bfs</span>())&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=t;++i) cur[i]=head[i];</span><br><span class="line">		ll flow=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(flow=<span class="built_in">dfs</span>(s,INF)) ans+=flow;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">read</span>(n,m,e);</span><br><span class="line">	s=n+m<span class="number">+1</span>,t=s<span class="number">+1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;++i) <span class="built_in">add</span>(s,i,<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;++i) <span class="built_in">add</span>(i+n,t,<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=e;++i)&#123;</span><br><span class="line">		<span class="type">int</span> u,v; <span class="built_in">read</span>(u,v);</span><br><span class="line">		<span class="built_in">add</span>(u,v+n,<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">dinic</span>();</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,ans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="拆点"><a href="#拆点" class="headerlink" title="拆点"></a>拆点</h3><p>这是一个常用技巧，通常我们可以把点权转为边权，或者把一个点具有属性分开。</p>
+<h4 id="好题P2764-最小路径覆盖问题"><a href="#好题P2764-最小路径覆盖问题" class="headerlink" title="好题P2764 最小路径覆盖问题"></a>好题<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2764">P2764 最小路径覆盖问题</a></h4><p>思路是把一个点拆开，变为头和尾，如果两个点在同一条覆盖路径的相邻位置上，则前一个点的尾应该匹配到后一个点的头，表示连接，建图好之后跑二分图最大匹配。<br><img src="/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/最小路径覆盖.drawio.svg" alt="alt text"><br>跑最大匹配的原因是我们每多连接一条边，代表着覆盖路径的数量少一条，这和确定了顶点数的森林数与边数的关系很像。<br>所以正确答案应该是点数减去匹配数。</p>
+<h3 id="源点与汇点的选择"><a href="#源点与汇点的选择" class="headerlink" title="源点与汇点的选择"></a>源点与汇点的选择</h3><p>以上的题目都是二分图问题，源点和汇点都不需要我们去选择，网络流题目里源点和汇点的选择其实很有意思。</p>
+<h4 id="好题P2598-ZJOI2009-狼和羊的故事"><a href="#好题P2598-ZJOI2009-狼和羊的故事" class="headerlink" title="好题P2598 [ZJOI2009] 狼和羊的故事"></a>好题<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2598">P2598 [ZJOI2009] 狼和羊的故事</a></h4><p>我们从土地的角度看，土地的连通其实可以通过下图表示。点表示一块土地，边表示与四周连通，红线为一道栅栏，则对应了虚线边被割开。<br><img src="/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/喜羊羊与灰太狼.drawio.svg" alt="alt text"><br>这样我们就可以联想到最小割，我们让狼羊不接触，实际上就是让狼羊的领土分别为源点和汇点(汇点和源点也可以)然后求解最小割，最小割所代表的意义就是最少的栅栏数。</p>
+<h3 id="利用最小割的语义"><a href="#利用最小割的语义" class="headerlink" title="利用最小割的语义"></a>利用最小割的语义</h3><h4 id="好题P2774-方格取数问题"><a href="#好题P2774-方格取数问题" class="headerlink" title="好题P2774 方格取数问题"></a>好题<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2774">P2774 方格取数问题</a></h4><p>求解取数价值的最大化，其实就是把矛盾的价值最小化。<br>思路是列出所有不合法情况，并建图求解最小割。在这道题中，不合法情况仅可能是由相邻的两个数同时被取引起的。<br>为了能跑最小割，我们必须要拆点，把点权化为边权，然后按照列出矛盾的思路连边。如下图，a，b，c，d为x的上下左右。虽然我们还没有设立源点和汇点，但是可以看出这张图的每一条路径都代表着不合法的情况，这些不合法的情况为: 取x同时取a，取x同时取b，取x同时取c，取x同时取d。假设我们选取了合适的源点和汇点，让每一条路径的方向都是x流向他的四周(图中的箭头代表了这种流向)，那么此时跑最小割的意义就是割掉价值最小的边，让每一种不合法情况都不发生。这里还有一个细节，就是把不需要割的边设为极大值，这样这个边就不会被割断。<br><img src="/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/方格取数.drawio.svg" alt><br>此时，我们可以思考一下源点和汇点应该怎么选择。这需要你注意到一个有趣的性质：如果给一个棋盘染黑白两色，让相邻的两格颜色不同，则一个点与他周围的点是不同色的，此时我们可以选择所有的黑点做源点，让所有的白点做汇点。<br>这样做的实际意义是避免了重复的连边，如果我们让每个点都做源点，则x’到a要连一条边，a’到x也要连上一条边了，而这两个连边实际上表示的是同一个不合法情况，我们的最小割是不可以割同一个不合法情况两次的。并且，如果所有点都成为源点，则没有点成为汇点，也跑不了最小割。<br><img src="/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/方格取数2.drawio.svg" alt="alt text"><br>那么下图就是我们最终建立的图，由于源点连出的边和连到汇点的边设为INF其实是没什么意义的，我们就可以化简一下，让value这条边放到源点连出去和连到汇点的边上。<br><img src="/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/方格取数3.drawio-1.svg" alt="alt text"><br>这样，正确的答案就应该是，所有价值减去最小割</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">BWmagician</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/">http://example.com/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/bgs/b.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/08/25/%E7%BD%91%E7%BB%9C%E6%B5%81%E6%9D%82%E8%B0%88/" title="网络流杂谈"><img class="cover" src="/img/bgs/wudi.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">网络流杂谈</div></div><div class="info-2"><div class="info-item-1">某图的最小割的可行割边不会是(任意)残量图中未满流的边做这题的时候看到讨论区有人问为什么残量网络中未满流的边不会是可行边。感性上看，如果未满流则说明受制于某边，那么割那一条边是严格更优的，因此不会有最小割方案包含一条残量图中未满流的边。但这样还是太玄乎了，我们尝试用符号证明。假设对于图$G(E,V)$有一组最小割$C={e_1,e_2,…}$，选其中一条流为$f$的边$e$，图$G(E,V)$的最大流是$M$。我们考察$G(E \backslash {e},V)$，对于这个图，$C \backslash {e}$是一组可行的割；$M-f$是可行的流。则发现割等于流，那么对于$G(E\backslash {e},V)$ ，$C \backslash {e}$是一组可行的最小割同时$M-f$是最大流。因此，如果某条边是可行的割边，割去他之后剩下的图的最大流应该保持$M-f$。考虑残量图未满流的边，我们说他还剩余$k$的流量，如果去掉这条边，则剩余图的一个可行流是$M-f+k$，则剩余图的最大流已经超过了$M-f$，因此残量图未流满的边是不会成为可行边的。 对(任意)残量图缩点后处于一...</div></div></div></a><a class="pagination-related" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/" title="oi神人禄"><img class="cover" src="/img/bgs/Eclass.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">oi神人禄</div></div><div class="info-2"><div class="info-item-1">2025/7/24五先生多测数据清空整整一次。 2025/7/26昨天改了一天的blog被饼先生及他的手机与电脑打败了。彻彻底底地。惨败。 2025/8/25被交互题薄纱（多谢饼神医出手相助五老师在反恐精英twoO3的第一个奎斯勇夺第二、三题，最终第三题做错。（第一题呢 2025/11/12武先生认为$d(3y)=dy$ 2025/11/12(补录武先生，装环境把内存装爆了，？他认为20多个G很一般武先生的把柄已经被狠狠的把握住了，并且事情败露对他毫无影响，他丝毫不惧。武先生，时至今日仍然仍为第三题是第四题，欸。。。 2025/11/16沈阳站无人类牢锋挂死在一题上爪子简木一计害三贤比乐小伙化身小馋猫封榜四题稳银三题300名之外 </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">BWmagician</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/BWmagician"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This blog starts to write in English at October 5th, 2025. The previous blogs will probabaly() be translated into Egnlish later.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E4%BD%A0%E8%BF%98%E6%B2%A1%E6%9C%89%E5%AD%A6%E8%BF%87%E7%BD%91%E7%BB%9C%E6%B5%81"><span class="toc-number">1.</span> <span class="toc-text">如果你还没有学过网络流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E4%BA%8C%E5%88%86%E5%9B%BE%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D"><span class="toc-number">1.1.</span> <span class="toc-text">关于二分图最大匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#P3386-%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E4%BA%8C%E5%88%86%E5%9B%BE%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D"><span class="toc-number">1.1.1.</span> <span class="toc-text">P3386 【模板】二分图最大匹配</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%86%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">拆点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A5%BD%E9%A2%98P2764-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.1.</span> <span class="toc-text">好题P2764 最小路径覆盖问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%82%B9%E4%B8%8E%E6%B1%87%E7%82%B9%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">1.3.</span> <span class="toc-text">源点与汇点的选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A5%BD%E9%A2%98P2598-ZJOI2009-%E7%8B%BC%E5%92%8C%E7%BE%8A%E7%9A%84%E6%95%85%E4%BA%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">好题P2598 [ZJOI2009] 狼和羊的故事</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%9C%80%E5%B0%8F%E5%89%B2%E7%9A%84%E8%AF%AD%E4%B9%89"><span class="toc-number">1.4.</span> <span class="toc-text">利用最小割的语义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A5%BD%E9%A2%98P2774-%E6%96%B9%E6%A0%BC%E5%8F%96%E6%95%B0%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.1.</span> <span class="toc-text">好题P2774 方格取数问题</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/nihao-TEST/" title="nihao__TEST"><img src="/img/bgs/54c15a11b1eca88158355fb46c6fc936b9e723fe.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nihao__TEST"/></a><div class="content"><a class="title" href="/2026/02/20/nihao-TEST/" title="nihao__TEST">nihao__TEST</a><time datetime="2026-02-20T02:04:12.000Z" title="Created 2026-02-20 10:04:12">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/TEST-docker/" title="TEST_docker"><img src="/img/bgs/b.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEST_docker"/></a><div class="content"><a class="title" href="/2026/02/20/TEST-docker/" title="TEST_docker">TEST_docker</a><time datetime="2026-02-19T20:38:39.000Z" title="Created 2026-02-20 04:38:39">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix"><img src="/img/bgs/mayyyyyuri.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Projection in Matrix"/></a><div class="content"><a class="title" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix">Projection in Matrix</a><time datetime="2026-02-09T05:08:02.000Z" title="Created 2026-02-09 13:08:02">2026-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix"><img src="/img/bgs/hollow%20night.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Subspaces in Matrix"/></a><div class="content"><a class="title" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix">Subspaces in Matrix</a><time datetime="2026-02-07T06:09:42.000Z" title="Created 2026-02-07 14:09:42">2026-02-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra"><img src="/img/bgs/dontrideanymore.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MATH202 Linear Algebra"/></a><div class="content"><a class="title" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra">MATH202 Linear Algebra</a><time datetime="2026-01-22T14:24:30.000Z" title="Created 2026-01-22 22:24:30">2026-01-22</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By BWmagician</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

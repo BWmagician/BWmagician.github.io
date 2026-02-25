@@ -1,0 +1,9 @@
+pre, .highlight {
+    tab-size: 4; /* 将tab的大小设置为4个空格的宽度 */
+    -moz-tab-size: 4; /* 用于Firefox浏览器的兼容性前缀 */
+    -o-tab-size:  ⁠ 4; /* 用于旧版Opera浏览器的兼容性前缀 */
+}
+
+#page-header.post-bg{
+    background-position: center center; /* 将背景图片移到顶部 */
+}

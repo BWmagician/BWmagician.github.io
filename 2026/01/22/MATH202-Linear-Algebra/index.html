@@ -1,0 +1,1535 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MATH202 Linear Algebra | UUZ's Blog</title><meta name="author" content="BWmagician"><meta name="copyright" content="BWmagician"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="rgba(256, 256, 256, 0.5)"><meta name="description" content="MATH202 Linear Algebra??This is the first time I giving a summary to learned knowledge in class in EN. Since tomorrow will have a quiz, I will give a quick summary of the knowledge in previous three w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MATH202 Linear Algebra">
+<meta property="og:url" content="http://example.com/2026/01/22/MATH202-Linear-Algebra/index.html">
+<meta property="og:site_name" content="UUZ&#39;s Blog">
+<meta property="og:description" content="MATH202 Linear Algebra??This is the first time I giving a summary to learned knowledge in class in EN. Since tomorrow will have a quiz, I will give a quick summary of the knowledge in previous three w">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/bgs/dontrideanymore.jpg">
+<meta property="article:published_time" content="2026-01-22T14:24:30.000Z">
+<meta property="article:modified_time" content="2026-02-25T02:14:03.661Z">
+<meta property="article:author" content="BWmagician">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/bgs/dontrideanymore.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "MATH202 Linear Algebra",
+  "url": "http://example.com/2026/01/22/MATH202-Linear-Algebra/",
+  "image": "http://example.com/img/bgs/dontrideanymore.jpg",
+  "datePublished": "2026-01-22T14:24:30.000Z",
+  "dateModified": "2026-02-25T02:14:03.661Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BWmagician",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/light.drawio.svg"><link rel="canonical" href="http://example.com/2026/01/22/MATH202-Linear-Algebra/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(0, 0, 0, 0.5)')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(256, 256, 256, 0.5)')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#09b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MATH202 Linear Algebra',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/tianzizuomingtang.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/bgs/dontrideanymore.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">UUZ's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">MATH202 Linear Algebra</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">MATH202 Linear Algebra</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-01-22T14:24:30.000Z" title="Created 2026-01-22 22:24:30">2026-01-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-02-25T02:14:03.661Z" title="Updated 2026-02-25 10:14:03">2026-02-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="MATH202-Linear-Algebra"><a href="#MATH202-Linear-Algebra" class="headerlink" title="MATH202 Linear Algebra"></a>MATH202 Linear Algebra</h1><h2 id><a href="#" class="headerlink" title="??"></a>??</h2><p>This is the first time I giving a summary to learned knowledge in class in EN. Since tomorrow will have a quiz, I will give a quick summary of the knowledge in previous three weeks. By 2026/1/21.</p>
+<h2 id="Matrix-Operation"><a href="#Matrix-Operation" class="headerlink" title="Matrix Operation"></a>Matrix Operation</h2><h3 id="What-is-matrix"><a href="#What-is-matrix" class="headerlink" title="What is matrix?"></a>What is matrix?</h3><h4 id="System-of-linear-equations"><a href="#System-of-linear-equations" class="headerlink" title="System of linear equations"></a>System of linear equations</h4><script type="math/tex; mode=display">
+\begin{cases}
+x+y+2z &= 5 \\
+\,\,\,\,\,\,\,\,\,\,\,y+z &=2 \\
+x+y\,\,\,\,\,\,\,\,\,\,\, &= 3
+\end{cases}</script><p>This is a system of linear equations. A system of linear equations contains multiple unknown variables but the highest power is 1.</p>
+<h4 id="Solve-the-system-of-linear-equations"><a href="#Solve-the-system-of-linear-equations" class="headerlink" title="Solve the system of linear equations"></a>Solve the system of linear equations</h4><p>Let’s try to solve this linear equation. Subtract the third row by the first row, we have</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+x+y+2z &= 5 \\
+\,\,\,\,\,\,\,\,\,\,\,y+z &=2 \\
+\,\,\,\,\,\,\,\,\,\,\, \,\,\,\,-\,2z &= -2
+\end{cases}</script><p>Then we can solve</p>
+<script type="math/tex; mode=display">
+z=1</script><p>and,</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+x+y+2 &= 5 \\
+\,\,\,\,\,\,\,\,\,\,\,y+1 &=2 \\
+\end{cases}</script><p>Then we can solve</p>
+<script type="math/tex; mode=display">
+y = 1</script><p>and,</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+x+1+2 &= 5 \\
+\end{cases}</script><p>Then we can solve</p>
+<script type="math/tex; mode=display">
+x=3</script><p>In the end we get the solution to this linear equation, which is</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+x=3\\
+y=1\\
+z=1
+\end{cases}</script><h4 id="Does-“x”-”y”-”z”-really-matter"><a href="#Does-“x”-”y”-”z”-really-matter" class="headerlink" title="Does “x”,”y”,”z” really matter?"></a>Does “x”,”y”,”z” really matter?</h4><p>Now solve this linear equation,</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+a+b+2c &= 5 \\
+\,\,\,\,\,\,\,\,\,\,\,b+c &=2 \\
+a+b\,\,\,\,\,\,\,\,\,\,\, &= 3
+\end{cases}</script><p>We can solve the equations by following exactly same steps.</p>
+<p>And get</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+a=3\\
+b=1\\
+c=1
+\end{cases}</script><h4 id="Extracting-the-coefficient"><a href="#Extracting-the-coefficient" class="headerlink" title="Extracting the coefficient"></a>Extracting the coefficient</h4><p>Now introducing the matrix. By applying a powerful tool, matrix, we separate the coefficients and variables of the system of linear equations apart, it will look like this.</p>
+<p>Given the linear equation,</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+a+b+2c &= 5 \\
+\,\,\,\,\,\,\,\,\,\,\,b+c &=2 \\
+a+b\,\,\,\,\,\,\,\,\,\,\, &= 3
+\end{cases}</script><p>We can have,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+1 & 1 & 2 \\
+0 & 1 & 1 \\
+1 & 1 & 0
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+a\\
+b\\
+c\\
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+5\\
+2\\
+3\\
+\end{matrix}
+\right]</script><p>But what we can do on matrix? We still have no idea.. So we should give more rules and assign more ideas to make matrix well-defined. By far, the matrix  can’t do anything.</p>
+<h3 id="Why-matrix"><a href="#Why-matrix" class="headerlink" title="Why matrix?"></a>Why matrix?</h3><p>In this part, we should give more detailed ideas to matrix to make it well-defined and meaningful.</p>
+<h4 id="Run-vectors"><a href="#Run-vectors" class="headerlink" title="Run vectors"></a>Run vectors</h4><p>Now we try to change our perspective on solving the linear equation.</p>
+<p>Given this linear equations,</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+a+b+2c &= 5 \\
+\,\,\,\,\,\,\,\,\,\,\,b+c &=2 \\
+a+b\,\,\,\,\,\,\,\,\,\,\, &= 3
+\end{cases}</script><p>We can also regard the system as vector stuffs.</p>
+<p>Let’s define</p>
+<script type="math/tex; mode=display">
+\vec{v_1} = (1,0,1)\\
+\vec{v_2} = (1,1,1)\\
+\vec{v_3} = (2,1,0)\\</script><p>We can view this system of linear equations as</p>
+<script type="math/tex; mode=display">
+a \vec{v_1}+b \vec{v_2}+c\vec{v_3}=(5,2,3)</script><p>If you can’t see why, we can visualize this vector equation in this way,</p>
+<script type="math/tex; mode=display">
+a
+\left[
+\begin{matrix}
+1  \\
+0  \\
+1  \\
+\end{matrix}
+\right]
++b
+\left[
+\begin{matrix}
+1  \\
+1  \\
+1  \\
+\end{matrix}
+\right]
++c
+\left[
+\begin{matrix}
+2  \\
+1  \\
+0  \\
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+5  \\
+2  \\
+3  \\
+\end{matrix}
+\right]</script><p>This is convenient, isn’t it?</p>
+<p>So let’s define our first rule about matrix here,</p>
+<script type="math/tex; mode=display">
+\text{n by 1 matrix represents a vector}</script><h5 id="What-is-“by”"><a href="#What-is-“by”" class="headerlink" title="What is “by”"></a>What is “by”</h5><p>We say a matrix is $n$ by $m$ if it has $n$ rows and $m$ columns.</p>
+<h4 id="Do-eliminations"><a href="#Do-eliminations" class="headerlink" title="Do eliminations"></a>Do eliminations</h4><p>The strategy we use to solve system of linear equations is doing elimination. We still want to apply this strategy in matrix. Thus, it is necessary to define some operations in matrix to help us solving linear equations.</p>
+<p>Now we focus on one thing, “let the third row be subtracted by the first row”. Looking back to our vector equations, it becomes confusing if we doing elimination by row on multiple vectors standing vertically.</p>
+<p>See this,</p>
+<script type="math/tex; mode=display">
+a
+\left[
+\begin{matrix}
+1  \\
+0  \\
+1-1  \\
+\end{matrix}
+\right]
++b
+\left[
+\begin{matrix}
+1  \\
+1  \\
+1-1  \\
+\end{matrix}
+\right]
++c
+\left[
+\begin{matrix}
+2  \\
+1  \\
+0-2  \\
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+5  \\
+2  \\
+3-5  \\
+\end{matrix}
+\right]</script><p>It is confusing because based on our only rule, we can’t figure out the meaning of doing this operation.</p>
+<p>So it’s time to combine them together.</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+1 & 1 & 2 \\
+0 & 1 & 1 \\
+1 & 1 & 0
+\end{matrix}
+\right]
+\otimes \{a,b,c\}
+=
+\left[
+\begin{matrix}
+5\\
+2\\
+3\\
+\end{matrix}
+\right]</script><p>Here we should give our second rule about matrix,</p>
+<script type="math/tex; mode=display">
+\text{Reflect a linear system by matrix, we can see each euqation as a row in matrix}</script><p>Under this rule, we can do “row 3” subtract “row 1” to reflect the elimination, which is</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+1 & 1 & 2 \\
+0 & 1 & 1 \\
+1 & 1 & 0
+\end{matrix}
+\right]
+\stackrel{row_3-row_1}{\longrightarrow}
+\left[
+\begin{matrix}
+1 & 1 & 2 \\
+0 & 1 & 1 \\
+0 & 0 & -2
+\end{matrix}
+\right]</script><p>But what is $\otimes$ ? It represents an operation to assign $a$ ,$b$ and $c$ to their correct vectors. It’s time to define some operations to make everything connected.</p>
+<h4 id="Operations"><a href="#Operations" class="headerlink" title="Operations"></a>Operations</h4><h5 id="Addition"><a href="#Addition" class="headerlink" title="Addition"></a>Addition</h5><p>Do we need addition?</p>
+<p>The answer would be yes.</p>
+<p>Notice in our first rule, we need to add the vectors together, it means addition is needed in matrix.</p>
+<p>Let’s do some further definitions.</p>
+<script type="math/tex; mode=display">
+\text{Only matrix with same size can by added together, the result would be addition on entery }</script><blockquote>
+<p>What is entry?</p>
+<p>It just means elements or the numbers in the matrix.</p>
+</blockquote>
+<p>The addition should work like this,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+a & b \\
+c & d
+\end{matrix}
+\right]
++
+\left[
+\begin{matrix}
+e & f \\
+g & h
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+a+e & b+f \\
+c+g & d+h
+\end{matrix}
+\right]</script><h5 id="What-don’t-define-addition-between-matrix-in-different-sizes"><a href="#What-don’t-define-addition-between-matrix-in-different-sizes" class="headerlink" title="What don’t define addition between matrix in different sizes?"></a>What don’t define addition between matrix in different sizes?</h5><p>We want to design a well-defined matrix system. Addition should be meaningful and safe. Honestly, can you think of the meaning of adding together different sizes of matrix (imagine two vectors with different length added together) ? By the way, if we do this , it will be nightmare to deal with distributive law in multiplication (If we want to have this law in matrix operations).</p>
+<h5 id="Multiplication"><a href="#Multiplication" class="headerlink" title="Multiplication"></a>Multiplication</h5><p>Multiplication is waited to be defined. In the above content, we just leave multiplication with the sign $\otimes$.</p>
+<p>To define multiplication, we should figure out the what do we want from multiplication.</p>
+<p>In this special case, we want to assign variables $a$, $b$ and $c$ to their belonging vectors</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+1 & 1 & 2 \\
+0 & 1 & 1 \\
+1 & 1 & 0
+\end{matrix}
+\right]
+\otimes \{a,b,c\}
+=
+a
+\left[
+\begin{matrix}
+1  \\
+0  \\
+1  \\
+\end{matrix}
+\right]
++b
+\left[
+\begin{matrix}
+1  \\
+1  \\
+1  \\
+\end{matrix}
+\right]
++c
+\left[
+\begin{matrix}
+2  \\
+1  \\
+0  \\
+\end{matrix}
+\right]</script><h6 id="Why-is-a-b-c-on-the-right-side"><a href="#Why-is-a-b-c-on-the-right-side" class="headerlink" title="Why is {a,b,c}  on the right side?"></a>Why is {a,b,c}  on the right side?</h6><p>Sure you can define it to be on the left but this is a convention. Every body put it on the right side so it becomes a convention. This is really important because you will know later that you cannot change the order of multiplication.</p>
+<p>Before defining the whole multiplication, let’s just focus on this specific example. We should give ${a,b,c}$ a form in matrix since we are defining matrix multiplication. If we want to do some meaningful things in multiplication, $a$, $b$ and $c$ can  only be represented in</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+a  \\
+b  \\
+c  \\
+\end{matrix}
+\right]</script><p>or</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+a &b &c
+\end{matrix}
+\right]</script><p>Here is another convention. I believe most people choose the former one, this is true because it is written in my textbook (●´ω｀●)ゞ .</p>
+<p>So we have,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+1 & 1 & 2 \\
+0 & 1 & 1 \\
+1 & 1 & 0
+\end{matrix}
+\right]
+\otimes
+\left[
+\begin{matrix}
+a  \\
+b \\
+c  \\
+\end{matrix}
+\right]
+=
+a
+\left[
+\begin{matrix}
+1  \\
+0  \\
+1  \\
+\end{matrix}
+\right]
++b
+\left[
+\begin{matrix}
+1  \\
+1  \\
+1  \\
+\end{matrix}
+\right]
++c
+\left[
+\begin{matrix}
+2  \\
+1  \\
+0  \\
+\end{matrix}
+\right]</script><p>If you do the another way, I believe you can also get a well-defined system <del>but only you know</del>. Don’t do that..</p>
+<p>Here I want to point out more meanings hidden in the multiplication.</p>
+<p>Given this matrix,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{matrix}
+\right]</script><p>Its columns, those vectors, are exactly three unit vectors on axis in $\mathbb{R}^3$ , by multiply a vector on the right side, we are trying to get a specific position in $\mathbb{R}^3$.  The multiplication, in some sense, is trying to make combination by the instructions in the right matrix and using the columns in the left matrix.</p>
+<p>Here gives a idea of combination of the columns, which indicates us to expand our multiplication beyond only vectors.</p>
+<p>Given</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+1 & 1 & 2 \\
+0 & 1 & 1 \\
+1 & 1 & 0
+\end{matrix}
+\right]
+\otimes
+\left[
+\begin{matrix}
+a  \\
+b \\
+c  \\
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+d  \\
+e \\
+f  \\
+\end{matrix}
+\right]</script><script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+1 & 1 & 2 \\
+0 & 1 & 1 \\
+1 & 1 & 0
+\end{matrix}
+\right]
+\otimes
+\left[
+\begin{matrix}
+g  \\
+h \\
+i  \\
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+j  \\
+k \\
+l  \\
+\end{matrix}
+\right]</script><p>The result is defined to be,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+1 & 1 & 2 \\
+0 & 1 & 1 \\
+1 & 1 & 0
+\end{matrix}
+\right]
+\otimes
+\left[
+\begin{matrix}
+a &g  \\
+b &h \\
+c &i  \\
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+e &j  \\
+e &k \\
+f &l  \\
+\end{matrix}
+\right]</script><p>Here we can throw the $\otimes$ away, because it is now well-defined. If we use $B_i,C_i$ to describe each column of matrix $A$, $B$ and $C$</p>
+<p>We say</p>
+<script type="math/tex; mode=display">
+A \times B=C</script><p>Then if $B$ has $n$ columns,</p>
+<script type="math/tex; mode=display">
+A
+\times
+\left[
+\begin{matrix}
+B_1 &B_2 &{...} &B_n
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+A\times B_1 &A\times B_2 &... &A\times B_n
+\end{matrix}
+\right]=C\\
+C_i =A\times B_i</script><p>This is well-defined because it satisfy associative law.</p>
+<blockquote>
+<p>Notice. There are conditions before multiplying two matrix.</p>
+<p>Before proving it satisfies associative law, you should notice $A \times B$ is valid only when number of $A$’s column equals the number of $B$’s row. This is due to system of linear equations. The width of the matrix on the left represents the number of variables in equations. The number of variables in system of linear equations should equal to the length of the vector which is the matrix on the right.  These kind of vectors are just columns in $B$, so the width of $A$ equals the height of $B$ in multiplication.</p>
+</blockquote>
+<p>We say $A$ is $m$ by $n$, $B$ is $n$ by $p$, C is $p$ by $q$</p>
+<p>We try to prove this,</p>
+<script type="math/tex; mode=display">
+(A\times B)\times C
+=
+\left[
+\begin{matrix}
+(A \times B)\times C_1 &(A \times B)\times C_2 &... &(A \times B)\times C_q
+\end{matrix}
+\right]
+\\
+?=
+\\
+\left[
+\begin{matrix}
+A\times(B\times C)_1 &A\times(B\times C)_2 &... &A\times(B\times C)_q
+\end{matrix}
+\right]</script><p>We only need to prove this,</p>
+<script type="math/tex; mode=display">
+(A \times B)\times C_i=A \times (B\times C)_i</script><p>Do expansion on the right side because $(B\times C)_i$ is just a vector,</p>
+<script type="math/tex; mode=display">
+A\times (B\times C)_i=A\times(B\times C_i)</script><p>By far, we have no way but to compare entries to confirm they are equal, since $C_i$ is a column, it will be more convenient to do so.</p>
+<p>Let $C<em>{i,j}$ represents the entry in $i$ th row and $j$ th column. Notice $C_i$ means $i$ th column in $C$, $C</em>{i,j}$ has different meaning.</p>
+<script type="math/tex; mode=display">
+\begin{align}
+(A\times B)\times C_i
+=
+\left[
+\begin{matrix}
+A\times B_1 &A\times B_2 &... &A\times B_p
+\end{matrix}
+\right]
+\times C_i=C_{1,i}A\times B_1+C_{2,i}A\times B_2+...+C_{p,i}A\times B_p\\
+A\times (B\times C_i)=A\times (B_1C_{1,i}+B_2C_{2,i}+...+B_pC_{p,i})=C_{1,i}A\times B_1+C_{2,i}A\times B_2+...+C_{p,i}A\times B_p
+\end{align}</script><p>They are the same, so the associative law holds.</p>
+<h4 id="Summary-to-matrix-by-far"><a href="#Summary-to-matrix-by-far" class="headerlink" title="Summary to matrix by far"></a>Summary to matrix by far</h4><p>We build a well-defined matrix system, because,</p>
+<p>For addition, it allows associative law and exchange. (obviously)</p>
+<p>For multiplication, it allows associative law and distribution (obviously).  But exchange is not allowed in multiplication.</p>
+<p>What is addition identity? A matrix with all the entries being zeros.</p>
+<p>What is multiplication identity? We’ll see later.</p>
+<p>Then we can back to our previous thought… Conduct elimination on matrix.</p>
+<h2 id="Gaussian-Elimination"><a href="#Gaussian-Elimination" class="headerlink" title="Gaussian Elimination"></a>Gaussian Elimination</h2><h3 id="General-Idea-of-multiplication-frequently-used-formula-to-do-multiplication"><a href="#General-Idea-of-multiplication-frequently-used-formula-to-do-multiplication" class="headerlink" title="General Idea of multiplication (frequently used formula to do multiplication)"></a>General Idea of multiplication (frequently used formula to do multiplication)</h3><p>We can have a more general idea of multiplication here.</p>
+<p>If we say Let $A$ be $m$ by $n$ and $B$ be $n$ by $p$,</p>
+<script type="math/tex; mode=display">
+A \times B = C</script><p>We have,</p>
+<script type="math/tex; mode=display">
+C_{i,j}=\sum_{k=1}^{n} A_{i,k}*B_{k,j}</script><p>This is true because the $j$ th column of $C$ is generated by $A$ multiplying $j$ th column of $B$. Since $A$ multiplying $B$’s column is like doing a linear combination of $A$’s column (we will also mentioned later), every column of $A$ make contribution to $j$ th column of $C$. To be more specific, it is the entry on $i$ th row in $A$ contributes to $C_{i,j}$, which is just the formula above.</p>
+<p>Before starting Gaussian elimination, we should figure out a question first. What does multiplying a matrix on the left side mean?</p>
+<p>Let $A$ be $m$ by $n$ and $B$ be $n$ by $p$, $A_i$  represent the $i$ th <strong>row</strong> of $A$, and $B_i$ represent the $i$ th <strong>column</strong> of $B$</p>
+<p>In the discussion above we explain the idea of multiplying a matrix on the right,</p>
+<script type="math/tex; mode=display">
+A\times B =  
+A
+\times
+[B_1,B_2,...,B_p]=[A\times B_1,A\times B_2,...,A\times B_p]=C</script><p>The idea of multiplying a matrix on the left is,</p>
+<script type="math/tex; mode=display">
+A\times B =
+\left[
+\begin{matrix}
+A_1 \\
+A_2 \\
+... \\
+A_m \\
+\end{matrix}
+\right]
+\times
+B
+=
+\left[
+\begin{matrix}
+A_1B\\
+A_2B\\
+...\\
+A_mB
+\end{matrix}
+\right]
+=C</script><p>Giving a close look on $A\times B_i$ (here $B_i$ refers to column), it forms the $i$ th column of $C$, which means each column of $C$ is a linear combination of $A$’s column.</p>
+<p>Giving a close look on $A_i\times B$, (here $A_i$ refers to row), it forms the $i$ th row of $C$, which means each row of $C$ is a linear combination of $B$’s row.</p>
+<p>What does this mean? Here is an example.</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+1 &2 \\
+2 &1
+\end{matrix}
+\right]
+\times
+\left[
+\begin{matrix}
+2 &1 \\
+0 &1
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+2 &3 \\
+4 &3
+\end{matrix}
+\right]</script><p>By <strong>column view</strong> ($A\times B_i$), we have</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+1 &2 \\
+2 &1
+\end{matrix}
+\right]
+\times
+\left[
+\begin{matrix}
+2 \\
+0
+\end{matrix}
+\right]
+\,\,\,\,\,\,\,\,
+=
+2\left[
+\begin{matrix}
+1  \\
+2
+\end{matrix}
+\right]
++
+0\left[
+\begin{matrix}
+2 \\
+1
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+2  \\
+4
+\end{matrix}
+\right]
+\,\,\,\,\,\,\,\,
+
+\\
+
+\left[
+\begin{matrix}
+1 &2 \\
+2 &1
+\end{matrix}
+\right]
+\times
+\,\,\,\,\,\,\,\,
+\left[
+\begin{matrix}
+1 \\
+1
+\end{matrix}
+\right]
+=
+
+1\left[
+\begin{matrix}
+1 \\
+2
+\end{matrix}
+\right]
++
+1\left[
+\begin{matrix}
+2 \\
+1
+\end{matrix}
+\right]
+=
+\,\,\,\,\,\,\,\,
+\left[
+\begin{matrix}
+3 \\
+3
+\end{matrix}
+\right]</script><p> And you will see columns of $C$ is linear combination of columns in $A$</p>
+<p>By <strong>row view</strong> ($A_i\times B$), we have</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+1 &2
+\end{matrix}
+\right]
+\times
+\left[
+\begin{matrix}
+2 &1 \\
+0 &1
+\end{matrix}
+\right]
+=
+1\left[
+\begin{matrix}
+2 &1
+\end{matrix}
+\right]
++
+2
+\left[
+\begin{matrix}
+0 &1
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+2 &3
+\end{matrix}
+\right]
+
+\\
+
+\left[
+\begin{matrix}
+2 &1
+\end{matrix}
+\right]
+\times
+\left[
+\begin{matrix}
+2 &1 \\
+0 &1
+\end{matrix}
+\right]
+=
+2\left[
+\begin{matrix}
+2 &1
+\end{matrix}
+\right]
++
+1\left[
+\begin{matrix}
+0 &1
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+4 &3
+\end{matrix}
+\right]</script><p> And you will see rows of $C$ is linear combination of rows in $B$</p>
+<p>In gaussian elimination, having a <strong>row view</strong> is important.</p>
+<h3 id="Pivot-in-Gaussian-Elimination"><a href="#Pivot-in-Gaussian-Elimination" class="headerlink" title="Pivot in Gaussian Elimination"></a>Pivot in Gaussian Elimination</h3><p>However, when we solve the system of linear equations, it is possible that there is no solution or it has infinite solution.</p>
+<p>Look at this example,</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+x+y=1 \\
+2x+2y=1 \\
+\end{cases}</script><p>There is conflict between these two equations, so there is no solution to this system of equations.</p>
+<p>See this example,</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+x+y+z=1\\
+x+2y+2z=3\\
+x+3y+3z=4
+\end{cases}</script><p>We can find the third equation can be obtained by adding the first two together. Thus, the meaningful equations that helps us solving the system are only the first two.</p>
+<p>Gaussian Elimination gives a beautiful method to deal with these situation by the idea elimination.</p>
+<p>Given this system</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+x+y+z=1\\
+x+y+2z=3\\
+x+3y+3z=4
+\end{cases}</script><blockquote>
+<p>Given the system of equations $Ax=b$. Augmented matrix refers to he matrix that concatenate $A$ with $b$ which is,</p>
+<script type="math/tex; mode=display">
+[A|b]</script><p>The vertical line here means nothing but help you distinct two parts.</p>
+</blockquote>
+<p>We have our augmented matrix like this,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{ccc|c}
+1 &1 &1  &1\\
+1 &1 &2  &3\\
+1 &3 &3  &4
+\end{array}
+\right]</script><p>The pivot is defined to be the <strong>left most non-zero entry</strong> in the rows below. The moment you find a pivot, you should <strong>eliminate all the entries below the pivot</strong> into zero.</p>
+<p>The gaussian elimination is just the process of finding all the pivot.</p>
+<p>Find the first pivot (the box here means nothing, but to mark the pivots),</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{ccc|c}
+\boxed{1} &1 &1  &1\\
+1 &1 &2  &3\\
+1 &3 &3  &4
+\end{array}
+\right]</script><p>Eliminate the entries below into zeros. Practically, using the idea of elimination in system of linear equations. We can do row operations directly.</p>
+<script type="math/tex; mode=display">
+r_2-r_1:
+\left[
+\begin{array}{ccc|c}
+\boxed{1} &1 &1  &1\\
+1-1 &1-1 &2-1  &3-1\\
+1 &3 &3  &4
+\end{array}
+\right]
+=
+\left[
+\begin{array}{ccc|c}
+\boxed{1} &1 &1  &1\\
+0 &0 &1  &2\\
+1 &3 &3  &4
+\end{array}
+\right]
+\\
+r_3-r_1:
+\left[
+\begin{array}{ccc|c}
+\boxed{1} &1 &1  &1\\
+0 &0 &1  &2\\
+1-1 &3-1 &3-1  &4-1
+\end{array}
+\right]
+=
+\left[
+\begin{array}{ccc|c}
+\boxed{1} &1 &1  &1\\
+0 &0 &1  &2\\
+0 &2 &2  &3
+\end{array}
+\right]</script><p>The next pivot would be $2$. Because the $2$ is in the second column, which is prior to $1$ in the second row and the third column,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{ccc|c}
+\boxed{1} &1 &1  &1\\
+0 &0 &1  &2\\
+0 &\boxed{2} &2  &3
+\end{array}
+\right]</script><p>To get a more beautiful solution, it’s better to float the pivot to the top among all the rows below. In other words, Gaussian elimination requires us to do <strong>row exchanges</strong> to make the pivots stay at top which makes pivots in the shape of “stairs”.</p>
+<script type="math/tex; mode=display">
+\text{exchange } r_2 \text{ and } r_3:\left[
+\begin{array}{ccc|c}
+\boxed{1} &1 &1  &1\\
+0 &\boxed{2} &2  &3\\
+0 &0 &1  &2\\
+\end{array}
+\right]</script><p> Then we find the third pivot directly,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{ccc|c}
+\boxed{1} &1 &1  &1\\
+0 &\boxed{2} &2  &3\\
+0 &0 &\boxed{1}  &2\\
+\end{array}
+\right]</script><p>Then Gaussian elimination is done.</p>
+<h3 id="Get-the-Solution"><a href="#Get-the-Solution" class="headerlink" title="Get the Solution"></a>Get the Solution</h3><p>Given</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{ccc|c}
+1 &1 &1  &1\\
+1 &1 &2  &3\\
+1 &3 &3  &4
+\end{array}
+\right]</script><p>After the Gaussian elimination, we have,</p>
+<script type="math/tex; mode=display">
+U=
+\left[
+\begin{array}{ccc|c}
+\boxed{1} &1 &1  &1\\
+0 &\boxed{2} &2  &3\\
+0 &0 &\boxed{1}  &2\\
+\end{array}
+\right]</script><p>This is called <strong>upper triangular matrix</strong> (also called row echelon form), which we always denotes as letter $U$. We give this name because all the numbers are on the right top triangle. The reason we do row exchange to float the pivot to the top is just to get the result matrix to be upper triangular matrix.</p>
+<p>Given some other upper triangular matrices,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{cccc}
+\boxed{1} &2 &1  &3\\
+0 &\boxed{2} &2  &3\\
+0 &0 &0  &\boxed{2}\\
+\end{array}
+\right]</script><script type="math/tex; mode=display">
+\left[
+\begin{array}{ccccc}
+\boxed{1} &1 &1  &1 &2\\
+0 &0 &\boxed{2}  &3 &0\\
+0 &0 &0  &\boxed{2} &1\\
+0 &0 &0 &0 &0
+\end{array}
+\right]</script><blockquote>
+<p>How to confirm this is a upper triangular matrix?</p>
+<p>Try to apply Gaussian elimination. If you can’t do anything including row exchanges, then it is a upper triangular matrix.</p>
+</blockquote>
+<p>Back to our topic. Once we get the upper triangular matrix $U$, we can do back substitution.</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{ccc}
+\boxed{1} &1 &1  \\
+0 &\boxed{2} &2  \\
+0 &0 &\boxed{1}  \\
+\end{array}
+\right]
+\left[
+\begin{matrix}
+x\\
+y\\
+z
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+1\\
+3\\
+2
+\end{matrix}
+\right]</script><p>On the last row, we have,</p>
+<script type="math/tex; mode=display">
+z=2</script><p>On the second row, we have,</p>
+<script type="math/tex; mode=display">
+2y+2\times2=3\\
+y=-\frac{1}{2}</script><p>On the first row, we have,</p>
+<script type="math/tex; mode=display">
+x-\frac{1}{2}+2=1\\
+x=-\frac{1}{2}</script><p>So we find the solution, which is</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+x\\
+y\\
+z
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+
+-\frac{1}{2}\\
+
+-\frac{1}{2}\\
+2
+\end{matrix}
+\right]</script><h4 id="Why-this-is-valid"><a href="#Why-this-is-valid" class="headerlink" title="Why this is valid?"></a>Why this is valid?</h4><h5 id="Idea-of-pivot"><a href="#Idea-of-pivot" class="headerlink" title="Idea of pivot"></a>Idea of pivot</h5><p>Pivot tells us this row is unique and valid.</p>
+<p>Look at the system we give at very beginning,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{cc|c}
+1 &1 &1  \\
+2 &2 &1  \\
+\end{array}
+\right]</script><p>After Gaussian Elimination, we have,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{cc|c}
+\boxed{1} &1 &1  \\
+0 &0 &-1  \\
+\end{array}
+\right]</script><p>We find the conflict happens because a row without full zero has a result of non-zero value. This is invalid and only happens in the row without pivots.</p>
+<p>Now look at this example,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{ccc|c}
+1 &1 &1 &1  \\
+1 &1 &2 &3 \\
+1 &3 &3 &4
+\end{array}
+\right]</script><p>After Gaussian Elimination, we have,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{ccc|c}
+\boxed{1} &1 &1 &1  \\
+0 &0 &\boxed 1 &2 \\
+0 &0 &0 &0
+\end{array}
+\right]</script><p>Though here is also a row without pivot, but the result is zero which is valid.</p>
+<h5 id="Once-there-is-no-conflict-we-can-have-solution-s"><a href="#Once-there-is-no-conflict-we-can-have-solution-s" class="headerlink" title="Once there is no conflict, we can have solution(s)"></a>Once there is no conflict, we can have solution(s)</h5><p>Remember what we get is a upper triangular matrix.</p>
+<p>As long as we do back substitution from the bottom to the top row, we can have <strong>at least</strong> one solution.</p>
+<p>The back substitution gives us the proof.</p>
+<h5 id="“System-is-unsolvable”-is-equivalent-to-“A-row-without-pivot-results-in-non-zero-value”"><a href="#“System-is-unsolvable”-is-equivalent-to-“A-row-without-pivot-results-in-non-zero-value”" class="headerlink" title="“System is unsolvable” is equivalent to “A row without pivot results in non-zero value”"></a>“System is unsolvable” is equivalent to “A row without pivot results in non-zero value”</h5><p>We say statement $P$=”System is unsolvable”, $Q$=”A row without pivot results in non-zero value”</p>
+<p>$P \Rightarrow Q$ by proving $\neg Q \Rightarrow \neg P$. If no such row exists, then we can do back substitution, then the system is sure solvable, this is true.</p>
+<p>$Q \Rightarrow P$.  This true because whatever the value you assign, the result can only be zero.</p>
+<h5 id="What-happens-when-we-do-eliminations-on-matrix"><a href="#What-happens-when-we-do-eliminations-on-matrix" class="headerlink" title="What happens when we do eliminations on matrix"></a>What happens when we do eliminations on matrix</h5><p>Here is an important thing. That we do eliminations on <strong>rows</strong>.</p>
+<p>In the perspective of system of linear equations, we just add different equations together to eliminate variables.</p>
+<p>We can also have perspectives in matrix operation, which we will introduce just a moment.</p>
+<p>Whatever you do on row elimination, it won’t affects the variables. Recall when you do eliminations in the system of linear equations, have you ever thought the questions that why variable $x$ is still $x$ after the elimination is done? $x$ is still $x$ because we assume it is certain value, and according to the idea of equivalence, it won’t change if we add two equations together. It is the same in the matrix, this is also the reason we can created augmented matrix without listing the varibles.</p>
+<h4 id="Elimination-matrix"><a href="#Elimination-matrix" class="headerlink" title="Elimination matrix"></a>Elimination matrix</h4><p>I’m too tired to think of another example, so I continue to use the example above,</p>
+<p>In this step, we conduct $r_2-r_1$ to eliminate the entry on the second row below the pivot.</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{ccc|c}
+\boxed{1} &1 &1  &1\\
+1 &1 &2  &3\\
+1 &3 &3  &4
+\end{array}
+\right]</script><script type="math/tex; mode=display">
+r_2-r_1:
+\left[
+\begin{array}{ccc|c}
+\boxed{1} &1 &1  &1\\
+0 &0 &1  &2\\
+1 &3 &3  &4
+\end{array}
+\right]
+\\</script><p>The interesting thing is, we can also do this operations by matrix.</p>
+<p>Try to multiply this matrix on the left side of the augmented matrix,</p>
+<script type="math/tex; mode=display">
+E_{21}=
+\left[
+\begin{array}{ccc}
+1 &0 &0 \\
+-1 &1 &0\\
+0 &0 &1
+\end{array}
+\right]
+\\</script><script type="math/tex; mode=display">
+\left[
+\begin{array}{ccc}
+1 &0 &0 \\
+-1 &1 &0\\
+0 &0 &1
+\end{array}
+\right]
+\times
+\left[
+\begin{array}{ccc|c}
+1 &1 &1  &1\\
+1 &1 &2  &3\\
+1 &3 &3  &4
+\end{array}
+\right]
+=
+\left[
+\begin{array}{ccc|c}
+1 &1 &1  &1\\
+0 &0 &1  &2\\
+1 &3 &3  &4
+\end{array}
+\right]
+\\</script><p>This idea comes from <strong>row view</strong> we mentioned above. If you multiply a matrix <strong>on the left</strong>, it means the left matrix decides the linear combination of the right matrix to get the result.</p>
+<p>Practically, we can focus on the second row. Based on the <strong>general idea of matrix multiplication</strong>, the second row of result is generated by the second row of left matrix multiply the right matrix, which is</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+-1 &1 &0
+\end{matrix}
+\right]
+\times
+\left[
+\begin{array}{cccc}
+1 &1 &1  &1\\
+1 &1 &2  &3\\
+1 &3 &3  &4
+\end{array}
+\right]
+=\\
+-1\times
+\left[
+\begin{array}{cccc}
+1 &1 &1  &1\\
+\end{array}
+\right]
++
+1\times \left[
+\begin{array}{cccc}
+1 &1 &2  &3\\
+\end{array}
+\right]
++
+0\times\left[
+\begin{array}{cccc}
+1 &3 &3  &4
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cccc}
+0 &0 &1  &2
+\end{array}
+\right]</script><p>If we want to conduct the operation $r_3-100r_2$, the elimination matrix would be,</p>
+<script type="math/tex; mode=display">
+E_{32}=
+\left[
+\begin{array}{ccc}
+1 &0 &0 \\
+0 &1 &0\\
+0 &-100 &1
+\end{array}
+\right]
+\\</script><p>If <strong>there is no row exchanges</strong>, we can use elimination matrix to show Gaussian Elimination by,</p>
+<script type="math/tex; mode=display">
+E_{32}E_{31}E_{21}A=U\\
+EA=U,E=E_{32}E_{21}E_{21}</script><p>This tells us that it uses the pivot on the first row to eliminate second and third row and use the pivot on the second row to eliminate the third row. This would be the most general process in Gaussian Elimination.</p>
+<blockquote>
+<p>Three important things:</p>
+<ol>
+<li>The elimination matrix is on the left side.</li>
+<li>Based on the associative law, we should put the earlier operation closer to $A$. So the left most matrix actually is the last one to do operations.</li>
+<li>One elimination matrix represents a single operation between two rows.</li>
+</ol>
+</blockquote>
+<h5 id="Identity-in-multiplication"><a href="#Identity-in-multiplication" class="headerlink" title="Identity in multiplication"></a>Identity in multiplication</h5><p>What about the elimination matrix that keeps everything unchanged. That would be a <strong>square matrix</strong> with the main diagonal with ones. It means “keep row 1 being row 1, keep row2 being row2, …”</p>
+<p>This is the identity in matrix multiplication, we use $I$ to denote the identity in matrix multiplication.</p>
+<p>Practically, a $3$ by $3$ identity is,</p>
+<script type="math/tex; mode=display">
+I=\left[
+\begin{array}{ccc}
+1 &0 &0 \\
+0 &1 &0\\
+0 &0 &1
+\end{array}
+\right]
+\\</script><p>This is the description for identity,</p>
+<script type="math/tex; mode=display">
+IA=AI=A</script><p>We should notice $A$ can be any matrix, including rectangular matrix which is not square. Thus, the identity in $IA$ and in $AI$ can be in different size.</p>
+<h5 id="Why-not-multiple-operations-in-one-matrix"><a href="#Why-not-multiple-operations-in-one-matrix" class="headerlink" title="Why not multiple operations in one matrix"></a>Why not multiple operations in one matrix</h5><p>Given this two equations to be</p>
+<script type="math/tex; mode=display">
+E_{21}=
+\left[
+\begin{array}{ccc}
+1 &0 &0 \\
+3 &1 &0\\
+0 &0 &1
+\end{array}
+\right]
+\\
+E_{32}=
+\left[
+\begin{array}{ccc}
+1 &0 &0 \\
+0 &1 &0\\
+0 &-2 &1
+\end{array}
+\right]
+\\</script><p>If we want to use a single matrix to show the operation saying “Do $E<em>{21}$ first, than do $E</em>{32}$”. What would the matrix look like?</p>
+<script type="math/tex; mode=display">
+E=E_{32}E_{21}=
+\left[
+\begin{array}{ccc}
+1 &0 &0 \\
+3 &1 &0\\
+-6 &-2 &1
+\end{array}
+\right]
+\\</script><p>The result is different from $E<em>{32}+E</em>{21}$. Because when you do $E<em>{21}$ before $E</em>{32}$, the second row is affected by the first row before doing $E_{32}$.</p>
+<p>This idea is very important in the $A=LU$ decomposition.</p>
+<h3 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h3><h3 id="Gaussian-Jordan-method"><a href="#Gaussian-Jordan-method" class="headerlink" title="Gaussian-Jordan method"></a>Gaussian-Jordan method</h3><h4 id="Inversion"><a href="#Inversion" class="headerlink" title="Inversion"></a>Inversion</h4><p>The inversion in matrix multiplication is defined to be</p>
+<script type="math/tex; mode=display">
+AA^{-1}=A^{-1}A=I</script><h5 id="Only-one-inversion-exists"><a href="#Only-one-inversion-exists" class="headerlink" title="Only one inversion exists"></a>Only one inversion exists</h5><p>We say $A$ has two inversions, they are $B$ and $C$ and $B$ is different from $C$.</p>
+<script type="math/tex; mode=display">
+AB=I=AC\\
+CAB=CAC\\
+(CA)B=(CA)C\\
+B=C</script><p>In the end we find $B$ equals $C$ which means $A$ only can’t have multiple inversion.</p>
+<h4 id="Why-this-definition"><a href="#Why-this-definition" class="headerlink" title="Why this definition?"></a>Why this definition?</h4><p>You might feel confused why can’t we only have half of the definition,</p>
+<script type="math/tex; mode=display">
+AA^{-1}=I</script><p>Assume $A$ is a square matrix, $m$ by $m$, and is <strong>invertible</strong> (This means $A^{-1}$ exists only on the right side). You will find in subspaces of matrix why only square matrix can have inversions on its both sides (both $AA^{-1}$ and $A^{-1}A=I$).   </p>
+<p>We expand $A^{-1}A$,</p>
+<script type="math/tex; mode=display">
+A^{-1}A=A^{-1}IA=A^{-1}AA^{-1}A \\
+\text{If given the fact that } A^{-1}A \text{ is invertible with inversion on the right,}  \\
+A^{-1}A(A^{-1}A)^{-1}=A^{-1}AA^{-1}A(A^{-1}A)^{-1} \\
+I=A^{-1}A</script><p>We get the fact that,</p>
+<script type="math/tex; mode=display">
+A^{-1}A=I</script><p>The reason of why $A^{-1}A$ is invertible can be found by,</p>
+<script type="math/tex; mode=display">
+A^{-1}Ax=0 \Leftrightarrow Ax=0</script><p>With a little advanced knowledge, we can see $A^{-1}A$ and $A$ shares the same null space. Then we can say $A^{-1}A$ should have the same rank as $A$ does. It shows $A^{-1}A$  has full rank. Once a square matrix is in full rank(full pivots), the Gaussian-Jordan method can help us to find the exactly inversions on the right. Then we prove that it is also true to put the inversion on the left side.  </p>
+<h4 id="How-to-calculate-the-inversion"><a href="#How-to-calculate-the-inversion" class="headerlink" title="How to calculate the inversion"></a>How to calculate the inversion</h4><h5 id="Reduced-row-echelon-form"><a href="#Reduced-row-echelon-form" class="headerlink" title="Reduced row echelon form"></a>Reduced row echelon form</h5><p>When we finish the Gaussian elimination, we have a upper triangular matrix $U$ in the end.</p>
+<p>However, we can make a step further to reduce $U$ into $R$, which is reduced row echelon form.</p>
+<p>Reduced row echelon form of $A$ is also denoted as $rref(A)$ or $R$, which requires the pivots should being ones, and the entries <strong>below and above</strong> are all zero.</p>
+<p>Here is some examples of reduced row echelon form,</p>
+<script type="math/tex; mode=display">
+A=
+\left[
+\begin{array}{ccc}
+3 &0 &0 \\
+3 &3 &0\\
+3 &3 &3
+\end{array}
+\right]
+\rightarrow
+R=
+\left[
+\begin{array}{ccc}
+\boxed{1} &0 &0 \\
+0 &\boxed{1} &0\\
+0 &0 &\boxed{1}
+\end{array}
+\right]
+\\
+A=
+\left[
+\begin{array}{ccc}
+1 &2 &3 \\
+1 &3 &5\\
+2 &5 &8
+\end{array}
+\right]
+\rightarrow
+R=
+\left[
+\begin{array}{ccc}
+\boxed{1} &0 &-1 \\
+0 &\boxed{1} &2\\
+0 &0 &0
+\end{array}
+\right]
+\\
+A=
+\left[
+\begin{array}{ccc}
+1 &2 &3 & 1\\
+1 &3 &5 &6\\
+2 &5 &8 &10
+\end{array}
+\right]
+\rightarrow
+R=
+\left[
+\begin{array}{ccc}
+\boxed{1} &0 &-1 &0 &\\
+0 &\boxed{1} &2 &0\\
+0 &0 &0 &\boxed{1}
+\end{array}
+\right]</script><blockquote>
+<p>Notice that if $A$ is square matrix and every row has a pivots, $rref(A)$ is just identity.</p>
+</blockquote>
+<h5 id="G-J-method"><a href="#G-J-method" class="headerlink" title="G-J method"></a>G-J method</h5><p>Given a matrix $A$, we create this matrix, (the vertical line here means nothing but showing you doing elimination on the left part)</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{c|c}
+A &I
+\end{array}
+\right]</script><p>We eliminate $A$ into <strong>reduced row echelon form</strong>. We use a single matrix $E$ to show all the operations.</p>
+<p><strong>We say if we have a squared matrix $A$ in $m$ by $m$, and we have $m$ pivots in $rref(A)$</strong>, we can directly say that $rref(A)=I$. Then, we have,</p>
+<script type="math/tex; mode=display">
+E\times
+\left[
+\begin{array}{c|c}
+A &I
+\end{array}
+\right]
+=\left[
+\begin{array}{c|c}
+EA &EI
+\end{array}
+\right]
+=
+\left[
+\begin{array}{c|c}
+I &E
+\end{array}
+\right]</script><p>Notice $EA=I$. We have proved $A$ can’t have multiple inversions. Thus, we can say $E$ is $A^{-1}$.</p>
+<p>This means, once we reduced $A$ into identity, the right part is just $A^{-1}$</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{c|c}
+I &A^{-1}
+\end{array}
+\right]</script><p>For example,</p>
+<script type="math/tex; mode=display">
+A=
+\left[
+\begin{array}{ccc}
+3 &0 &0 \\
+3 &3 &0\\
+3 &3 &3
+\end{array}
+\right]
+\\</script><p>We conduct elimination on the left apart. Practically, using Gaussian Elimination first, and use pivots to make it into reduced row echelon form.</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{ccc|ccc}
+3 &0 &0 &1 &0 &0\\
+3 &3 &0 &0 &1 &0\\
+3 &3 &3 &0 &0 &1
+\end{array}
+\right]
+\stackrel{Gaussian\,\,Elimination}{\longrightarrow}
+\left[
+\begin{array}{ccc|ccc}
+\boxed{3} &0 &0 &1 &0 &0\\
+0 &\boxed{3} &0 &-1 &1 &0\\
+0 &0 &\boxed{3} &0 &-1 &1
+\end{array}
+\right]
+\\
+\left[
+\begin{array}{ccc|ccc}
+\boxed{3} &0 &0 &1 &0 &0\\
+0 &\boxed{3} &0 &-1 &1 &0\\
+0 &0 &\boxed{3} &0 &-1 &1
+\end{array}
+\right]
+\stackrel{Reduced}{\longrightarrow}
+\left[
+\begin{array}{ccc|ccc}
+\boxed{1} &0 &0 &\frac{1}{3} &0 &0\\
+0 &\boxed{1} &0 &-\frac{1}{3} &\frac{1}{3} &0\\
+0 &0 &\boxed{1} &0 &-\frac{1}{3} &\frac{1}{3}
+\end{array}
+\right]</script><p>So the inversion of $A$ would be,</p>
+<script type="math/tex; mode=display">
+A^{-1}=
+\left[
+\begin{array}{ccc}
+ &\frac{1}{3} &0 &0\\
+&-\frac{1}{3} &\frac{1}{3} &0\\
+ &0 &-\frac{1}{3} &\frac{1}{3}
+\end{array}
+\right]</script><h4 id="Only-square-matrix-with-full-pivots-can-have-inversion"><a href="#Only-square-matrix-with-full-pivots-can-have-inversion" class="headerlink" title="Only square matrix with full pivots can have inversion"></a>Only square matrix with full pivots can have inversion</h4><p>In the above discussion, we assume $A$ is square and has pivot in each row.</p>
+<p>The fact is, only square matrix with pivots in each row can have inversion.</p>
+<p>If you want to see the proof, it is just the Gaussian-Jordan method itself. Assume $A$ is invertible, we left multiply $A^{-1}$ on $\begin{matrix}<br>[A &amp;I]<br>\end{matrix}$,</p>
+<script type="math/tex; mode=display">
+A^{-1}
+\begin{matrix}
+[A &I]
+\end{matrix}
+=
+\begin{matrix}
+[A^{-1}A &A^{-1}I]
+\end{matrix}
+=
+\begin{matrix}
+[I &A^{-1}]
+\end{matrix}</script><p>It means, only when you can reduced $A$ into $I$, you can have inversion.</p>
+<p>However, if a matrix is not square or don’t have full pivots, it can not be reduced into identity. In other words, for matrix $A$, only when $rref(A)=I$, could we find $A^{-1}$.</p>
+<h3 id="A-LU-decomposition"><a href="#A-LU-decomposition" class="headerlink" title="A=LU decomposition"></a>A=LU decomposition</h3><h3 id="A-CR"><a href="#A-CR" class="headerlink" title="A=CR"></a>A=CR</h3><h3 id="Vector-Space-and-Null-Space"><a href="#Vector-Space-and-Null-Space" class="headerlink" title="Vector Space and Null Space"></a>Vector Space and Null Space</h3><p>See this, <a target="_blank" rel="noopener" href="https://bwmagician.github.io/2026/02/07/Subspaces-in-Matrix/">Subspaces in Matrix | UUZ’s Blog</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">BWmagician</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2026/01/22/MATH202-Linear-Algebra/">http://example.com/2026/01/22/MATH202-Linear-Algebra/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/bgs/dontrideanymore.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix"><img class="cover" src="/img/bgs/hollow%20night.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Subspaces in Matrix</div></div><div class="info-2"><div class="info-item-1">Vector SpaceGenerally refers to the space with one operation. For most cases, this operation refers to addition. All elements in the vector space satisfies these laws. Here I use addition but it only means “certain operation”, it can be multiplication or even bit-wise XOR.  Exchange law  v+u=u+v Associative law  v+(u+w)=(v+u)+w Identity    v+0=v Inverse (Existence)  For every $v$, guarantee that $-v$ exists.  v+(-v)=0 Associative law of scalars  For $\alpha$ and $\beta$ in $\mathbb{F}$ , whic...</div></div></div></a><a class="pagination-related" href="/2025/11/22/Week5LabSession/" title="Week5LabSession"><img class="cover" src="/img/bgs/wudi.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Week5LabSession</div></div><div class="info-2"><div class="info-item-1">Week3 LabsessionBig O NotationBig O is a asymptotic analysis of the run time of an algorithm. Concept in MathWe say $g(n)$ is a function that describes the run time of your code. Then we should find a proper $f(n)$ such that   g(n) \le c f(n) \,\,\,\, ,n \ge N_0Then we can say  g(n)=O(f(n))This statement simply means when n is large, $f(n)$ is at the same level of $g(n)$ or even higher level of $g(n)$. And the equivalence here means $g(n)$ is in the set of $O(f(n))$. You can regard $O(f(n))$ ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">BWmagician</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/BWmagician"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This blog starts to write in English at October 5th, 2025. The previous blogs will probabaly() be translated into Egnlish later.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MATH202-Linear-Algebra"><span class="toc-number">1.</span> <span class="toc-text">MATH202 Linear Algebra</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">??</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matrix-Operation"><span class="toc-number">1.2.</span> <span class="toc-text">Matrix Operation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-matrix"><span class="toc-number">1.2.1.</span> <span class="toc-text">What is matrix?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#System-of-linear-equations"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">System of linear equations</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Solve-the-system-of-linear-equations"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">Solve the system of linear equations</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Does-%E2%80%9Cx%E2%80%9D-%E2%80%9Dy%E2%80%9D-%E2%80%9Dz%E2%80%9D-really-matter"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">Does “x”,”y”,”z” really matter?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Extracting-the-coefficient"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">Extracting the coefficient</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Why-matrix"><span class="toc-number">1.2.2.</span> <span class="toc-text">Why matrix?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Run-vectors"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">Run vectors</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#What-is-%E2%80%9Cby%E2%80%9D"><span class="toc-number">1.2.2.1.1.</span> <span class="toc-text">What is “by”</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Do-eliminations"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">Do eliminations</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Operations"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">Operations</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Addition"><span class="toc-number">1.2.2.3.1.</span> <span class="toc-text">Addition</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#What-don%E2%80%99t-define-addition-between-matrix-in-different-sizes"><span class="toc-number">1.2.2.3.2.</span> <span class="toc-text">What don’t define addition between matrix in different sizes?</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Multiplication"><span class="toc-number">1.2.2.3.3.</span> <span class="toc-text">Multiplication</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Why-is-a-b-c-on-the-right-side"><span class="toc-number">1.2.2.3.3.1.</span> <span class="toc-text">Why is {a,b,c}  on the right side?</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Summary-to-matrix-by-far"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">Summary to matrix by far</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gaussian-Elimination"><span class="toc-number">1.3.</span> <span class="toc-text">Gaussian Elimination</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#General-Idea-of-multiplication-frequently-used-formula-to-do-multiplication"><span class="toc-number">1.3.1.</span> <span class="toc-text">General Idea of multiplication (frequently used formula to do multiplication)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pivot-in-Gaussian-Elimination"><span class="toc-number">1.3.2.</span> <span class="toc-text">Pivot in Gaussian Elimination</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Get-the-Solution"><span class="toc-number">1.3.3.</span> <span class="toc-text">Get the Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Why-this-is-valid"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">Why this is valid?</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Idea-of-pivot"><span class="toc-number">1.3.3.1.1.</span> <span class="toc-text">Idea of pivot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Once-there-is-no-conflict-we-can-have-solution-s"><span class="toc-number">1.3.3.1.2.</span> <span class="toc-text">Once there is no conflict, we can have solution(s)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%80%9CSystem-is-unsolvable%E2%80%9D-is-equivalent-to-%E2%80%9CA-row-without-pivot-results-in-non-zero-value%E2%80%9D"><span class="toc-number">1.3.3.1.3.</span> <span class="toc-text">“System is unsolvable” is equivalent to “A row without pivot results in non-zero value”</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#What-happens-when-we-do-eliminations-on-matrix"><span class="toc-number">1.3.3.1.4.</span> <span class="toc-text">What happens when we do eliminations on matrix</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Elimination-matrix"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">Elimination matrix</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Identity-in-multiplication"><span class="toc-number">1.3.3.2.1.</span> <span class="toc-text">Identity in multiplication</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Why-not-multiple-operations-in-one-matrix"><span class="toc-number">1.3.3.2.2.</span> <span class="toc-text">Why not multiple operations in one matrix</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Blocking"><span class="toc-number">1.3.4.</span> <span class="toc-text">Blocking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gaussian-Jordan-method"><span class="toc-number">1.3.5.</span> <span class="toc-text">Gaussian-Jordan method</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Inversion"><span class="toc-number">1.3.5.1.</span> <span class="toc-text">Inversion</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Only-one-inversion-exists"><span class="toc-number">1.3.5.1.1.</span> <span class="toc-text">Only one inversion exists</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Why-this-definition"><span class="toc-number">1.3.5.2.</span> <span class="toc-text">Why this definition?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#How-to-calculate-the-inversion"><span class="toc-number">1.3.5.3.</span> <span class="toc-text">How to calculate the inversion</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Reduced-row-echelon-form"><span class="toc-number">1.3.5.3.1.</span> <span class="toc-text">Reduced row echelon form</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#G-J-method"><span class="toc-number">1.3.5.3.2.</span> <span class="toc-text">G-J method</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Only-square-matrix-with-full-pivots-can-have-inversion"><span class="toc-number">1.3.5.4.</span> <span class="toc-text">Only square matrix with full pivots can have inversion</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#A-LU-decomposition"><span class="toc-number">1.3.6.</span> <span class="toc-text">A&#x3D;LU decomposition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#A-CR"><span class="toc-number">1.3.7.</span> <span class="toc-text">A&#x3D;CR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vector-Space-and-Null-Space"><span class="toc-number">1.3.8.</span> <span class="toc-text">Vector Space and Null Space</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/nihao-TEST/" title="nihao__TEST"><img src="/img/bgs/54c15a11b1eca88158355fb46c6fc936b9e723fe.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nihao__TEST"/></a><div class="content"><a class="title" href="/2026/02/20/nihao-TEST/" title="nihao__TEST">nihao__TEST</a><time datetime="2026-02-20T02:04:12.000Z" title="Created 2026-02-20 10:04:12">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/TEST-docker/" title="TEST_docker"><img src="/img/bgs/b.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEST_docker"/></a><div class="content"><a class="title" href="/2026/02/20/TEST-docker/" title="TEST_docker">TEST_docker</a><time datetime="2026-02-19T20:38:39.000Z" title="Created 2026-02-20 04:38:39">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix"><img src="/img/bgs/mayyyyyuri.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Projection in Matrix"/></a><div class="content"><a class="title" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix">Projection in Matrix</a><time datetime="2026-02-09T05:08:02.000Z" title="Created 2026-02-09 13:08:02">2026-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix"><img src="/img/bgs/hollow%20night.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Subspaces in Matrix"/></a><div class="content"><a class="title" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix">Subspaces in Matrix</a><time datetime="2026-02-07T06:09:42.000Z" title="Created 2026-02-07 14:09:42">2026-02-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra"><img src="/img/bgs/dontrideanymore.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MATH202 Linear Algebra"/></a><div class="content"><a class="title" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra">MATH202 Linear Algebra</a><time datetime="2026-01-22T14:24:30.000Z" title="Created 2026-01-22 22:24:30">2026-01-22</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By BWmagician</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

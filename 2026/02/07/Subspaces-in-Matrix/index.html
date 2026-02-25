@@ -1,0 +1,518 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Subspaces in Matrix | UUZ's Blog</title><meta name="author" content="BWmagician"><meta name="copyright" content="BWmagician"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="rgba(256, 256, 256, 0.5)"><meta name="description" content="Vector SpaceGenerally refers to the space with one operation. For most cases, this operation refers to addition. All elements in the vector space satisfies these laws. Here I use addition but it only">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Subspaces in Matrix">
+<meta property="og:url" content="http://example.com/2026/02/07/Subspaces-in-Matrix/index.html">
+<meta property="og:site_name" content="UUZ&#39;s Blog">
+<meta property="og:description" content="Vector SpaceGenerally refers to the space with one operation. For most cases, this operation refers to addition. All elements in the vector space satisfies these laws. Here I use addition but it only">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/bgs/hollow%20night.jpg">
+<meta property="article:published_time" content="2026-02-07T06:09:42.000Z">
+<meta property="article:modified_time" content="2026-02-25T01:28:21.367Z">
+<meta property="article:author" content="BWmagician">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/bgs/hollow%20night.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Subspaces in Matrix",
+  "url": "http://example.com/2026/02/07/Subspaces-in-Matrix/",
+  "image": "http://example.com/img/bgs/hollow%20night.jpg",
+  "datePublished": "2026-02-07T06:09:42.000Z",
+  "dateModified": "2026-02-25T01:28:21.367Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BWmagician",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/light.drawio.svg"><link rel="canonical" href="http://example.com/2026/02/07/Subspaces-in-Matrix/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(0, 0, 0, 0.5)')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(256, 256, 256, 0.5)')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#09b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Subspaces in Matrix',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/tianzizuomingtang.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/bgs/hollow%20night.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">UUZ's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Subspaces in Matrix</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Subspaces in Matrix</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-02-07T06:09:42.000Z" title="Created 2026-02-07 14:09:42">2026-02-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-02-25T01:28:21.367Z" title="Updated 2026-02-25 09:28:21">2026-02-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Vector-Space"><a href="#Vector-Space" class="headerlink" title="Vector Space"></a>Vector Space</h2><p>Generally refers to the space with one operation. For most cases, this operation refers to addition.</p>
+<p>All elements in the vector space satisfies these laws. Here I use addition but it only means “certain operation”, it can be multiplication or even bit-wise XOR.</p>
+<ol>
+<li><p>Exchange law</p>
+<script type="math/tex; mode=display">
+v+u=u+v</script></li>
+<li><p>Associative law</p>
+<script type="math/tex; mode=display">
+v+(u+w)=(v+u)+w</script></li>
+<li><p>Identity</p>
+</li>
+</ol>
+<script type="math/tex; mode=display">
+v+0=v</script><ol>
+<li>Inverse (Existence)</li>
+</ol>
+<p>For every $v$, guarantee that $-v$ exists.</p>
+<script type="math/tex; mode=display">
+v+(-v)=0</script><ol>
+<li>Associative law of scalars</li>
+</ol>
+<p>For $\alpha$ and $\beta$ in $\mathbb{F}$ , which means scalars, $\mathbb{F}$ refers to certain field.</p>
+<script type="math/tex; mode=display">
+\alpha (\beta v)=(\alpha\beta)v</script><ol>
+<li>Relation between $\mathbb{F}$ and Vector space</li>
+</ol>
+<p>Here, $\mathbb{1}$ refers to the multiplication identity in $\mathbb{F}$</p>
+<script type="math/tex; mode=display">
+\mathbb{1} \cdot v = v</script><ol>
+<li>Distributive law 1</li>
+</ol>
+<script type="math/tex; mode=display">
+\alpha(v+u)=\alpha v +\alpha u</script><ol>
+<li>Distributive law 2</li>
+</ol>
+<script type="math/tex; mode=display">
+(\alpha+\beta)v=\alpha v +\beta v</script><h3 id="Well-defined"><a href="#Well-defined" class="headerlink" title="Well-defined?"></a>Well-defined?</h3><p>To say the vector space is well-defined, we must show that the results of operations performed in the vector space also exist in the vector space. For example, $\mathbb{N}$ with multiplication is not well-defined. We see the multiplication identity should be $\mathbb{1}$. However, 2 does not have a inverse regarding multiplication identity in $\mathbb{N}$. </p>
+<h3 id="Some-Vector-Spaces"><a href="#Some-Vector-Spaces" class="headerlink" title="Some Vector Spaces"></a>Some Vector Spaces</h3><p>$\mathbb{N}$ with addition</p>
+<p>$\mathbb{R}^n$ with addition</p>
+<p>$e^x,x\in \mathbb{R}$ with multiplication</p>
+<h2 id="Four-Fundamental-Subspace-in-Matrix"><a href="#Four-Fundamental-Subspace-in-Matrix" class="headerlink" title="Four Fundamental Subspace in Matrix"></a>Four Fundamental Subspace in Matrix</h2><p>There are four,</p>
+<ol>
+<li>Column space</li>
+<li>Row space</li>
+<li>Null space</li>
+<li>Left null space</li>
+</ol>
+<h3 id="What-is-subspace"><a href="#What-is-subspace" class="headerlink" title="What is subspace"></a>What is subspace</h3><p>In matrix, it usually refers to the subspace of a vector space.</p>
+<p>Given a $m$ by $n$ matrix, we can say there is vector space $\mathbb{R}^m$. Every column vector of $A$ is in $R^m$. Later we’ll say all the pivot columns of $A$ <strong>span</strong> the column space of $A$.</p>
+<h3 id="Column-Space"><a href="#Column-Space" class="headerlink" title="Column Space"></a>Column Space</h3><p>Column space is the most natural one.</p>
+<p>We say each column of the matrix is a column vector. The <strong>linear combination</strong> of these column vectors forms a well-defined space. We call it column space.</p>
+<p>We use notation $C(A)$ to denote the column space of matrix $A$.</p>
+<h4 id="Why-it-is-well-defined"><a href="#Why-it-is-well-defined" class="headerlink" title="Why it is well-defined?"></a>Why it is well-defined?</h4><p>We can choose $\mathbb{R}$ to be our field of scalar.</p>
+<p>Under the concept of “vector”, all the above eight laws are satisfied. The only thing we need to prove is whether it is closed.</p>
+<p>Here we should remark the idea of linear combination of vectors. To say column space of a $m$ by $n$ matrix $A$ is closed, is the same as saying all the <strong>linear combination of column vectors</strong> is in the column space of $A$.</p>
+<p>Why can we reflect this equivalence? Detailly, by scalar multiplication law, if a vector $v$ exists, $\alpha$v</p>
+<p>should be in the column space. By addition law,  $\sum\alpha v$ should be in the column space. It is the same as saying all the linear combination of the column vectors is in the column space.</p>
+<p>Reflect on the definition of column space, it is proved by the definition.</p>
+<h4 id="Thoughts"><a href="#Thoughts" class="headerlink" title="Thoughts"></a>Thoughts</h4><ol>
+<li>Choose $\mathbb{0}$ as scalar, and any vector $v$ in the column space. We find $\mathbb{0}\cdot v$ is in the column space.</li>
+</ol>
+<script type="math/tex; mode=display">
+\mathbb{0}\cdot v=(\mathbb{-1}+\mathbb{1})\cdot v=(-\mathbb{1})\cdot v+\mathbb{1}\cdot v=-(\mathbb{1}\cdot v)+\mathbb{1}\cdot v=-v+v=0</script><p> Thus, 0 vector is always in a columns space. To be more general, 0 vector is always in a vector space and also in a subspace.</p>
+<ol>
+<li>The shape of subspace, geometrically. It is a line through the origin, a plane through the origin…</li>
+<li>$C(A)\neq C(U)$, for $A=LU$. Talk later.</li>
+</ol>
+<h3 id="Null-Space"><a href="#Null-Space" class="headerlink" title="Null Space"></a>Null Space</h3><p>Null space is the most interesting one. It contains all the $x$, such that $Ax=0$.</p>
+<p>We use $N(A)$ to denote the null space of matrix $A$.</p>
+<h4 id="Well-defined-1"><a href="#Well-defined-1" class="headerlink" title="Well-defined ?"></a>Well-defined ?</h4><p>For</p>
+<script type="math/tex; mode=display">
+Ax=0,Ay=0,</script><p>It is true that,</p>
+<script type="math/tex; mode=display">
+Ax+Ay=A(x+y)=A(y+x)=0</script><p>Thus, the null space satisfies addition law and exchange law.</p>
+<p>For</p>
+<script type="math/tex; mode=display">
+Ax=0</script><p>It is true that,</p>
+<script type="math/tex; mode=display">
+\alpha Ax=(A\cdot \alpha)x=A\cdot(\alpha x)=0</script><p>Thus,</p>
+<script type="math/tex; mode=display">
+A\cdot \alpha x=0,A\cdot \beta x=0</script><p>It is true that,</p>
+<script type="math/tex; mode=display">
+A(\alpha x+\beta x)=A(\alpha+\beta)x=0</script><p>Thus, the null space satisfies scalar multiplication law and distributive law 1. Same way, distributive law 2 is true.</p>
+<p>Choose scalar to be $-\mathbb{1}$, then inverse is found. Choose vector to be 0, then identity in null space is found.</p>
+<p>The reason of why it is closed is also given by the proof of addition. You can always find linear combination of elements by adding up all the solutions of $Ax=0$ you require.</p>
+<h4 id="Thoughts-1"><a href="#Thoughts-1" class="headerlink" title="Thoughts"></a>Thoughts</h4><ol>
+<li>$N(A)\perp C(A^T)$. True because $Ax=0$ tells us that each row is orthogonal to every $x$. So their linear combination does. A row in $A$ is a column in $A^T$. Orthogonal simply means the dot production of any of the pair of vectors is zero.</li>
+<li>$N(A)$ and $C(A^T)$ can span the whole space. Talk later.</li>
+<li>A complete solution of $Ax_0=b$ is $x_0+N(A)$. It refers to every vector in $N(A)$ added by $x_0$ which is <strong>not</strong> a subspace if $b\neq0$ (it is not a subspace because zero is not in it).  $x_0+N(A)$ could be recognized as a set of complete solution of $Ax=b$.</li>
+</ol>
+<h3 id="Row-Space"><a href="#Row-Space" class="headerlink" title="Row Space"></a>Row Space</h3><p>Row space of matrix $A$ is $C(A^T)$.</p>
+<h3 id="Left-Null-Space"><a href="#Left-Null-Space" class="headerlink" title="Left Null Space"></a>Left Null Space</h3><p>It is $N(A^T)$</p>
+<h2 id="Orthogonal"><a href="#Orthogonal" class="headerlink" title="Orthogonal"></a>Orthogonal</h2><h4 id="Dot-Product-of-Vectors"><a href="#Dot-Product-of-Vectors" class="headerlink" title="Dot Product of Vectors"></a>Dot Product of Vectors</h4><p>Let say two vectors $x$ and $y$, the dot product of $x$ and $y$ is,</p>
+<script type="math/tex; mode=display">
+\text{dot product of }x \text{ and } y=x^Ty</script><p>When we consider matrix, we should recognize that the this operation reflect the idea of dot product in geometry.</p>
+<script type="math/tex; mode=display">
+x^Ty=
+\left[
+\begin{array}{c}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{array}
+\right]
+
+\left[
+\begin{array}{cccc}
+y_1 &y_2 &... &y_n
+\end{array}
+\right]
+
+=\sum x_iy_i</script><h4 id="When-x-Ty-0"><a href="#When-x-Ty-0" class="headerlink" title="When $x^Ty=0$"></a>When $x^Ty=0$</h4><p>It is orthogonal for two vectors.</p>
+<p>This idea reflects the idea of “perpendicular” in geometry. By the way $||x||_2$ refers to the Euclidean norm, which is, the length of $x$.  Then it is clear that $||x||_2^2=x^Tx$</p>
+<p>If $x$ and $y$ are perpendicular to each other.</p>
+<script type="math/tex; mode=display">
+||x+y||_2^2=||x||_2^2+||y||_2^2</script><p>It tells us</p>
+<script type="math/tex; mode=display">
+||x+y||_2^2=(x+y)^T(x+y)=x^T(x+y)+y^T(x+y)=x^Tx+y^Ty+x^Ty+y^Tx=x^Tx+y^Ty=||x||_2^2+||y||_2^2</script><p>So,</p>
+<script type="math/tex; mode=display">
+x^Ty=y^Tx=0</script><p>It is a bidirectional proof because the inverse procedure is also correct.</p>
+<h4 id="Of-Two-Sub-Spaces"><a href="#Of-Two-Sub-Spaces" class="headerlink" title="Of Two (Sub)Spaces"></a>Of Two (Sub)Spaces</h4><p>We say two subspaces, for example $C(A^T)$ and $N(A)$  is orthogonal.</p>
+<p>It is true because,</p>
+<script type="math/tex; mode=display">
+Ax=0</script><p>Due to matrix multiplication, rows of $A$ is orthogonal to $x$.</p>
+<p>They are orthogonal only if every two vectors in the two subspaces are orthogonal.</p>
+<p>Similarly, $C(A)$ and $N(A^T)$ are also orthogonal</p>
+<h2 id="Reference-to-a-Sub-Space"><a href="#Reference-to-a-Sub-Space" class="headerlink" title="Reference to a (Sub)Space"></a>Reference to a (Sub)Space</h2><h3 id="Linear-Independence"><a href="#Linear-Independence" class="headerlink" title="Linear Independence"></a>Linear Independence</h3><p>We can directly refers to the vectors.</p>
+<p>For vectors $v_1,v_2,\,…\,,v_n$, they are independent only if the solution to the below equation is every $c_i=0$</p>
+<script type="math/tex; mode=display">
+\sum c_iv_i=0</script><p>To talk like a human, we say every $c_i$ is not a linear combination of others if they are linearly independent.</p>
+<p>Or,</p>
+<script type="math/tex; mode=display">
+Ac=0</script><p>in which $A$ consists of columns vectors as $v_1,v_2,\,…\,v_n$</p>
+<p>This idea is important because it gives precise <strong>basis</strong> to a subspace.</p>
+<h4 id="Thoughts-2"><a href="#Thoughts-2" class="headerlink" title="Thoughts"></a>Thoughts</h4><p>Now we can have a different perspective of Gaussian Elimination, of how pivots column in $U$ refers to the independent columns in $A$.</p>
+<p>Focus on this equation,</p>
+<script type="math/tex; mode=display">
+Ac=0</script><p>It is the same as saying,</p>
+<script type="math/tex; mode=display">
+\text{For $j$ th row}, \sum c_iv_{j,i}=0</script><p>Now assume we have solution for the first row,</p>
+<script type="math/tex; mode=display">
+\sum c_iv_{1,i}=0</script><p>Then we can eliminate all the $c_1$ for the equations below. This would be the same as doing Gaussian elimination by the first row.</p>
+<p>Assume we left multiplying $E$ to do elimination by the first row,</p>
+<script type="math/tex; mode=display">
+E=\prod E_{m,1}</script><p>After the elimination by first row, we have,</p>
+<script type="math/tex; mode=display">
+EAc=0</script><p>We do $EA$ first. It will become,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{}
+v_{1,1} &v_{1,2} &v_{1,3} &\cdots &v_{1,n} \\
+0 &v^*_{2,2} &v^*_{2,3} &\cdots &v_{2,n} \\
+0 &\vdots &\vdots & &\vdots \\
+\vdots &\vdots &\vdots & &\vdots
+\end{array}
+\right]</script><p>Then</p>
+<script type="math/tex; mode=display">
+\text{For the frist row, }\sum_{i=1}^n c_iv_{1,i}=0   \\
+\text{For the following row, $j$ th row, } \sum_{i=2}^n c_iv^*_{j,i}=0</script><p>We keep solving $c<em>2,c_3,\,…\,,c_n$ by the following rows. And this would be a <strong>repetitive process</strong> until we find all $v</em>{j,i}$ are zero in some column $j$. And this process is exactly Gaussian Elimination.</p>
+<p>Once we find all $v_{j,i}$ is zero, in other words a row of zeros, we can set $c_j$ to be any number. Then we get a solution for $c$ by back substitution. We say if $c_1,c_2,c_3$ are non-zero values, $v_1$,$v_2$,$v_3$ are dependent. In other words, if we can’t find non-zero values for $c_1,c_2,c_3$, then $v_1$,$v_2$,$v_3$ would be independent.</p>
+<p>This shows exactly why pivot columns are independent. Because the process of finding pivot shows we can’t solve $c$ with non-zero values by these columns, which means they are independent.</p>
+<h3 id="Basis-Span-a-Sub-Space"><a href="#Basis-Span-a-Sub-Space" class="headerlink" title="Basis Span a (Sub)Space"></a>Basis Span a (Sub)Space</h3><p>Given a set of independent vectors, their linear combination forms a full space, then they can be the basis of that subspace. We say <strong>the basis span the whole space</strong>. However, considering the span itself, we would say the vector in span does not need to be linear independent, but they should fill the whole space. In other words, the vectors in span should contain a basis for that (sub)space.</p>
+<h3 id="Dimension"><a href="#Dimension" class="headerlink" title="Dimension"></a>Dimension</h3><p>Dimension gives a clear number of the vectors in basis.</p>
+<p>For a space with $n$ dimension, the basis should and only should contains $n$ independent vectors.</p>
+<p>Column space is a good example that the dimension of a column space is the rank of that matrix.</p>
+<h4 id="How-to-prove"><a href="#How-to-prove" class="headerlink" title="How to prove"></a>How to prove</h4><p>A good skill to give a simple proof is to confirm what do you need to prove.</p>
+<p>Since $n$ independent vectors is required to <strong>span</strong> a space, we say it is impossible for $n-1$ vectors to make it. This is true because given any basis, the linear combination of a set of $n-1$ vectors should at least be impossible to express one of the vector in $n$ vector basis, because the vectors in basis are independent. If you find a way to do it, then you prove the vectors in basis are dependent.</p>
+<p>In other way, if there exists $n+1$ vectors in a basis, we have to prove they are <strong>dependent</strong>. This is also easy to think of, because inversely if they are independent, at least one vector in the $n+1$ vectors can’t be expressed by the linear combination of a $n$ vector basis. Then you find the space is not closed because you make up a vector that can’t be expressed by the linear combination of the basis, which is ridiculous.</p>
+<p>A good way to show the idea of “$n-1$ vectors can’t expressed $n$ dimension” is using matrix.</p>
+<p>Given a example of $\mathbb{R}^n$, we can say $C(A)$ is $\mathbb{R}^n$ if columns in $A$ is a basis of $\mathbb{R}^n$. $A$ is $n$ by $n$. Then we have a rectangular matrix $C$ that is $n$ by $n-1$, we want to show $C$ can’t be a basis of $\mathbb{R}^n$.</p>
+<p>We use a matrix $B$ represents the column combination of $A$, then we can say.</p>
+<script type="math/tex; mode=display">
+AB=C</script><p>However, it is impossible to find $B^*$ such that,</p>
+<script type="math/tex; mode=display">
+CB^* = A</script><p>If $B^<em>$ exists, you have(Don’t replace $A$ with $CB^{</em>}$, you can’t cancel $C$),</p>
+<script type="math/tex; mode=display">
+(AB)B^*=A</script><p>Since $A$ has inverse ,</p>
+<script type="math/tex; mode=display">
+BB^*=I</script><p>Then $B^*$ is the inverse of $B$. However, $B$ is $n-1$ by $n$, which is impossible to have an inverse.</p>
+<h2 id="Calculate-the-Null-Space"><a href="#Calculate-the-Null-Space" class="headerlink" title="Calculate the Null Space"></a>Calculate the Null Space</h2><p>Say a matrix $A$,</p>
+<p>Notice that row elimination doesn’t change Null Space, in other words, for</p>
+<script type="math/tex; mode=display">
+A=LU=BR</script><script type="math/tex; mode=display">
+N(A)=N(U)=N(R)</script><p>This is because row elimination is the same as left multiplying an <strong>invertible</strong> matrix (if it is not invertible, we can only draw a right arrow),</p>
+<script type="math/tex; mode=display">
+Ax=0 \Leftrightarrow EAx=0</script><h3 id="General-method"><a href="#General-method" class="headerlink" title="General method"></a>General method</h3><script type="math/tex; mode=display">
+A=LU</script><p>Find pivot columns. They are independent. Call the rest columns as <strong>free columns</strong>.</p>
+<p>We construct a set of basis for null space with each free column.</p>
+<p>For a free column $i$, we set $x_i=1$ while all the other free columns $j$ to be $x_j=0$. Then we can have a only solution for $Ax^*_i=0$</p>
+<p>It is obvious that for each $x^*_i$ , they are different. Because the only “one” we set in the position confirms it’s independent from other columns.</p>
+<p>We can find $n-rank(A)$ of $x^*_i$. They are a basis of null space.</p>
+<h4 id="Why-It-Is-a-Basis"><a href="#Why-It-Is-a-Basis" class="headerlink" title="Why It Is a Basis?"></a>Why It Is a Basis?</h4><p>This is because we can prove its dimension is exactly $n-rank(A)$.</p>
+<ol>
+<li>The linear combination of $C(A^T)$ and $N(A)$ $\in$ $\mathbb{R}^n$</li>
+<li>$dim(N(A))\ge n-rank(A)$</li>
+<li>$dim(C(A^T))=rank(A)$</li>
+<li>$N(A)\perp C(A^T)$, they are independent to each other</li>
+<li>by 1, we learn $dim(C(A^T)\times N(A))\le dim(\mathbb{R}^n)$</li>
+<li>by 2,3 and 4, we learn $dim(C(A^T)\times N(A))\ge \dim(\mathbb{R}^n)$</li>
+</ol>
+<p>The only solution is $dim(N(A))=n-rank(A)$</p>
+<h3 id="Quick-questionable-method"><a href="#Quick-questionable-method" class="headerlink" title="Quick(questionable) method"></a>Quick(questionable) method</h3><p>Given a matrix $A$, we find the $R$ first, which is the reduced-row echelon form. Then transform it into the following form, where $Q$ is a permutation (it guarantee that the left top of the left matrix will be idenitity)</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{cc}
+I &F \\
+0 &0
+\end{array}
+\right]
+Q</script><p>We can construct this equation,</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{array}{cc}
+I &F \\
+0 &0
+\end{array}
+\right]
+Q
+Q^T
+\left[
+\begin{array}{cc}
+-F\\
+I
+\end{array}
+\right]
+=0</script><p>Columns of the following matrix $S$ will form a basis of column space of $A$</p>
+<script type="math/tex; mode=display">
+S=Q^T
+\left[
+\begin{array}{cc}
+-F \\
+I
+\end{array}
+\right]</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">BWmagician</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2026/02/07/Subspaces-in-Matrix/">http://example.com/2026/02/07/Subspaces-in-Matrix/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/bgs/hollow%20night.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix"><img class="cover" src="/img/bgs/mayyyyyuri.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Projection in Matrix</div></div><div class="info-2"><div class="info-item-1">No Solution, but with Optimal SolutionConsider the linear regression. We want to fit a line $y(t)=C+Dt$ to narrow down the error through three points. The best line would be the line passing through this three points. However, in most cases, the three points won’t stay in a line. For example, $(0,1),(1,2),(2,2)$, in which you can never find a line to pass through this three points. The reason can be shown by matrices,  \text{construct } Ax=b\\ \left[ \begin{matrix} 1 &0 \\ 1 &1 \\ 1 &2 \end{m...</div></div></div></a><a class="pagination-related" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra"><img class="cover" src="/img/bgs/dontrideanymore.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">MATH202 Linear Algebra</div></div><div class="info-2"><div class="info-item-1">MATH202 Linear Algebra??This is the first time I giving a summary to learned knowledge in class in EN. Since tomorrow will have a quiz, I will give a quick summary of the knowledge in previous three weeks. By 2026/1/21. Matrix OperationWhat is matrix?System of linear equations \begin{cases} x+y+2z &= 5 \\ \,\,\,\,\,\,\,\,\,\,\,y+z &=2 \\ x+y\,\,\,\,\,\,\,\,\,\,\, &= 3 \end{cases}This is a system of linear equations. A system of linear equations contains multiple unknown variables but the high...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">BWmagician</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/BWmagician"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This blog starts to write in English at October 5th, 2025. The previous blogs will probabaly() be translated into Egnlish later.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Vector-Space"><span class="toc-number">1.</span> <span class="toc-text">Vector Space</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Well-defined"><span class="toc-number">1.1.</span> <span class="toc-text">Well-defined?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Some-Vector-Spaces"><span class="toc-number">1.2.</span> <span class="toc-text">Some Vector Spaces</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Four-Fundamental-Subspace-in-Matrix"><span class="toc-number">2.</span> <span class="toc-text">Four Fundamental Subspace in Matrix</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-subspace"><span class="toc-number">2.1.</span> <span class="toc-text">What is subspace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Column-Space"><span class="toc-number">2.2.</span> <span class="toc-text">Column Space</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Why-it-is-well-defined"><span class="toc-number">2.2.1.</span> <span class="toc-text">Why it is well-defined?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Thoughts"><span class="toc-number">2.2.2.</span> <span class="toc-text">Thoughts</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Null-Space"><span class="toc-number">2.3.</span> <span class="toc-text">Null Space</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Well-defined-1"><span class="toc-number">2.3.1.</span> <span class="toc-text">Well-defined ?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Thoughts-1"><span class="toc-number">2.3.2.</span> <span class="toc-text">Thoughts</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Row-Space"><span class="toc-number">2.4.</span> <span class="toc-text">Row Space</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Left-Null-Space"><span class="toc-number">2.5.</span> <span class="toc-text">Left Null Space</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Orthogonal"><span class="toc-number">3.</span> <span class="toc-text">Orthogonal</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Dot-Product-of-Vectors"><span class="toc-number">3.0.1.</span> <span class="toc-text">Dot Product of Vectors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#When-x-Ty-0"><span class="toc-number">3.0.2.</span> <span class="toc-text">When $x^Ty&#x3D;0$</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Of-Two-Sub-Spaces"><span class="toc-number">3.0.3.</span> <span class="toc-text">Of Two (Sub)Spaces</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference-to-a-Sub-Space"><span class="toc-number">4.</span> <span class="toc-text">Reference to a (Sub)Space</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linear-Independence"><span class="toc-number">4.1.</span> <span class="toc-text">Linear Independence</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Thoughts-2"><span class="toc-number">4.1.1.</span> <span class="toc-text">Thoughts</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Basis-Span-a-Sub-Space"><span class="toc-number">4.2.</span> <span class="toc-text">Basis Span a (Sub)Space</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dimension"><span class="toc-number">4.3.</span> <span class="toc-text">Dimension</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#How-to-prove"><span class="toc-number">4.3.1.</span> <span class="toc-text">How to prove</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Calculate-the-Null-Space"><span class="toc-number">5.</span> <span class="toc-text">Calculate the Null Space</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#General-method"><span class="toc-number">5.1.</span> <span class="toc-text">General method</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Why-It-Is-a-Basis"><span class="toc-number">5.1.1.</span> <span class="toc-text">Why It Is a Basis?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Quick-questionable-method"><span class="toc-number">5.2.</span> <span class="toc-text">Quick(questionable) method</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/nihao-TEST/" title="nihao__TEST"><img src="/img/bgs/54c15a11b1eca88158355fb46c6fc936b9e723fe.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nihao__TEST"/></a><div class="content"><a class="title" href="/2026/02/20/nihao-TEST/" title="nihao__TEST">nihao__TEST</a><time datetime="2026-02-20T02:04:12.000Z" title="Created 2026-02-20 10:04:12">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/TEST-docker/" title="TEST_docker"><img src="/img/bgs/b.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEST_docker"/></a><div class="content"><a class="title" href="/2026/02/20/TEST-docker/" title="TEST_docker">TEST_docker</a><time datetime="2026-02-19T20:38:39.000Z" title="Created 2026-02-20 04:38:39">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix"><img src="/img/bgs/mayyyyyuri.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Projection in Matrix"/></a><div class="content"><a class="title" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix">Projection in Matrix</a><time datetime="2026-02-09T05:08:02.000Z" title="Created 2026-02-09 13:08:02">2026-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix"><img src="/img/bgs/hollow%20night.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Subspaces in Matrix"/></a><div class="content"><a class="title" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix">Subspaces in Matrix</a><time datetime="2026-02-07T06:09:42.000Z" title="Created 2026-02-07 14:09:42">2026-02-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra"><img src="/img/bgs/dontrideanymore.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MATH202 Linear Algebra"/></a><div class="content"><a class="title" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra">MATH202 Linear Algebra</a><time datetime="2026-01-22T14:24:30.000Z" title="Created 2026-01-22 22:24:30">2026-01-22</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By BWmagician</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

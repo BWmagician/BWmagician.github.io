@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>网络流杂谈 | UUZ's Blog</title><meta name="author" content="BWmagician"><meta name="copyright" content="BWmagician"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="rgba(256, 256, 256, 0.5)"><meta name="description" content="某图的最小割的可行割边不会是(任意)残量图中未满流的边做这题的时候看到讨论区有人问为什么残量网络中未满流的边不会是可行边。感性上看，如果未满流则说明受制于某边，那么割那一条边是严格更优的，因此不会有最小割方案包含一条残量图中未满流的边。但这样还是太玄乎了，我们尝试用符号证明。假设对于图$G(E,V)$有一组最小割$C&#x3D;{e_1,e_2,…}$，选其中一条流为$f$的边$e$，图$G(E,V)$的最">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络流杂谈">
+<meta property="og:url" content="http://example.com/2025/08/25/%E7%BD%91%E7%BB%9C%E6%B5%81%E6%9D%82%E8%B0%88/index.html">
+<meta property="og:site_name" content="UUZ&#39;s Blog">
+<meta property="og:description" content="某图的最小割的可行割边不会是(任意)残量图中未满流的边做这题的时候看到讨论区有人问为什么残量网络中未满流的边不会是可行边。感性上看，如果未满流则说明受制于某边，那么割那一条边是严格更优的，因此不会有最小割方案包含一条残量图中未满流的边。但这样还是太玄乎了，我们尝试用符号证明。假设对于图$G(E,V)$有一组最小割$C&#x3D;{e_1,e_2,…}$，选其中一条流为$f$的边$e$，图$G(E,V)$的最">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/bgs/wudi.png">
+<meta property="article:published_time" content="2025-08-25T03:00:12.000Z">
+<meta property="article:modified_time" content="2026-02-25T01:28:21.408Z">
+<meta property="article:author" content="BWmagician">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/bgs/wudi.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "网络流杂谈",
+  "url": "http://example.com/2025/08/25/%E7%BD%91%E7%BB%9C%E6%B5%81%E6%9D%82%E8%B0%88/",
+  "image": "http://example.com/img/bgs/wudi.png",
+  "datePublished": "2025-08-25T03:00:12.000Z",
+  "dateModified": "2026-02-25T01:28:21.408Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BWmagician",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/light.drawio.svg"><link rel="canonical" href="http://example.com/2025/08/25/%E7%BD%91%E7%BB%9C%E6%B5%81%E6%9D%82%E8%B0%88/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(0, 0, 0, 0.5)')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(256, 256, 256, 0.5)')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#09b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '网络流杂谈',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/tianzizuomingtang.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/bgs/wudi.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">UUZ's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">网络流杂谈</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">网络流杂谈</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-08-25T03:00:12.000Z" title="Created 2025-08-25 11:00:12">2025-08-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-02-25T01:28:21.408Z" title="Updated 2026-02-25 09:28:21">2026-02-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9F%90%E4%BA%9B%E7%AE%97%E6%B3%95/">某些算法</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9F%90%E4%BA%9B%E7%AE%97%E6%B3%95/%E6%B6%82%E8%AE%BA/">涂论</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="某图的最小割的可行割边不会是-任意-残量图中未满流的边"><a href="#某图的最小割的可行割边不会是-任意-残量图中未满流的边" class="headerlink" title="某图的最小割的可行割边不会是(任意)残量图中未满流的边"></a>某图的最小割的可行割边不会是(任意)残量图中未满流的边</h3><p>做<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4126">这题</a>的时候看到讨论区有人问为什么残量网络中未满流的边不会是可行边。感性上看，如果未满流则说明受制于某边，那么割那一条边是严格更优的，因此不会有最小割方案包含一条残量图中未满流的边。<br>但这样还是太玄乎了，我们尝试用符号证明。假设对于图$G(E,V)$有一组最小割$C={e_1,e_2,…}$，选其中一条流为$f$的边$e$，图$G(E,V)$的最大流是$M$。我们考察$G(E \backslash {e},V)$，对于这个图，$C \backslash {e}$是一组可行的割；$M-f$是可行的流。则发现割等于流，那么对于$G(E\backslash {e},V)$ ，$C \backslash {e}$是一组可行的最小割同时$M-f$是最大流。<br>因此，如果某条边是可行的割边，割去他之后剩下的图的最大流应该保持$M-f$。考虑残量图未满流的边，我们说他还剩余$k$的流量，如果去掉这条边，则剩余图的一个可行流是$M-f+k$，则剩余图的最大流已经超过了$M-f$，因此残量图未流满的边是不会成为可行边的。</p>
+<h3 id="对-任意-残量图缩点后处于一个SCC内的边不可能为可行边，并且DAG中的满流边必定为可行割边"><a href="#对-任意-残量图缩点后处于一个SCC内的边不可能为可行边，并且DAG中的满流边必定为可行割边" class="headerlink" title="对(任意)残量图缩点后处于一个SCC内的边不可能为可行边，并且DAG中的满流边必定为可行割边"></a>对(任意)残量图缩点后处于一个SCC内的边不可能为可行边，并且DAG中的满流边必定为可行割边</h3><p>如果顺着这个SCC里的某个圈流一个流，则某边变为残量图中未流满的边，那么根据上一个结论，不可能为可行边。</p>
+<p>如果我们砍掉任意DAG上的流为$f$的满流边$e$，则对于$G(E \backslash {e},V)$流至少减少$f$，因为不可能找到另外路径使这$f$流中的任意一一单位的流到$t$，不然构成SCC。那么根据上一个结论，为可行边。</p>
+<h3 id="闭合子图与割"><a href="#闭合子图与割" class="headerlink" title="闭合子图与割"></a>闭合子图与割</h3><p>闭合子图就是在一个有向图里选出一些点集，使其中每个点的后继不在子图外（注意到这些闭合子图随意并起来都会是一个闭合子图，后文的最大权闭合子图也可能是这样并起来的形式，因此我们说找到<strong>一个</strong>闭合子图即可）。闭合子图的后继对应了实际题目中的一些“先后”的逻辑关系，譬如说取一个格子之后四周的格子不能取，则一旦“取”就必然导致四个“不能取”的后果。譬如为了得到一些利润，要先付钱做一些事，则“做事”先于“赚取利润”，一旦“赚取利润”则推导出“我做过这件事”，这也是一种先后的逻辑关系与后继的对应。</p>
+<p>那么，实际题目的一个合理情况则对应了一个闭合子图。其中，所有的“先后顺序”都被满足对应了闭合子图没有点的后继在子图外。比如<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4174">P4174</a>，“付费建站”先于“赚取利润”，因此我们可以这样建图：把“利润”，“付费建站”看作点，点权设为赚钱或付钱的数目 ，每个“利润”的后继设为对应的“付费建站”（即连多条有向边到对应的站）。意味一旦收取这部分利润则必须建某某站。注意到这张图的点权是有正有负的，由于题目允许选取空集（即一点钱都不赚），这道题的利润最大化等效于找出一个闭合子图，使他的权值最大。这样的闭合子图称为最大权闭合子图。</p>
+<p>处理正负则需要联系到割，我们可以做这样的构造：将点值为负的点连到汇点，边权为点值的绝对值；从源点连到正点值的点，边权为点值。这样做的正确性在于：割去连到汇点的边代表选择负点值的点，割去从源点连出的边代表不选择这个正点值的点，由于我们不可以选择一个点而不选择后继，每个从源点到汇点的通路代表一个需要被考虑的后继关系（可以想象，仅是正到负的情况应该被考虑，如果选择一个点之后发现它的后继是正的，则无脑连接，如果从一个负点出发找后继则不如不选这个负点），则必须割其中一个边代表是否选择拥有这一对后继关系。那么这张图的任意闭合子图的权值和即所有选择的点的点值之和，即正点值之和减去割。其中要最大化闭合子图的权值和，需要求最小割。</p>
+<p>需要注意的是，源汇点不可以随意调换，因为在“先后”关系中，我们总是先有负贡献，再有正贡献，因此总是正点值的后继为负点值，这已经为我们提供了源点到汇点的流向。</p>
+<h3 id="费用流跑二分图的建图优化"><a href="#费用流跑二分图的建图优化" class="headerlink" title="费用流跑二分图的建图优化"></a>费用流跑二分图的建图优化</h3><p>做<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5331">这题</a>的时候虽然没想到用cdq的思路构图，<del>但打暴力草过去了</del>，但注意到建图优化其实比较常见，手法也比较多样。<br><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6061">这</a>是一道非常经典的建图优化题。题意是给你一个有边权的有向图，你可以每次选择一个环，环的费用是在图中绕这个环走一圈的距离和，求选择多个环保证每个点都被覆盖的最小费用（特殊的，选一个点当环也给了费用）。实际做法和<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2764">经典题目</a>差不多。那么先拆点，然后每个左侧点$i$到每个右侧点$j$的最短路作为费用从$i$到$j$连边，流为1，如果选择此边，则表示选环方案中包含了$i \to j$；对于单个点成环的情况，横向连边；源点连向左侧点，右侧点连向汇点流都为1，费用都为0。这样做的正确性在于，二分图简化了点在环中的存在，实际选环的时候某个点可能会重复出现在一些环中，但在这个二分图中一个点会并只会连出一条边(左侧点的意义)，会并只会被一条边连接(右侧点的意义)，那么这个二分图会且只会分割成数个环。但是这样做边数是$O(n^2)$的。我们可以这样连接，连所有从右到左的横向边流为无限，费用为0，连边方案不选择最短路，而是直接按照原图的边进行连接。例如某边$(u,v,dis)$，连$(u<em>{left},v</em>{right},dis)$这条边。这样优化连边之后边数降到了$O(n)$，并且是可以通过费用流算法里的spfa计算最短路的，具体来说，一条最短路可以通过 “左侧点$\to$右侧点”,”右侧点顺着0费边流到左侧点二号”,”左侧点二号$\to$右侧点二号”…这样表示出来。</p>
+<p>你可能会说这样连边岂不是构造出了好多非最短路。对的，但是我们绝对不会去跑非最短路，费用流会自动跑最优的那些，这是费用流算法本身决定的。这类题目的核心思想就是，通过一些手法合理的减少边数，使费用流在实际工作时总是选择正确的路径。</p>
+<h3 id="最小路径覆盖如果不是在DAG上会怎么样"><a href="#最小路径覆盖如果不是在DAG上会怎么样" class="headerlink" title="最小路径覆盖如果不是在DAG上会怎么样"></a>最小路径覆盖如果不是在DAG上会怎么样</h3><p>其实就像上一个讨论中提到的那样，会变成数个环。因此，很多需要拆点打二分图的题目要给出额外限制，让原图保持无环，即二分图不可以出现连出环的方案。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">BWmagician</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/08/25/%E7%BD%91%E7%BB%9C%E6%B5%81%E6%9D%82%E8%B0%88/">http://example.com/2025/08/25/%E7%BD%91%E7%BB%9C%E6%B5%81%E6%9D%82%E8%B0%88/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/bgs/wudi.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/08/27/%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E5%92%8C%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86/" title="扩展欧几里得和中国剩余定理"><img class="cover" src="/img/bgs/61db3f6dfe2696b93668f4101b3584c0c2d58165.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">扩展欧几里得和中国剩余定理</div></div><div class="info-2"><div class="info-item-1">裴蜀定理$ax+by=c\ 有整数解\Leftrightarrow gcd(a,b)|c$ 充分性证明是比较显然的： $gcd(a,b)|ax,gcd(a,b)|by\Longrightarrow gcd(a,b)|c$ 根据网络上最广泛流传的一种巧妙解法，必要性证明如下： 设$ax+by$的最小正整数线性表示为 $s$ ，这句话等价于$|ax+by|\geq s或ax+by=0$ （这里不必担心$a$,$b$是负数，因为他们的负号可以提到$x$和$y$中 假设 $a \equiv r\  (mod\ s)$, 写开就是$a=\lfloor \frac{a}{s} \rfloor*s+r\Leftrightarrow r= a(1-\lfloor \frac{a}{s} \rfloor x)+b(-\lfloor \frac{a}{s} \rfloor y)$  那么我们可以发现$r$也是$a$和$b$的线性表示，由于$a \equiv r\  (mod\ s)$，$r&lt;s$， $r$只能为$0$ 至此推出 $s|a$ 对于$b$ 同理,  有  $s|b$ ①由 $s|a...</div></div></div></a><a class="pagination-related" href="/2025/07/26/%E7%BD%91%E7%BB%9C%E6%B5%81%E5%BB%BA%E5%9B%BE%E5%85%A5%E9%97%A8%E6%96%B9%E6%A1%88/" title="网络流建图入门方案"><img class="cover" src="/img/bgs/b.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">网络流建图入门方案</div></div><div class="info-2"><div class="info-item-1">如果你还没有学过网络流请看饼先生的还没有写完dicnic的博客捏 (2025/7/27 需要理解网络流的最大流等于最小割，在建图的时候我们会频繁转换语义 关于二分图最大匹配现在大部分人（估计 跑二分图最大匹配都会用网络流。dinic跑二分图的复杂度仅为$O(m \sqrt m)$，在稀疏图中比正统二分图匹配算法快很多。具体的建图方案是新建源点和汇点，让源点连向左侧的点集，让右侧的点集连向汇点，每条边按照左侧点集到右侧点集的方向连接，并且每一条边的边权都是1。这样连边的正确性在于，每一条从源点到汇点的路径全由相同边权的边构成，如果推进一次流量，那么所有边一起被流满，如下图(虚线表示这条边无残余流量)。那么此时V1中的其他点通过的流量不能再流向y点，这等效于我们在二分图匹配中所说的一个V1的点选择了一个V2的点。 P3386 【模板】二分图最大匹配123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">BWmagician</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/BWmagician"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This blog starts to write in English at October 5th, 2025. The previous blogs will probabaly() be translated into Egnlish later.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%90%E5%9B%BE%E7%9A%84%E6%9C%80%E5%B0%8F%E5%89%B2%E7%9A%84%E5%8F%AF%E8%A1%8C%E5%89%B2%E8%BE%B9%E4%B8%8D%E4%BC%9A%E6%98%AF-%E4%BB%BB%E6%84%8F-%E6%AE%8B%E9%87%8F%E5%9B%BE%E4%B8%AD%E6%9C%AA%E6%BB%A1%E6%B5%81%E7%9A%84%E8%BE%B9"><span class="toc-number">1.</span> <span class="toc-text">某图的最小割的可行割边不会是(任意)残量图中未满流的边</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9-%E4%BB%BB%E6%84%8F-%E6%AE%8B%E9%87%8F%E5%9B%BE%E7%BC%A9%E7%82%B9%E5%90%8E%E5%A4%84%E4%BA%8E%E4%B8%80%E4%B8%AASCC%E5%86%85%E7%9A%84%E8%BE%B9%E4%B8%8D%E5%8F%AF%E8%83%BD%E4%B8%BA%E5%8F%AF%E8%A1%8C%E8%BE%B9%EF%BC%8C%E5%B9%B6%E4%B8%94DAG%E4%B8%AD%E7%9A%84%E6%BB%A1%E6%B5%81%E8%BE%B9%E5%BF%85%E5%AE%9A%E4%B8%BA%E5%8F%AF%E8%A1%8C%E5%89%B2%E8%BE%B9"><span class="toc-number">2.</span> <span class="toc-text">对(任意)残量图缩点后处于一个SCC内的边不可能为可行边，并且DAG中的满流边必定为可行割边</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E5%90%88%E5%AD%90%E5%9B%BE%E4%B8%8E%E5%89%B2"><span class="toc-number">3.</span> <span class="toc-text">闭合子图与割</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%B9%E7%94%A8%E6%B5%81%E8%B7%91%E4%BA%8C%E5%88%86%E5%9B%BE%E7%9A%84%E5%BB%BA%E5%9B%BE%E4%BC%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">费用流跑二分图的建图优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E8%A6%86%E7%9B%96%E5%A6%82%E6%9E%9C%E4%B8%8D%E6%98%AF%E5%9C%A8DAG%E4%B8%8A%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7"><span class="toc-number">5.</span> <span class="toc-text">最小路径覆盖如果不是在DAG上会怎么样</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/nihao-TEST/" title="nihao__TEST"><img src="/img/bgs/54c15a11b1eca88158355fb46c6fc936b9e723fe.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nihao__TEST"/></a><div class="content"><a class="title" href="/2026/02/20/nihao-TEST/" title="nihao__TEST">nihao__TEST</a><time datetime="2026-02-20T02:04:12.000Z" title="Created 2026-02-20 10:04:12">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/TEST-docker/" title="TEST_docker"><img src="/img/bgs/b.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEST_docker"/></a><div class="content"><a class="title" href="/2026/02/20/TEST-docker/" title="TEST_docker">TEST_docker</a><time datetime="2026-02-19T20:38:39.000Z" title="Created 2026-02-20 04:38:39">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix"><img src="/img/bgs/mayyyyyuri.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Projection in Matrix"/></a><div class="content"><a class="title" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix">Projection in Matrix</a><time datetime="2026-02-09T05:08:02.000Z" title="Created 2026-02-09 13:08:02">2026-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix"><img src="/img/bgs/hollow%20night.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Subspaces in Matrix"/></a><div class="content"><a class="title" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix">Subspaces in Matrix</a><time datetime="2026-02-07T06:09:42.000Z" title="Created 2026-02-07 14:09:42">2026-02-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra"><img src="/img/bgs/dontrideanymore.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MATH202 Linear Algebra"/></a><div class="content"><a class="title" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra">MATH202 Linear Algebra</a><time datetime="2026-01-22T14:24:30.000Z" title="Created 2026-01-22 22:24:30">2026-01-22</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By BWmagician</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

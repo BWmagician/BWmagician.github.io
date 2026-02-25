@@ -1,0 +1,358 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SAM|后缀自动机入门 | UUZ's Blog</title><meta name="author" content="BWmagician"><meta name="copyright" content="BWmagician"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="rgba(256, 256, 256, 0.5)"><meta name="description" content="写在开头后缀自动机(SAM)是一种有限自动机，他的节点数和边数是有限的并且是线性的。根据网上的资料，后缀自动机应该是能表示所有后缀的自动机中状态数最小的一个(不会证)。讲解后缀自动机不可避免地需要很多证明，这篇博客会尽可能用易懂的逻辑讲解后缀自动机。 parent tree(后缀链接树)在讲解后缀自动机之前我们必须要知道后缀自动机的节点代表了何种含义，其含义是parent tree赋予的。 为什么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SAM|后缀自动机入门">
+<meta property="og:url" content="http://example.com/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="UUZ&#39;s Blog">
+<meta property="og:description" content="写在开头后缀自动机(SAM)是一种有限自动机，他的节点数和边数是有限的并且是线性的。根据网上的资料，后缀自动机应该是能表示所有后缀的自动机中状态数最小的一个(不会证)。讲解后缀自动机不可避免地需要很多证明，这篇博客会尽可能用易懂的逻辑讲解后缀自动机。 parent tree(后缀链接树)在讲解后缀自动机之前我们必须要知道后缀自动机的节点代表了何种含义，其含义是parent tree赋予的。 为什么">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/bgs/941e0a381f30e924d8d468000a086e061d95f7a2.jpg">
+<meta property="article:published_time" content="2025-07-02T02:12:13.000Z">
+<meta property="article:modified_time" content="2026-02-25T01:28:21.357Z">
+<meta property="article:author" content="BWmagician">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/bgs/941e0a381f30e924d8d468000a086e061d95f7a2.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SAM|后缀自动机入门",
+  "url": "http://example.com/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/",
+  "image": "http://example.com/img/bgs/941e0a381f30e924d8d468000a086e061d95f7a2.jpg",
+  "datePublished": "2025-07-02T02:12:13.000Z",
+  "dateModified": "2026-02-25T01:28:21.357Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "BWmagician",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/light.drawio.svg"><link rel="canonical" href="http://example.com/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(0, 0, 0, 0.5)')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'rgba(256, 256, 256, 0.5)')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#09b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SAM|后缀自动机入门',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/tianzizuomingtang.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/bgs/941e0a381f30e924d8d468000a086e061d95f7a2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">UUZ's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">SAM|后缀自动机入门</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> Category</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/2025/07/24/oi%E7%A5%9E%E4%BA%BA%E7%A6%84/"><i class="fa-fw fas fa-video"></i><span> DK神人禄</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/link"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">SAM|后缀自动机入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-07-02T02:12:13.000Z" title="Created 2025-07-02 10:12:13">2025-07-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-02-25T01:28:21.357Z" title="Updated 2026-02-25 09:28:21">2026-02-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9F%90%E4%BA%9B%E7%AE%97%E6%B3%95/">某些算法</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9F%90%E4%BA%9B%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h2><p>后缀自动机(SAM)是一种有限自动机，他的节点数和边数是有限的并且是线性的。根据网上的资料，后缀自动机应该是能表示所有后缀的自动机中状态数最小的一个(<del>不会证</del>)。<br>讲解后缀自动机不可避免地需要很多证明，这篇博客会尽可能用易懂的逻辑讲解后缀自动机。</p>
+<h2 id="parent-tree-后缀链接树"><a href="#parent-tree-后缀链接树" class="headerlink" title="parent tree(后缀链接树)"></a>parent tree(后缀链接树)</h2><p>在讲解后缀自动机之前我们必须要知道后缀自动机的节点代表了何种含义，其含义是parent tree赋予的。</p>
+<h3 id="为什么叫parent-tree"><a href="#为什么叫parent-tree" class="headerlink" title="为什么叫parent tree"></a>为什么叫parent tree</h3><p>我们可以类比AC自动机，AC自动机拥有失配链接，SAM自动机则有后缀链接。AC自动机的失配链接能形成失配树，笔者习惯把失配树成为fail tree。为了做出区别，后缀链接构成的树在这篇博客里就称为parent tree。网络上一般把这棵树叫做后缀链接树。</p>
+<h3 id="endpos-等价类"><a href="#endpos-等价类" class="headerlink" title="endpos(等价类)"></a>endpos(等价类)</h3><p>这里不得不突兀地抛出这个重要概念。<br>定义: $A$是字符串$S$的一个子串，$endpos(A)$是$A$在$S$中所有出现地方的结束位置的集合，$endpos(A)$称为子串$A$对应的等价类或子串$A$的等价类。</p>
+<h4 id="对endpos定义的举例"><a href="#对endpos定义的举例" class="headerlink" title="对endpos定义的举例"></a>对endpos定义的举例</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">S=&quot;abbbb&quot;</span><br><span class="line">A=&quot;bb&quot;</span><br><span class="line">endpos(A)=&#123;3,4,5&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">S=&quot;ababab&quot;</span><br><span class="line">A=&quot;ab&quot;</span><br><span class="line">endpos(A)=&#123;2,4,6&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="不同的子串可能对应相同的等价类"><a href="#不同的子串可能对应相同的等价类" class="headerlink" title="不同的子串可能对应相同的等价类"></a>不同的子串可能对应相同的等价类</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">S=&quot;ababab&quot;</span><br><span class="line">A=&quot;ab&quot;</span><br><span class="line">B=&quot;b&quot;</span><br><span class="line">endpos(A)=endpos(B)=&#123;2,4,6&#125;</span><br></pre></td></tr></table></figure>
+<p>反过来说，同一个等价类可以对应很多个不同的子串。<br>下文中如果提到<strong>等价类的某一个子串</strong>这类文字，代表的就是等价类所对应到的所有子串的其中之一。<strong>等价类的最长子串</strong>则代表等价类对应的所有子串中最长的那个。</p>
+<h4 id="同一个等价类对应的子串们存在后缀的关系"><a href="#同一个等价类对应的子串们存在后缀的关系" class="headerlink" title="同一个等价类对应的子串们存在后缀的关系"></a>同一个等价类对应的子串们存在后缀的关系</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">S=&quot;abcabcabc&quot;</span><br><span class="line">A=&quot;abc&quot;,B=&quot;bc&quot;,C=&quot;c&quot;</span><br><span class="line">endpos(A)=endpos(B)=endpos(C)=&#123;3,6,9&#125;</span><br><span class="line">B为A的后缀，C为B和A的后缀</span><br></pre></td></tr></table></figure>
+<p>这也是好理解的，等价类的存在说明了子串(们)的存在，那么这些出现结束位置相同的子串们必定是长度不相同的。又因为任意一个等价类中的结束位置是相同的，长度短者必定属于长者的末尾的一部分，于是长度短者必定为长度长者的后缀。</p>
+<h4 id="两个等价类要么一个包含另一个，要么交集为空集"><a href="#两个等价类要么一个包含另一个，要么交集为空集" class="headerlink" title="两个等价类要么一个包含另一个，要么交集为空集"></a>两个等价类要么一个包含另一个，要么交集为空集</h4><p>可以反证：<br>对于字符串S，假设两个等价类$endpos(A)$与$endpos(B)$有交集却不为空，且不是包含的关系，我们让$A$和$B$分别代表其等价类对应的一个子串。<br>取等价类交集部分的一个位置，等价类不同说明A与B不可能相同，那么A与B只可能存在后缀关系。<br>换言之，$A$为$B$的后缀，或$B$为$A$的后缀。两种情况是等价的，我们让$A$为$B$的后缀，即$A$出现在所以B出现的地方，那么A的等价类应该是$endpos(A) \cup endpos(B)$。 因为假设中说明不是包含关系，所以 $endpos(A) \neq endpos(A) \cup endpos(B)$。那么$ A$不存在，假设不成立。</p>
+<h3 id="后缀链接与parent-tree"><a href="#后缀链接与parent-tree" class="headerlink" title="后缀链接与parent tree"></a>后缀链接与parent tree</h3><p>那么，如果我们把一个等价类作为一个节点呢？<br>两个节点要么互相包含要么互不相干，有没有让你想到一些图论的结构呢？<br>这便是一颗树嘛。一颗树中的两个节点，要么一者在另一者的子树之中，要么互不相干。而这棵树的边，详细地说，<strong>由子节点指向父节点的边</strong>，就是后缀链接。</p>
+<h4 id="parent-tree长什么样子呢"><a href="#parent-tree长什么样子呢" class="headerlink" title="parent tree长什么样子呢"></a>parent tree长什么样子呢</h4><p>如下图是字符串$abbb$的parent tree的样子</p>
+<p><img src="/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/ParentTree abbb.drawio.svg" alt="alt text"></p>
+<p>我们可以明显的观察到：parent tree的子节点们对应的等价类其实对父节点的等价类做了一个分割，这就是等价类间不相交集产生的现象。并且parent tree的某一条链上的等价类中的子串应该是越下面的子串越长，这很显然，因为同一个结束位置下，越长的子串出现的位置一定越少，包含结束位置越少的等价类一定在下方。并且位于上方的等价类的子串一定是下方等价类子串的一个后缀。</p>
+<h4 id="关于parent-tree的根-空串对应的等价类"><a href="#关于parent-tree的根-空串对应的等价类" class="headerlink" title="关于parent tree的根(空串对应的等价类)"></a>关于parent tree的根(空串对应的等价类)</h4><p>对于一个长度为n的字符串来说，在大多数情况下是不可能存在一个${1,2,3,4,…,n}$的等价类，然而对于一棵parent tree来说，这个“等价类”却对应着根节点。因此$endpos(‘’)={1,2,3,4,…,n}$<br>通常，人们把这个“等价类”理解为空串的等价类，因为空串确实出现在每一个位置上。<br>然而，我们注意到，如果一个字符串全由同样的一个字符构成……譬如说S全由字符c构成，则$endpos(‘c’)=endpos(‘’)={1,2,3,4,…,n}$。</p>
+<h4 id="parent-tree的节点是线性的"><a href="#parent-tree的节点是线性的" class="headerlink" title="parent tree的节点是线性的"></a>parent tree的节点是线性的</h4><p>分割必然存在界限，换言之，以单个结束位置为集合的等价类是不可以再分割的。parent tree节点数的上限肯定是由一颗叶子全是单位置等价类的parent tree决定的。我们可以反过来想，要构成一颗树，先决定所有的叶子节点，然后我们每次挑选多个节点决定他们的父节点，那么要想构造出理论上限，就需要叶子节点不可分割为好并且每次只挑选两个节点。若叶子可分割，为何不取分割后的点为叶子呢？<br>如果这个理论上限存在，那么对于长度为n的字符串，其parent tree最多存在2n-1个节点。因为其最多有n个单位置等价类的叶子节点$({1},{2},{3}..,{n})$，每次连两个节点到一个新节点则减少一个可选节点的总数，那么最多选n-1次，于是最多为2n-1个节点。<br>那么存不存在一棵parent tree，他的叶子节点都是单位置的等价类并且为二叉树呢？<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">S=&quot;abbbbbb... </span><br><span class="line">n=len(S)</span><br><span class="line"></span><br><span class="line">endpos(&quot;a&quot;)=&#123;1&#125;</span><br><span class="line">endpos(&quot;ab&quot;)=&#123;2&#125;</span><br><span class="line">endpos(&quot;abb&quot;)=&#123;3&#125;</span><br><span class="line">...</span><br><span class="line">endpos(&quot;ab..b&quot;)=&#123;n&#125;</span><br><span class="line"></span><br><span class="line">endpos(&quot;b&quot;)=&#123;2,3,...,n&#125;</span><br><span class="line">endpos(&quot;bb&quot;)=&#123;3,...,n&#125;</span><br><span class="line">endpos(&quot;bbb&quot;)=&#123;4,..,n&#125;</span><br><span class="line">...</span><br><span class="line">endpos(&quot;bb..b&quot;)=&#123;n&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们尝试类似于如上的构造，则$S$的每一个前缀的等价类必定只含有单个位置，并且我们已经列举出了他的所有等价类，刚好是$S$所有前缀和”bb..bb”的所有后缀对应的等价类，为$2n-1$个状态。<br>我们还可以得出一个有趣的结论：$S$串的parent tree是一棵二叉树。<br>于是这个理论上限存在：对于长度为$n$的字符串S，其parent tree最多只有$2n-1$个节点，换言之，最多只有$2n-1$个等价类。</p>
+<h2 id="SAM-后缀自动机"><a href="#SAM-后缀自动机" class="headerlink" title="SAM(后缀自动机)"></a>SAM(后缀自动机)</h2><p>后文后缀自动机都用SAM指代。<del>能少打很多字</del></p>
+<h3 id="SAM的样子"><a href="#SAM的样子" class="headerlink" title="SAM的样子"></a>SAM的样子</h3><p>下图是$abbb$的SAM自动机的样子，绿点为起点，红点代表终点，箭头表示转移。<br><img src="/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/SAM.drawio.svg" alt="alt text"></p>
+<h3 id="SAM的点和起点和终点和边-SAM的性质"><a href="#SAM的点和起点和终点和边-SAM的性质" class="headerlink" title="SAM的点和起点和终点和边(SAM的性质)"></a>SAM的点和起点和终点和边(SAM的性质)</h3><p>SAM只有<strong>一个起点</strong>，却可以有<strong>多个终点</strong>。<br>SAM每一条边(有方向)在本篇博客中称为<strong>转移</strong>。现在我们只谈SAM，对于SAM本身来说，转移代表了一个字符。如果我们从一个点开始走到另一个点，途径的所有转移可以按顺序连接成一个字符串。<br>起点和终点的意义是：对于字符串$S$的后缀自动机，从起点走到任意一个终点的任意一条路径，途径转移顺序连接成的字符串必定为$S$的一个后缀。并且所有$S$的后缀都能通过这种方法表示出来。注意，从起点走到终点并不是只有一条路径。</p>
+<h3 id="SAM是一种在线算法"><a href="#SAM是一种在线算法" class="headerlink" title="SAM是一种在线算法"></a>SAM是一种在线算法</h3><p>如果我们构建出了字符串S的SAM，那么我们可以很快构建出S+c的SAM，c代指某一个字符。<br>换言之，我们把$c$插入到了S的SAM中，这是在线的。<br>因此，空串的SAM，换言之，最初始的状态的SAM，为一个节点的图。</p>
+<h2 id="如何理解SAM与parent-tree的关系"><a href="#如何理解SAM与parent-tree的关系" class="headerlink" title="如何理解SAM与parent tree的关系"></a>如何理解SAM与parent tree的关系</h2><p>如果你学过AC自动机，你应该可以理解为了实现上述提到的SAM的性质，我们从理论上可以有很多种构建方法构建这种自动机。<br>但，SAM的构建却可以做到拥有线性的时间和空间复杂度，这其实借助了parent tree的性质。</p>
+<h3 id="SAM每个节点的意义就是等价类"><a href="#SAM每个节点的意义就是等价类" class="headerlink" title="SAM每个节点的意义就是等价类"></a>SAM每个节点的意义就是等价类</h3><p>换言之，SAM的节点可以直接对应的parent tree的节点。<br>这又是一个比较突兀的点，你可能会产生疑问：那么转移对于等价类的意义是什么？</p>
+<h3 id="转移对于等价类的意义"><a href="#转移对于等价类的意义" class="headerlink" title="转移对于等价类的意义"></a>转移对于等价类的意义</h3><p>我们应当从子串的角度看待转移，对于一个子串$A$，他的结束位置的后一位字符是$c$，我们把从$A$的开始位置到$A$的结束位置的后一位的子串称为$B$，$B=A+c$，那么$A$到$B$显然有一个字符$c$的转移。这是有文学意义的，就是在$A$的末尾加上一个字符$c$得到$B$，那么对于字符串的每一个后缀我们都可以通过这种转移的到唯一的组成。</p>
+<p>但是在SAM中，$A$和$B$很可能都并不独享有一个节点，一个节点对应着等价类，对应着很多的子串，因此节点与节点间的转移，表示这一个等价类的每一个子串$a$向另一个等价类中相应的$a+c$的转移。这表明一个等价类间转移的意义实际上代表了等价类中每个子串的转移的动向，像是一种路径的压缩，这也从侧面反映了为什么SAM的转移数是线性的。</p>
+<p><img src="/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/SAM2.drawio.svg" alt="alt text"></p>
+<p>那有没有可能会出现这种情况：等价类$x$有转移$c$到等价类$y$，然而$x$的一个子串$A$的转移后的子串$A+c$不在等价类$y$之中。我们把$x$的最长的子串称为$X$。如果这种情况发生，那$A+c$只会存在于$y$在parent tree的一条链上，而且不可能在$y$节点的子树中，因为转移$c$的存在说明$y$等价类的最长子串的长度已经大于等于$X+c$了，$y$的子树的等价类的子串只会更长，$A+c$不可能出现。那么$A+c$是否有可能在$y$节点在parent tree的祖先之中呢?  </p>
+<p>这是不可能的，由于$x$到$y$存在字符$c$的转移，说明等价类$x$中至少有一个子串$B$满足$B+c$在等价类$y$中。而如果$A+c$不在等价类$y$之中，说明至少某一个$A+c$的有一个结束位置$m$不在$y$中。也就是说$A+c$有一个结束位置是$B+c$所没有的，那么$A$有一个结束位置是$B$所没有的。这说明$A$与$B$不在一个等价类中。于是，这是不可能发生的。</p>
+<p>因此，我们可以这样来描述转移在SAM中的性质：如果在SAM中从$endpos(A)$到$endpos(B)$存在字符$c$的转移，(称$endpos(A)$的最长子串为$A$，$endpos(B)$的某一个子串为$B$)，则子串$A+c$可以在等价类$endpos(B)$中找到。</p>
+<h4 id="关于转移的浅显的结论"><a href="#关于转移的浅显的结论" class="headerlink" title="关于转移的浅显的结论"></a>关于转移的浅显的结论</h4><ol>
+<li><p>接着上面的性质，我们仍旧说从$endpos(A)$有一个到$endpos(B)$的字符$c$的转移，则所有指向$endpos(B)$的转移都应该为字符$c$ 。这是显然的，因为字符$c$的转移这件事本身实际上就说明了子串$B$的最后一个字符是$c$，即结束位置的字符就是$c$。我们可以更进一步，说$endpos(B)$的每一个结束位置的字符都是$c$</p>
+</li>
+<li><p>如下图，每一个节点表示一个等价类，虚线代表等价类在parent tree中的边，箭头代表转移。如果等价类$endspos(A)$存在一个字符$c$的转移，则其在parent tree中的所有祖先都存在字符$c$的转移。证明比较显然，$endpos(A)$的祖先的最长子串只会是$A$的后缀，既然A都存在字符c的转移，A的后缀也应该存在字符$c$的转移<br><img src="/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/转移2.drawio-1.svg" alt="alt text"></p>
+</li>
+<li><p><strong>不可能</strong>出现下图的灰点，如果$endpos(B)$接受了字符c的转移，其祖先也都应该接受来自$endpos(A)$的祖先的字符c的转移，并且不会中断。灰点上方的等价类为$endpos(Y)$，下方为$endpos(B)$。考虑$endpos(X)$包含的子串和$endpos(A)$中的子串在长度上是连续的，而根据转移的定义，他们的子串又都分别在$endpos(Y)$和$endpos(B)$中有对应转移的子串。我们任取$endpos(X)$或$endpos(Y)$中的子串称为$I$，则转移到的$I+c$也能形成长度连续的集合。这表明$endpos(Y)$和$endpos(B)$能取出部分子串形成子串长度连续的集合。灰点等价类的一个子串为$Z$，则$endpos(Y)$的子串总是长度小于$Z$的，$endpos(X)$的子串总是长度大于$Z$的，不可能连续，因此不可能存在灰点。</p>
+<p><img src="/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/转移3.drawio-3.svg" alt="alt text"></p>
+<h3 id="SAM的起点与终点对应着哪些等价类"><a href="#SAM的起点与终点对应着哪些等价类" class="headerlink" title="SAM的起点与终点对应着哪些等价类"></a>SAM的起点与终点对应着哪些等价类</h3><p>假设字符串$S$的长度为$n$，我们考虑$S$的SAM:<br>所有的终点一定是包含<em>位置n</em>的所有等价类。起点则是空串所对应的等价类。<br>这表明了终点们在parent tree上一定是一条链，从根贯通到叶子节点。这条链的末尾一定是叶子节点，因为$endpos(S)={n}$这个等价类必然存在。则其在parent tree上的所有祖先都包含<em>位置n</em>，形状为一条链。我们在这里无需纠结根能否被看作一个终点，因为parent tree的根代表SAM的起点，起点到其本身为空串，空串自然也可以被当作S的后缀，只是没有特别的意义而已。<br>对于终点为什么是这些等价类，目前并不能给出直接证明，会在SAM的构建中被自然证明。</p>
+</li>
+</ol>
+<h3 id="利用SAM在线构建的特点给出证明"><a href="#利用SAM在线构建的特点给出证明" class="headerlink" title="利用SAM在线构建的特点给出证明"></a>利用SAM在线构建的特点给出证明</h3><p>这是理解SAM和parent tree关系最巧妙的一点，因为SAM在线构建的特点可以非常形象地比喻为数学归纳法。<br>这个逻辑具体可以解释为：<em>对于一个字符串$S$，假设构建出了符合所有性质的SAM，加我们只要证明加入一个字符之后的SAM仍满足所有的性质</em><br>由于数学归纳法所要求的初始状态对于SAM来说为仅有一个节点的图(这个节点是空串对应的等价类)，理应满足我们所要求的所有性质，所以这个逻辑是成立的。</p>
+<h2 id="SAM的构建方法及性质的证明"><a href="#SAM的构建方法及性质的证明" class="headerlink" title="SAM的构建方法及性质的证明"></a>SAM的构建方法及性质的证明</h2><p><em>假设我们已经构建出了字符串$S$的SAM和parent tree，并且它满足如下性质</em></p>
+<h3 id="假设的性质"><a href="#假设的性质" class="headerlink" title="假设的性质"></a>假设的性质</h3><p>① 一个起点，可以有多个终点，起点到任意终点的任意路径的转移顺序接连形成的字符串，为S的一个后缀，且所有S的后缀都能被<strong>不重复地</strong>表示出来。<br>② 每个节点代表了一个等价类。<br>③ SAM自动机的终点为S的parent tree中的一条链，我们称这条链的末尾节点(一定是叶子节点)为$lst(last)$，并且我们已知$lst$是哪一个节点。</p>
+<p><em>现在在S的末尾加入字符$c$，我们尝试构建新字符串$S+c$的SAM，并维护$S+c$的parent tree</em></p>
+<h3 id="必然产生的新等价类与将要改变的等价类"><a href="#必然产生的新等价类与将要改变的等价类" class="headerlink" title="必然产生的新等价类与将要改变的等价类"></a>必然产生的新等价类与将要改变的等价类</h3><p>$S+c$的长度变为$n+1$，则$endpos(S+c)={n+1}$必然是一个全新的等价类，所以在SAM和parent tree中我们<strong>至少</strong>要加入一个的新节点，我们称这个代表${n+1}$等价类的节点为$cur(current)$。</p>
+<p>如果已经存在的等价类需要改变，或需要添加另外的节点进SAM和parent tree，这必然是因为新位置$n+1$的插入。换言之，那些需要改变的等价类一定会加入结束位置$n+1$进去。这很好理解，$c$的插入只会导致某些已存在的子串可能出现在新的位置(即子串的结束位置有可能为$n+1$了)，而不会让之前的出现的结束位置消失。</p>
+<p>我们需要注意的是，插入$c$后可能会使SAM的节点数增加不止一个，即等价类的数量可能变多不止一个，我们在具体情况中具体分 析。</p>
+<h3 id="终点的变化"><a href="#终点的变化" class="headerlink" title="终点的变化"></a>终点的变化</h3><p>考虑$cur$节点代表单位置的等价类，$cur$在parent tree中必然为叶子节点，那么我们构建$S+c$的SAM时必须把 $cur$ 当作新的终点的链的叶子节点。因此，$S+c$的SAM的终点会是$cur$在$S+c$的parent tree上的所有祖先。</p>
+<p>如果我们能做到这一点，则性质④已经被充分证明</p>
+<p>又因为变化的等价类会加入位置$n+1$，变化的等价类对应的节点必然会成为$cur$在parent tree上的祖先。</p>
+<h3 id="情况一"><a href="#情况一" class="headerlink" title="情况一"></a>情况一</h3><p><em>每一个旧的终点都不存在字符$c$的转移</em><br>这句话翻译一下就是$lst$在parent tree上的所有祖先都不存在字符$c$的转移</p>
+<p><em>那么在SAM中，我们只要让每一个旧的终点都连一条字符$c$的转移到$cur$节点即可</em>。</p>
+<p>考虑性质①，起点到某个旧终点经过的转移为$S$的一个后缀，因此对于$S+c$，我们只要添加从旧终点出发到$cur$的字符$c$的转移即可。那么添加转移后，起点到$cur$的每一个路径所经过的转移为$S+c$的一个后缀，而每个新后缀仅为之前后缀的延伸，不重复，性质①成立。</p>
+<p>因为所有的旧终点都连到了$cur$上，那么此时终点仅有$cur$一个点，换言之，我们在parent tree上只要把$cur$连到根上。我们在<strong><em>终点的变化</em></strong>中提到，变化的等价类必然会成为$cur$在parent tree上的祖先节点，所以变化的等价类实际上是不存在的，每个节点现在都直接对应着一个等价类，不用添加额外的节点和改变原有等价类的，性质②成立。</p>
+<p>在$S+c$的SAM上，$cur$节点即为终点链的叶子，由于这是新建的节点，是已知的，性质③成立。</p>
+<h3 id="情况二"><a href="#情况二" class="headerlink" title="情况二"></a>情况二</h3><p><em>有一些旧的终点已经存在字符$c$的转移了。在parent tree中，找到有转移的祖先中最底下的那个，称为$p$节点，$p$的字符$c$转移指向的节点称为 $q$节点。情况二为：$q$的最长子串的长度刚好为$p$的最长子串的长度+1。</em></p>
+<p>换言之，某个$lst$在parent tree上的祖先等价类已经有过字符$c$的转移。回忆一下在<strong><em>关于转移的浅显的结论</em></strong>中的结论2，这些有转移的祖先肯定形成一条直至根的链。</p>
+<p><em>对于没有转移的祖先，我们重复情况一的操作，添加字符$c$的转移从旧终点指向$cur$。则在parent tree上将$cur$连到$q$节点底下即可</em></p>
+<p>具体如下图，黑箭头代表已经存在的转移，红箭头代表新加入的转移，虚线代表parent tree的边。<br><img src="/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/情况二.drawio-1.svg" alt="alt text"></p>
+<p>核心在于理解这件事：在情况二中，并不会产生除$cur$外的额外的节点</p>
+<h4 id="情况二中等价类的变化"><a href="#情况二中等价类的变化" class="headerlink" title="情况二中等价类的变化"></a>情况二中等价类的变化</h4><p>我们提到并不会产生额外节点，这并不意味着等价类不变，根据parent tree的性质，情况二中的等价类的意义需要发生如下图的变化，即$cur$在parent tree上的祖先等价类都应该加入$n+1$。</p>
+<p><img src="/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/情况二222.drawio.svg" alt="alt text"></p>
+<p>情况二里，性质③和性质①在$S+c$的SAM中显然成立。我们注意到此时的终点为$cur$及其祖先，而旧终点所代表的$S$的每一个后缀都有其对应的转移从旧的终点到新的终点，性质①成立。$cur$仍就是终点链的叶子节点，③成立。</p>
+<p>对于性质②，我们只需要证明并不会出现其他等价类。根据<strong><em>终点的变化</em></strong>中的分析，我们知道如果出现额外的等价类，那个等价类一定会包含结束位置$n+1$。换言之，如果有其他等价类出现，这个等价类一定是由$S+c$的某个后缀引起的。我们从$lst$的祖先查询是否有字符$c$的转移实际上就是在寻找$S+c$的某些后缀是否已经有对应的等价类了，换言之，这些后缀是否早就是$S$的子串了。我们假设$p$的等价类的最长的子串为$P$，$q$的最长的子串则为$P+c$，那么$S+c$的每一个长度小于等于$P+c$的后缀都已经有对应的等价类了那么对于这些等价类，我们只需要给他们添加结束位置$n+1$即可，这样做的意义是，直接把已有的等价类设置为$S+c$的SAM的终点。对于长度大于$P+c$的后缀，则由$cur$为终点的路径形成。分析至此，你可能注意到一个问题：既然长度小于等于$P+c$和大于$P+c$的$S+c$的后缀都已经被对应到等价类中了，是不是说明没有新的等价类产生了呢？</p>
+<p>并不是。注意到$q$点的等价类本身也许包含了长度大于$P+c$的子串。但等价类$q$中不应该出现这些子串，因为$cur$在parent tree上的祖先节点的等价类一定包含了$S+c$的所有后缀，而<strong>等价类$q$中长度大于$P+c$的子串不会成为$S+c$的后缀</strong>。这只说明了一件事：$q$节点的等价类有可能分裂为两个部分，在$q$的等价类内的子串可能将会分别归属于两个新的等价类。在<strong><em>情况三</em></strong>中会详细解释这个新等价类。情况二则是较为简单的一种，在$q$的等价类中不存在长度大于$P+c$的部分，则$q$的等价类内的子串不会归属于另一个新的等价类中。因此在情况二不会出现额外的新等价类，每个节点对应着一个等价类，性质②成立。</p>
+<h3 id="情况三"><a href="#情况三" class="headerlink" title="情况三"></a>情况三</h3><p><em>有一些旧的终点已经存在字符$c$的转移了。在parent tree中，找到有转移的祖先中最底下的那个，称为$p$节点，$p$的字符$c$转移指向的节点称为 $q$节点。情况二为：$q$的最长子串的长度大于$p$的最长子串的长度。</em></p>
+<p>这与情况二最根本的区别就是，会出现一个除$cur$外的新等价类，在parent tree中我们不妨称它为$q \prime$节点，也就是说$q\prime$代表了一个新等价类。</p>
+<p><em>对于没有转移的祖先，我们重复情况一的操作，添加字符$c$的转移从旧终点指向$cur$。则在parent tree上将$cur$连到$q \prime$节点底下，$q\prime$处于$q$与$q$在parent tree的父节点之间。在SAM中，$q\prime$继承$q$的所有转移，但$p$的字符$c$的转移只指向$q\prime$节点。具体如下图。</em></p>
+<p><img src="/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/情况三2.drawio-2.svg" alt="alt text"></p>
+<p>接续情况二的分析，$P$代表$p$最长的子串，那么等价类$q$中长度大于$P+c$的子串在字符串$S+c$中属于$q\prime$等价类。那为什么图中$q$的等价类中的子串不会成为$S+c$的后缀呢？道理很显然，根据转移的性质，如果$q$中的某一个子串$Q$是$S+c$的后缀，那么$Q-c$一定是$S$的一个后缀，那么$S$的后缀$Q-c$一定存在一个转移到$S+c$的后缀$Q$，那么这个转移一定会出现在$lst$这条链和$cur$这条链之间。注意到$Q$的长度大于$q\prime$最长子串，因此$Q-c$的长度大于$p$的最长子串的长度，那么这个转移会位于在parent tree上的$p$节点之下，这与$p$是从$lst$节点向上第一个有转移的等价类相矛盾，因此$q$的子串一定不会是$S+c$的后缀。那便很显然了，等价类$q$和等价类$q\prime$从结束位置的角度来看唯一的区别就是是否包含了位置$n+1$，$q$与$q\prime$确实是两个不同的等价类。则目前$S+c$的后缀要么在之前就存在过($q\prime$及以上的所有子串)，要么就在$cur$中，那么不会产生除$q\prime$和$cur$外的其他等价类了，那么满足性质②。性质①③同<strong><em>情况二</em></strong>的证明，都是成立的。</p>
+<h4 id="情况三中的转移如何处理"><a href="#情况三中的转移如何处理" class="headerlink" title="情况三中的转移如何处理"></a>情况三中的转移如何处理</h4><p>以上我们都只在讨论等价类或parent tree的结构变化，我们也要注意SAM中的转移需要如何改变。</p>
+<p>我们把老的$q$等价类拆为了$q\prime$和新的$q$，根据上述分析，$p$点的字符$c$转移应该指向$q\prime$，而其余指向$q$的转移应当不动地指向新地$q$节点。而从$q$出去的转移应该不动地复制给$q\prime$，因为纵使子串们被分为二，他们转移向的等价类仍分别包含他们子串的转移。</p>
+<h2 id="代码-例题为P3804-【模板】后缀自动机（SAM）"><a href="#代码-例题为P3804-【模板】后缀自动机（SAM）" class="headerlink" title="代码 (例题为P3804 【模板】后缀自动机（SAM）)"></a>代码 (例题为<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3804">P3804 【模板】后缀自动机（SAM）</a>)</h2><p>子串的出现次数可以这样统计：每次插入一个新字符后，$cur$节点的所有祖先的等价类的子串的出现次数+1。我们可以先记录所有$cur$节点的位置，在最后一起加。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">2e6</span><span class="number">+10</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> L = <span class="number">27</span>;</span><br><span class="line"></span><br><span class="line">string str;</span><br><span class="line">ll ans=<span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> cnt=<span class="number">1</span>,nxt[N][L],parent[N],lst=<span class="number">1</span>,len[N],val[N];</span><br><span class="line"><span class="comment">//这是一个小细节，为了便于代码实现，一般我们默认空串单独占有一个等价类(即parent tree的根)。</span></span><br><span class="line"><span class="comment">//即使出现全由同一个字符组成的字符串，根仍然独立于其他等价类。因为这是特例，不影响复杂度。</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; G[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">ins</span><span class="params">(<span class="type">int</span> c)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> cur=++cnt,p=lst;</span><br><span class="line">	len[cur]=len[lst]<span class="number">+1</span>; <span class="comment">//len表示某个节点的等价类的最长的子串长度</span></span><br><span class="line">	<span class="keyword">for</span>(;p&amp;&amp;!nxt[p][c];p=parent[p]) nxt[p][c]=cur;</span><br><span class="line">	<span class="keyword">if</span>(!p) parent[cur]=<span class="number">1</span>; <span class="comment">//lst链无字符c的转移，情况一</span></span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="type">int</span> q=nxt[p][c];</span><br><span class="line">		<span class="keyword">if</span>(len[q]==len[p]<span class="number">+1</span>) parent[cur]=q; <span class="comment">//情况二</span></span><br><span class="line">		<span class="keyword">else</span>&#123; <span class="comment">//情况三</span></span><br><span class="line">			<span class="type">int</span> clone=++cnt;<span class="comment">//即q撇</span></span><br><span class="line">			len[clone]=len[p]<span class="number">+1</span>;</span><br><span class="line">			parent[clone]=parent[q];</span><br><span class="line">			<span class="comment">//复制所有从q出去的转移</span></span><br><span class="line">         	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">26</span>;++i) nxt[clone][i]=nxt[q][i];</span><br><span class="line">         	<span class="comment">//p出去的字符c的转移应该全转移向q撇</span></span><br><span class="line">			<span class="keyword">for</span>(;p&amp;&amp;nxt[p][c]==q;p=parent[p]) nxt[p][c]=clone;</span><br><span class="line">			parent[q]=parent[cur]=clone;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	val[cur]=<span class="number">1</span>;<span class="comment">//记录位置</span></span><br><span class="line">	lst=cur;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;G[x].<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">		<span class="type">int</span> to=G[x][i];</span><br><span class="line">		<span class="built_in">dfs</span>(to);</span><br><span class="line">		val[x]+=val[to];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//这里我们只考虑最长的那个子串，因此直接取len[x]即可</span></span><br><span class="line">	<span class="keyword">if</span>(val[x]!=<span class="number">1</span>) ans=<span class="built_in">max</span>(ans,<span class="number">1ll</span>*val[x]*len[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;str;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;str.<span class="built_in">size</span>();++i)&#123;</span><br><span class="line">		<span class="type">int</span> x=str[i]-<span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">		<span class="built_in">ins</span>(x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//构建parent tree的图</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=cnt;++i) G[parent[i]].<span class="built_in">push_back</span>(i);</span><br><span class="line">	<span class="built_in">dfs</span>(<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>,ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>证明和术语大部分来自<a target="_blank" rel="noopener" href="https://oi-wiki.org/string/sam/">oi-wiki</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">BWmagician</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/">http://example.com/2025/07/02/SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/bgs/941e0a381f30e924d8d468000a086e061d95f7a2.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/07/07/2-sat/" title="2-sat"><img class="cover" src="/img/bgs/kdl.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">2-sat</div></div><div class="info-2"><div class="info-item-1">建图2-sat的基本模型是两里个选一个，比如 $a\ \vee\ b$。这可以改写为两种对称的推导关系$\neg a \to b$和$\neg b \to a$。我们把每个推导关系直接建边就行。 以P4782 【模板】2-SAT为例，我们把每个变量拆为两个点，代表真与假两种情况，按照$\neg a \to b$和$\neg b \to a$连边就行。 求解一般我们只要求一组特殊解就行。 注意这张图的特征是，以任意一个点$x$为起点所能走的每一个路径，为从$x$开始推导所得到的必然情况。 无解的情况如果同一个变量拆出的两个点在同一个强连通分量里面，则绝对无解。因为此时不论以这个强连通分量的哪个点为起点，都会经过这两个点，同时推导得到一个情况的真假是矛盾的，因此绝对无解。 因此我们可以先缩点，考察同一个变量的真假两点是否处于同一个强连通分量中。 特解对于一个变量的两种状态，取拓扑序较大的一方。 正确性一般情况例如$a \to \neg a$，则只能取$\neg a$，推导的后者拓扑序大，是合理的。 欲证：在缩点后的拓扑图内，无论如何不存在情况导致一个变量的真假同时被取到。尝试反证其他...</div></div></div></a><a class="pagination-related" href="/2025/06/24/%E5%85%B3%E4%BA%8Ebw%E4%B8%BB%E9%A2%98/" title="关于bw主题"><img class="cover" src="/img/bgs/dmhs.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">关于bw主题</div></div><div class="info-2"><div class="info-item-1">下载下载主题$ git clone https://github.com/BWmagician/hexo-theme-bw.git themes/bw 下载图片插件$ npm install https://github.com/CodeFalling/hexo-asset-image --save 如果不装这个插件会产生很奇怪的bug 更换渲染插件由于hexo自带的渲染器hexo-renderer和markdown语法有很多冲突。为避免页面出现布局混乱，需要更换一个渲染器。 卸载默认渲染器$ npm uninstall hexo-renderer-marked --save 装hexo-renderer-kramed$ npm install hexo-renderer-kramed --save 数学公式bw主题已经配置了mathjax的cdn 由于hexo-renderer-markdown-it的基础渲染器markdown-it在文章渲染时设置了转义，所以为了打出一个\,你必须要再打一个\, 比如说为了打出&#123;，你要写\\{。 这个只需要在转义的代码里把你想要保留...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/uuz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">BWmagician</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/BWmagician"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This blog starts to write in English at October 5th, 2025. The previous blogs will probabaly() be translated into Egnlish later.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%BC%80%E5%A4%B4"><span class="toc-number">1.</span> <span class="toc-text">写在开头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#parent-tree-%E5%90%8E%E7%BC%80%E9%93%BE%E6%8E%A5%E6%A0%91"><span class="toc-number">2.</span> <span class="toc-text">parent tree(后缀链接树)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%ABparent-tree"><span class="toc-number">2.1.</span> <span class="toc-text">为什么叫parent tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#endpos-%E7%AD%89%E4%BB%B7%E7%B1%BB"><span class="toc-number">2.2.</span> <span class="toc-text">endpos(等价类)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9endpos%E5%AE%9A%E4%B9%89%E7%9A%84%E4%B8%BE%E4%BE%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">对endpos定义的举例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AD%90%E4%B8%B2%E5%8F%AF%E8%83%BD%E5%AF%B9%E5%BA%94%E7%9B%B8%E5%90%8C%E7%9A%84%E7%AD%89%E4%BB%B7%E7%B1%BB"><span class="toc-number">2.2.2.</span> <span class="toc-text">不同的子串可能对应相同的等价类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E4%B8%80%E4%B8%AA%E7%AD%89%E4%BB%B7%E7%B1%BB%E5%AF%B9%E5%BA%94%E7%9A%84%E5%AD%90%E4%B8%B2%E4%BB%AC%E5%AD%98%E5%9C%A8%E5%90%8E%E7%BC%80%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.2.3.</span> <span class="toc-text">同一个等价类对应的子串们存在后缀的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E7%AD%89%E4%BB%B7%E7%B1%BB%E8%A6%81%E4%B9%88%E4%B8%80%E4%B8%AA%E5%8C%85%E5%90%AB%E5%8F%A6%E4%B8%80%E4%B8%AA%EF%BC%8C%E8%A6%81%E4%B9%88%E4%BA%A4%E9%9B%86%E4%B8%BA%E7%A9%BA%E9%9B%86"><span class="toc-number">2.2.4.</span> <span class="toc-text">两个等价类要么一个包含另一个，要么交集为空集</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E7%BC%80%E9%93%BE%E6%8E%A5%E4%B8%8Eparent-tree"><span class="toc-number">2.3.</span> <span class="toc-text">后缀链接与parent tree</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#parent-tree%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7%E5%AD%90%E5%91%A2"><span class="toc-number">2.3.1.</span> <span class="toc-text">parent tree长什么样子呢</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Eparent-tree%E7%9A%84%E6%A0%B9-%E7%A9%BA%E4%B8%B2%E5%AF%B9%E5%BA%94%E7%9A%84%E7%AD%89%E4%BB%B7%E7%B1%BB"><span class="toc-number">2.3.2.</span> <span class="toc-text">关于parent tree的根(空串对应的等价类)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#parent-tree%E7%9A%84%E8%8A%82%E7%82%B9%E6%98%AF%E7%BA%BF%E6%80%A7%E7%9A%84"><span class="toc-number">2.3.3.</span> <span class="toc-text">parent tree的节点是线性的</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SAM-%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA"><span class="toc-number">3.</span> <span class="toc-text">SAM(后缀自动机)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SAM%E7%9A%84%E6%A0%B7%E5%AD%90"><span class="toc-number">3.1.</span> <span class="toc-text">SAM的样子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SAM%E7%9A%84%E7%82%B9%E5%92%8C%E8%B5%B7%E7%82%B9%E5%92%8C%E7%BB%88%E7%82%B9%E5%92%8C%E8%BE%B9-SAM%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">3.2.</span> <span class="toc-text">SAM的点和起点和终点和边(SAM的性质)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SAM%E6%98%AF%E4%B8%80%E7%A7%8D%E5%9C%A8%E7%BA%BF%E7%AE%97%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">SAM是一种在线算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3SAM%E4%B8%8Eparent-tree%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">4.</span> <span class="toc-text">如何理解SAM与parent tree的关系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SAM%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E6%84%8F%E4%B9%89%E5%B0%B1%E6%98%AF%E7%AD%89%E4%BB%B7%E7%B1%BB"><span class="toc-number">4.1.</span> <span class="toc-text">SAM每个节点的意义就是等价类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AC%E7%A7%BB%E5%AF%B9%E4%BA%8E%E7%AD%89%E4%BB%B7%E7%B1%BB%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-number">4.2.</span> <span class="toc-text">转移对于等价类的意义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E8%BD%AC%E7%A7%BB%E7%9A%84%E6%B5%85%E6%98%BE%E7%9A%84%E7%BB%93%E8%AE%BA"><span class="toc-number">4.2.1.</span> <span class="toc-text">关于转移的浅显的结论</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SAM%E7%9A%84%E8%B5%B7%E7%82%B9%E4%B8%8E%E7%BB%88%E7%82%B9%E5%AF%B9%E5%BA%94%E7%9D%80%E5%93%AA%E4%BA%9B%E7%AD%89%E4%BB%B7%E7%B1%BB"><span class="toc-number">4.3.</span> <span class="toc-text">SAM的起点与终点对应着哪些等价类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8SAM%E5%9C%A8%E7%BA%BF%E6%9E%84%E5%BB%BA%E7%9A%84%E7%89%B9%E7%82%B9%E7%BB%99%E5%87%BA%E8%AF%81%E6%98%8E"><span class="toc-number">4.4.</span> <span class="toc-text">利用SAM在线构建的特点给出证明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SAM%E7%9A%84%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95%E5%8F%8A%E6%80%A7%E8%B4%A8%E7%9A%84%E8%AF%81%E6%98%8E"><span class="toc-number">5.</span> <span class="toc-text">SAM的构建方法及性质的证明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%87%E8%AE%BE%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">5.1.</span> <span class="toc-text">假设的性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%85%E7%84%B6%E4%BA%A7%E7%94%9F%E7%9A%84%E6%96%B0%E7%AD%89%E4%BB%B7%E7%B1%BB%E4%B8%8E%E5%B0%86%E8%A6%81%E6%94%B9%E5%8F%98%E7%9A%84%E7%AD%89%E4%BB%B7%E7%B1%BB"><span class="toc-number">5.2.</span> <span class="toc-text">必然产生的新等价类与将要改变的等价类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%88%E7%82%B9%E7%9A%84%E5%8F%98%E5%8C%96"><span class="toc-number">5.3.</span> <span class="toc-text">终点的变化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%85%E5%86%B5%E4%B8%80"><span class="toc-number">5.4.</span> <span class="toc-text">情况一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%85%E5%86%B5%E4%BA%8C"><span class="toc-number">5.5.</span> <span class="toc-text">情况二</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%83%85%E5%86%B5%E4%BA%8C%E4%B8%AD%E7%AD%89%E4%BB%B7%E7%B1%BB%E7%9A%84%E5%8F%98%E5%8C%96"><span class="toc-number">5.5.1.</span> <span class="toc-text">情况二中等价类的变化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%85%E5%86%B5%E4%B8%89"><span class="toc-number">5.6.</span> <span class="toc-text">情况三</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%83%85%E5%86%B5%E4%B8%89%E4%B8%AD%E7%9A%84%E8%BD%AC%E7%A7%BB%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86"><span class="toc-number">5.6.1.</span> <span class="toc-text">情况三中的转移如何处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-%E4%BE%8B%E9%A2%98%E4%B8%BAP3804-%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%EF%BC%88SAM%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">代码 (例题为P3804 【模板】后缀自动机（SAM）)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/nihao-TEST/" title="nihao__TEST"><img src="/img/bgs/54c15a11b1eca88158355fb46c6fc936b9e723fe.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nihao__TEST"/></a><div class="content"><a class="title" href="/2026/02/20/nihao-TEST/" title="nihao__TEST">nihao__TEST</a><time datetime="2026-02-20T02:04:12.000Z" title="Created 2026-02-20 10:04:12">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/20/TEST-docker/" title="TEST_docker"><img src="/img/bgs/b.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEST_docker"/></a><div class="content"><a class="title" href="/2026/02/20/TEST-docker/" title="TEST_docker">TEST_docker</a><time datetime="2026-02-19T20:38:39.000Z" title="Created 2026-02-20 04:38:39">2026-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix"><img src="/img/bgs/mayyyyyuri.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Projection in Matrix"/></a><div class="content"><a class="title" href="/2026/02/09/Projection-in-Matrix/" title="Projection in Matrix">Projection in Matrix</a><time datetime="2026-02-09T05:08:02.000Z" title="Created 2026-02-09 13:08:02">2026-02-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix"><img src="/img/bgs/hollow%20night.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Subspaces in Matrix"/></a><div class="content"><a class="title" href="/2026/02/07/Subspaces-in-Matrix/" title="Subspaces in Matrix">Subspaces in Matrix</a><time datetime="2026-02-07T06:09:42.000Z" title="Created 2026-02-07 14:09:42">2026-02-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra"><img src="/img/bgs/dontrideanymore.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MATH202 Linear Algebra"/></a><div class="content"><a class="title" href="/2026/01/22/MATH202-Linear-Algebra/" title="MATH202 Linear Algebra">MATH202 Linear Algebra</a><time datetime="2026-01-22T14:24:30.000Z" title="Created 2026-01-22 22:24:30">2026-01-22</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By BWmagician</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
